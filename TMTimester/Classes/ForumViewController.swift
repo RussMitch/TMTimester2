@@ -78,7 +78,7 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                     attributedText.addAttribute( NSFontAttributeName, value: UIFont.boldSystemFontOfSize(18), range: NSMakeRange( 0, titleLength ))
                     attributedText.addAttribute( NSFontAttributeName, value: UIFont.systemFontOfSize(16), range: NSMakeRange( titleLength+1, commentLength ))
                     attributedText.addAttribute( NSFontAttributeName, value: UIFont.systemFontOfSize(14), range: NSMakeRange( titleLength+commentLength+2, nameLength ))
-                    attributedText.addAttribute( NSForegroundColorAttributeName, value: UIColor.lightGrayColor(), range: NSMakeRange( titleLength+commentLength+2, nameLength ))
+                    attributedText.addAttribute( NSForegroundColorAttributeName, value: UIColor.darkGrayColor(), range: NSMakeRange( titleLength+commentLength+2, nameLength ))
                     
                     self.textForRow.append( attributedText )
                     
@@ -88,24 +88,18 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                     let rect = label.textRectForBounds( label.bounds, limitedToNumberOfLines: 100 )
                     
                     var height : CGFloat = rect.height + 4
-                    
+                    var replies : [NSMutableAttributedString] = []
+
                     if let pReplies = object["replies"] as? NSArray {
                         
-                        var height: CGFloat = 0
-                        var replies : [NSMutableAttributedString] = []
-                        
                         for var i = 0;i < pReplies.count; i++ {
+                            
                             let reply = pReplies[i] as! String
                             let tokens = reply.characters.split{$0 == "|"}.map(String.init)
                             let attributedText = NSMutableAttributedString( string: tokens[0] + " - " + tokens[1] + " " + tokens[2] )
-                            let token0Length = tokens[0].characters.count
-                            let token1Length = tokens[1].characters.count
-                            let token2Length = tokens[2].characters.count
                             
                             attributedText.addAttribute( NSFontAttributeName, value: UIFont.systemFontOfSize(14), range: NSMakeRange( 0, attributedText.length ))
-                            attributedText.addAttribute( NSForegroundColorAttributeName, value: UIColor.darkGrayColor(), range: NSMakeRange( 0, token0Length ))
-                            attributedText.addAttribute( NSForegroundColorAttributeName, value: UIColor.blueColor(), range: NSMakeRange( token0Length+1, token1Length ))
-                            attributedText.addAttribute( NSForegroundColorAttributeName, value: UIColor.lightGrayColor(), range: NSMakeRange( token0Length+1+token1Length+1, token2Length ))
+                            attributedText.addAttribute( NSForegroundColorAttributeName, value: UIColor.darkGrayColor(), range: NSMakeRange( 0, attributedText.length ))
                             
                             replies.append( attributedText )
                             
@@ -115,11 +109,12 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                             let rect = label.textRectForBounds( label.bounds, limitedToNumberOfLines: 100 )
                             
                             height += rect.height
+                            
                         }
-                        
-                        self.repliesForRow.append( replies )
                     }
                     
+                    self.repliesForRow.append( replies )
+
                     height += 44
                     
                     self.heightForRow.append( height )
@@ -162,56 +157,76 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     {
         let cell : UITableViewCell = tableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
         
-        var label : UILabel! = cell.contentView.viewWithTag(1) as? UILabel
-        var line1 : UILabel! = cell.contentView.viewWithTag(2) as? UILabel
-        var line2 : UILabel! = cell.contentView.viewWithTag(3) as? UILabel
-        var button : UIButton! = cell.contentView.viewWithTag(4) as? UIButton
+        var messageView: MessageView! = cell.contentView.viewWithTag( 1 ) as? MessageView
+        var replyViewHolder: UIView! = cell.contentView.viewWithTag( 2 ) as UIView!
+        var button: UIButton! = cell.contentView.viewWithTag( 3 ) as? UIButton
+        var line: UIView! = cell.contentView.viewWithTag( 4 ) as UIView!
         
-        if label == nil {
+        if messageView == nil {
             
-            label = UILabel()
-            label.tag = 1
-            label.numberOfLines = 100
-            cell.contentView.addSubview( label )
+            messageView = MessageView( frame: CGRectZero )
+            messageView.tag = 1
+            cell.contentView.addSubview( messageView )
             
-            line1 = UILabel()
-            line1.tag = 2
-            line1.backgroundColor = UIColor.darkGrayColor()
-            cell.contentView.addSubview(line1)
-
-            line2 = UILabel()
-            line2.tag = 3
-            line2.backgroundColor = UIColor.darkGrayColor()
-            cell.contentView.addSubview(line2)
+            replyViewHolder = UILabel()
+            replyViewHolder.tag = 2
+            cell.contentView.addSubview( replyViewHolder )
             
             button = UIButton()
-            button.tag = 4
+            button.tag = 3
             button.setTitleColor( UIColor.blueColor(), forState: .Normal )
             button.setTitle( "Add Comment", forState: .Normal )
             button.addTarget( self, action: "addCommentButtonPressed", forControlEvents: .TouchUpInside )
             cell.contentView.addSubview( button )
             
+            line = UIView( frame: CGRectZero )
+            line.tag = 4
+            line.backgroundColor = UIColor.lightGrayColor()
+            cell.contentView.addSubview( line )
+        }
+
+        messageView.updateFrame( CGRectMake( 0, 0, tableView.frame.width, 0 ), attributedText: textForRow[indexPath.row], inset: 10 )
+        
+        replyViewHolder.hidden = true;
+
+        let numReplies = repliesForRow[indexPath.row].count
+        
+        if numReplies > 0 {
+            
+            for view in replyViewHolder.subviews {
+                view.hidden = true;
+            }
+            
+            let numViewsNeeded = numReplies - replyViewHolder.subviews.count
+
+            for var i=0;i<numViewsNeeded;i++ {
+                let replyView = MessageView( frame: CGRectZero )
+                replyViewHolder.addSubview( replyView )
+            }
+
+            var y: CGFloat = 0
+            
+            for var i=0;i<numReplies;i++ {
+                
+                let replyView = replyViewHolder.subviews[i] as! MessageView
+                
+                replyView.hidden = false
+                replyView.updateFrame( CGRectMake( 0, y, tableView.frame.width, 0 ), attributedText: repliesForRow[indexPath.row][i] as! NSAttributedString, inset: 10 )
+                
+                y += replyView.frame.height
+                
+            }
+            
+            replyViewHolder.hidden = false;
+            replyViewHolder.frame = CGRectMake( 0, messageView.frame.height, messageView.frame.width, y )
         }
         
-        label.attributedText = textForRow[indexPath.row]
-        
-        var y : CGFloat = 0
-        
-        label.frame = CGRectMake( 10, y, tableView.frame.width-20, heightForRow[indexPath.row]-44 )
-        y += label.frame.height-1
-        
-        line1.frame = CGRectMake( 10, y, tableView.frame.width-10, 1 )
-        y += 1
-        
-        button.frame = CGRectMake( 0, y, tableView.frame.width, 44 )
-        
-        y += 44
-        
-        line2.frame = CGRectMake( 10, y-2, tableView.frame.width-10, 1 )
+        button.frame = CGRectMake( 0, heightForRow[indexPath.row]-44, tableView.frame.width, 44 )
+        line.frame = CGRectMake( 10, heightForRow[indexPath.row]-1, tableView.frame.width-10, 1 )
         
         return cell
-        
     }
+
     
     //------------------------------------------------------------------------------
     func addCommentButtonPressed()
