@@ -17,6 +17,7 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     let tableView: UITableView = UITableView()
     
     var heightForRow : [CGFloat] = []
+    var repliesForRow : [NSArray] = []
     var textForRow : [NSMutableAttributedString] = []
     
     //------------------------------------------------------------------------------
@@ -86,8 +87,42 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                     label.numberOfLines = 100
                     let rect = label.textRectForBounds( label.bounds, limitedToNumberOfLines: 100 )
                     
-                    self.heightForRow.append( rect.height+4+44 )
+                    var height : CGFloat = rect.height + 4
                     
+                    if let pReplies = object["replies"] as? NSArray {
+                        
+                        var height: CGFloat = 0
+                        var replies : [NSMutableAttributedString] = []
+                        
+                        for var i = 0;i < pReplies.count; i++ {
+                            let reply = pReplies[i] as! String
+                            let tokens = reply.characters.split{$0 == "|"}.map(String.init)
+                            let attributedText = NSMutableAttributedString( string: tokens[0] + " - " + tokens[1] + " " + tokens[2] )
+                            let token0Length = tokens[0].characters.count
+                            let token1Length = tokens[1].characters.count
+                            let token2Length = tokens[2].characters.count
+                            
+                            attributedText.addAttribute( NSFontAttributeName, value: UIFont.systemFontOfSize(14), range: NSMakeRange( 0, attributedText.length ))
+                            attributedText.addAttribute( NSForegroundColorAttributeName, value: UIColor.darkGrayColor(), range: NSMakeRange( 0, token0Length ))
+                            attributedText.addAttribute( NSForegroundColorAttributeName, value: UIColor.blueColor(), range: NSMakeRange( token0Length+1, token1Length ))
+                            attributedText.addAttribute( NSForegroundColorAttributeName, value: UIColor.lightGrayColor(), range: NSMakeRange( token0Length+1+token1Length+1, token2Length ))
+                            
+                            replies.append( attributedText )
+                            
+                            let label = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 1000 ))
+                            label.attributedText = attributedText
+                            label.numberOfLines = 100
+                            let rect = label.textRectForBounds( label.bounds, limitedToNumberOfLines: 100 )
+                            
+                            height += rect.height
+                        }
+                        
+                        self.repliesForRow.append( replies )
+                    }
+                    
+                    height += 44
+                    
+                    self.heightForRow.append( height )
                 }
                 
                 self.tableView.reloadData()
