@@ -15,6 +15,7 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     let kCreatedAt = "createdAt"
     let kCommentClass = "Comment"
     let tableView: UITableView = UITableView()
+    let postMessageViewController = PostMessageViewController()
     
     var heightForRow : [CGFloat] = []
     var repliesForRow : [NSArray] = []
@@ -87,7 +88,8 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                     label.numberOfLines = 100
                     let rect = label.textRectForBounds( label.bounds, limitedToNumberOfLines: 100 )
                     
-                    var height : CGFloat = rect.height + 4
+                    var height : CGFloat = rect.height
+                    
                     var replies : [NSMutableAttributedString] = []
 
                     if let pReplies = object["replies"] as? NSArray {
@@ -130,7 +132,8 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     func postNewMessageButtonTapped()
     //------------------------------------------------------------------------------
     {
-        print( "postNewMessageButtonTapped" )
+        self.presentViewController( self.postMessageViewController, animated: true, completion: nil )
+        
     }
     
     //------------------------------------------------------------------------------
