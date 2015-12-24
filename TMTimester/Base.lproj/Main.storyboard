@@ -108,7 +108,7 @@
         <scene sceneID="eSe-j4-Csv">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2vl-cI-r2B" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Timer" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Timer" image="clock.png" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Z8f-r4-Arc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -127,7 +127,7 @@
         <scene sceneID="VEN-KY-chD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="y3F-Mh-y5t" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="History" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="History" image="calendar.png" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Chf-65-kA9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -146,7 +146,7 @@
         <scene sceneID="FGj-zi-56I">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bEy-RC-kQA" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Forum" id="DDw-5P-NEr"/>
+                    <tabBarItem key="tabBarItem" title="Forum" image="profile.png" id="DDw-5P-NEr"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L1n-74-8Uk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -165,7 +165,7 @@
         <scene sceneID="n3E-gE-5Qx">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nQo-PH-DOY" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" id="7hv-dp-xWo"/>
+                    <tabBarItem key="tabBarItem" title="Settings" image="settings.png" id="7hv-dp-xWo"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="1J3-51-CKt">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -181,4 +181,10 @@
             <point key="canvasLocation" x="750" y="1677"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="calendar.png" width="25" height="25"/>
+        <image name="clock.png" width="25" height="25"/>
+        <image name="profile.png" width="25" height="25"/>
+        <image name="settings.png" width="25" height="25"/>
+    </resources>
 </document>

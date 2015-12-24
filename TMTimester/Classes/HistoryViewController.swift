@@ -16,5 +16,9 @@ class HistoryViewController: UIViewController {
     //------------------------------------------------------------------------------
     {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor( red: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 1 )
+        
+        self.navigationItem.title = "History"
     }
 }

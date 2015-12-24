@@ -11,6 +11,14 @@
 		5E7E840E1C2B4A3B0069109C /* PostCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E840D1C2B4A3B0069109C /* PostCommentViewController.swift */; };
 		5E7E84121C2C65B70069109C /* PostReplyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E84111C2C65B70069109C /* PostReplyViewController.swift */; };
 		5E7E84141C2C68A20069109C /* ReplyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E84131C2C68A20069109C /* ReplyButton.swift */; };
+		5E7E841D1C2CA0D90069109C /* settings@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E7E84151C2CA0D90069109C /* settings@3x.png */; };
+		5E7E841E1C2CA0D90069109C /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E7E84161C2CA0D90069109C /* settings@2x.png */; };
+		5E7E841F1C2CA0D90069109C /* calendar@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E7E84171C2CA0D90069109C /* calendar@3x.png */; };
+		5E7E84201C2CA0D90069109C /* calendar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E7E84181C2CA0D90069109C /* calendar@2x.png */; };
+		5E7E84211C2CA0D90069109C /* profile@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E7E84191C2CA0D90069109C /* profile@3x.png */; };
+		5E7E84221C2CA0D90069109C /* profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E7E841A1C2CA0D90069109C /* profile@2x.png */; };
+		5E7E84231C2CA0D90069109C /* clock@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E7E841B1C2CA0D90069109C /* clock@3x.png */; };
+		5E7E84241C2CA0D90069109C /* clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E7E841C1C2CA0D90069109C /* clock@2x.png */; };
 		5EBEB33C1C298A69001E8CDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBEB33B1C298A69001E8CDE /* AppDelegate.swift */; };
 		5EBEB3431C298A69001E8CDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EBEB3411C298A69001E8CDE /* Main.storyboard */; };
 		5EBEB3451C298A69001E8CDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EBEB3441C298A69001E8CDE /* Assets.xcassets */; };
@@ -39,6 +47,14 @@
 		5E7E840D1C2B4A3B0069109C /* PostCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostCommentViewController.swift; path = Classes/PostCommentViewController.swift; sourceTree = "<group>"; };
 		5E7E84111C2C65B70069109C /* PostReplyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostReplyViewController.swift; path = Classes/PostReplyViewController.swift; sourceTree = "<group>"; };
 		5E7E84131C2C68A20069109C /* ReplyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReplyButton.swift; path = Classes/ReplyButton.swift; sourceTree = "<group>"; };
+		5E7E84151C2CA0D90069109C /* settings@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@3x.png"; sourceTree = "<group>"; };
+		5E7E84161C2CA0D90069109C /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
+		5E7E84171C2CA0D90069109C /* calendar@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar@3x.png"; sourceTree = "<group>"; };
+		5E7E84181C2CA0D90069109C /* calendar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar@2x.png"; sourceTree = "<group>"; };
+		5E7E84191C2CA0D90069109C /* profile@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile@3x.png"; sourceTree = "<group>"; };
+		5E7E841A1C2CA0D90069109C /* profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile@2x.png"; sourceTree = "<group>"; };
+		5E7E841B1C2CA0D90069109C /* clock@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock@3x.png"; sourceTree = "<group>"; };
+		5E7E841C1C2CA0D90069109C /* clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock@2x.png"; sourceTree = "<group>"; };
 		5EBEB3381C298A69001E8CDE /* TMTimester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMTimester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EBEB33B1C298A69001E8CDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EBEB3421C298A69001E8CDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -137,6 +153,14 @@
 			isa = PBXGroup;
 			children = (
 				5EBEB3511C299594001E8CDE /* AppStoreIcon.png */,
+				5E7E84151C2CA0D90069109C /* settings@3x.png */,
+				5E7E84161C2CA0D90069109C /* settings@2x.png */,
+				5E7E84171C2CA0D90069109C /* calendar@3x.png */,
+				5E7E84181C2CA0D90069109C /* calendar@2x.png */,
+				5E7E84191C2CA0D90069109C /* profile@3x.png */,
+				5E7E841A1C2CA0D90069109C /* profile@2x.png */,
+				5E7E841B1C2CA0D90069109C /* clock@3x.png */,
+				5E7E841C1C2CA0D90069109C /* clock@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -220,9 +244,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E7E84211C2CA0D90069109C /* profile@3x.png in Resources */,
+				5E7E84231C2CA0D90069109C /* clock@3x.png in Resources */,
 				5EBEB3481C298A69001E8CDE /* LaunchScreen.storyboard in Resources */,
+				5E7E841E1C2CA0D90069109C /* settings@2x.png in Resources */,
+				5E7E841F1C2CA0D90069109C /* calendar@3x.png in Resources */,
+				5E7E84221C2CA0D90069109C /* profile@2x.png in Resources */,
 				5EBEB3451C298A69001E8CDE /* Assets.xcassets in Resources */,
 				5EBEB3521C299594001E8CDE /* AppStoreIcon.png in Resources */,
+				5E7E841D1C2CA0D90069109C /* settings@3x.png in Resources */,
+				5E7E84241C2CA0D90069109C /* clock@2x.png in Resources */,
+				5E7E84201C2CA0D90069109C /* calendar@2x.png in Resources */,
 				5EBEB3431C298A69001E8CDE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
