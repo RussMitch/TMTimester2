@@ -28,11 +28,14 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         super.viewDidLoad()
         
         let button =  UIButton(type: .Custom)
-        button.frame = CGRectMake( 0, 0, 200, 44 )
-        button.setTitleColor( UIColor.blueColor(), forState: .Normal )
-        button.setTitle("Post New Message", forState: UIControlState.Normal)
+        button.frame = CGRectMake( 0, 0, 44, 44 )
+        button.setTitleColor( UIColor.redColor(), forState: .Normal )
+        button.setTitle("+", forState: UIControlState.Normal)
+        button.titleLabel?.font = UIFont.boldSystemFontOfSize( 26 )
         button.addTarget(self, action: Selector("postNewMessageButtonTapped"), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = button
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem( customView: button )
+
+        self.navigationItem.title = "Forum"
         
         self.tableView.frame = CGRectMake( 0, 0, self.view.frame.width, self.view.frame.height );
         self.tableView.backgroundColor = UIColor.whiteColor()
@@ -132,8 +135,7 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     func postNewMessageButtonTapped()
     //------------------------------------------------------------------------------
     {
-        self.presentViewController( self.postMessageViewController, animated: true, completion: nil )
-        
+        self.presentViewController( self.postMessageViewController, animated: true, completion: nil )        
     }
     
     //------------------------------------------------------------------------------
@@ -177,15 +179,16 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             
             button = UIButton()
             button.tag = 3
-            button.setTitleColor( UIColor.blueColor(), forState: .Normal )
-            button.setTitle( "Add Comment", forState: .Normal )
-            button.addTarget( self, action: "addCommentButtonPressed", forControlEvents: .TouchUpInside )
+            button.setTitleColor( UIColor.redColor(), forState: .Normal )
+            button.setTitle( "Reply", forState: .Normal )
+            button.addTarget( self, action: "replyButtonPressed", forControlEvents: .TouchUpInside )
             cell.contentView.addSubview( button )
             
             line = UIView( frame: CGRectZero )
             line.tag = 4
             line.backgroundColor = UIColor.lightGrayColor()
             cell.contentView.addSubview( line )
+            
         }
 
         messageView.updateFrame( CGRectMake( 0, 0, tableView.frame.width, 0 ), attributedText: textForRow[indexPath.row], inset: 10 )
@@ -232,10 +235,10 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
 
     
     //------------------------------------------------------------------------------
-    func addCommentButtonPressed()
+    func replyButtonPressed()
     //------------------------------------------------------------------------------
     {
-       print( "addCommentButtonPressed" )
+       print( "replyButtonPressed" )
     }
     
 }
