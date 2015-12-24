@@ -31,6 +31,7 @@ class PostMessageViewController: UIViewController,UITextFieldDelegate,UITextView
         var y: CGFloat = 0
         
         // title layout
+        //------------------------------------------------------------------------------
         
         let titleLabel = UILabel()
         titleLabel.text = "Title"
@@ -52,6 +53,7 @@ class PostMessageViewController: UIViewController,UITextFieldDelegate,UITextView
         y += 44
         
         // comment layout
+        //------------------------------------------------------------------------------
         
         let commentLabel = UILabel()
         commentLabel.text = "Comment"
@@ -72,6 +74,7 @@ class PostMessageViewController: UIViewController,UITextFieldDelegate,UITextView
         y += 200
         
         // name layout
+        //------------------------------------------------------------------------------
         
         let nameLabel = UILabel()
         nameLabel.text = "Name"
@@ -99,9 +102,10 @@ class PostMessageViewController: UIViewController,UITextFieldDelegate,UITextView
         self.contentView.addSubview( postButton )
         
         // top bar layout
+        //------------------------------------------------------------------------------
         
         let topBarView = UIView( frame: CGRectMake( 0, 0, self.view.frame.width, 64 ))
-        topBarView.backgroundColor = UIColor( red:0.98, green: 0.98, blue: 0.98, alpha: 1.0 )
+        topBarView.backgroundColor = UIColor( red: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 1.0 )
         self.view.addSubview( topBarView )
         
         let title = UILabel( frame: CGRectMake( 0, 20, self.view.frame.width, 44 ))

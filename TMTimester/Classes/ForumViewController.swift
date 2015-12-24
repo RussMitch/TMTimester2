@@ -27,6 +27,10 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     {
         super.viewDidLoad()
         
+        self.navigationController?.navigationBar.barTintColor = UIColor( red: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 1 )
+        
+        self.navigationItem.title = "Forum"
+
         let button =  UIButton(type: .Custom)
         button.frame = CGRectMake( 0, 0, 44, 44 )
         button.setTitleColor( UIColor.redColor(), forState: .Normal )
@@ -34,8 +38,6 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         button.titleLabel?.font = UIFont.boldSystemFontOfSize( 26 )
         button.addTarget(self, action: Selector("postNewMessageButtonTapped"), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.rightBarButtonItem = UIBarButtonItem( customView: button )
-
-        self.navigationItem.title = "Forum"
         
         self.tableView.frame = CGRectMake( 0, 0, self.view.frame.width, self.view.frame.height );
         self.tableView.backgroundColor = UIColor.whiteColor()
