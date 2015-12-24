@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5E7E840C1C2B00640069109C /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E840B1C2B00640069109C /* MessageView.swift */; };
 		5E7E840E1C2B4A3B0069109C /* PostCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E840D1C2B4A3B0069109C /* PostCommentViewController.swift */; };
+		5E7E84121C2C65B70069109C /* PostReplyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E84111C2C65B70069109C /* PostReplyViewController.swift */; };
+		5E7E84141C2C68A20069109C /* ReplyButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E84131C2C68A20069109C /* ReplyButton.swift */; };
 		5EBEB33C1C298A69001E8CDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBEB33B1C298A69001E8CDE /* AppDelegate.swift */; };
 		5EBEB3431C298A69001E8CDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EBEB3411C298A69001E8CDE /* Main.storyboard */; };
 		5EBEB3451C298A69001E8CDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EBEB3441C298A69001E8CDE /* Assets.xcassets */; };
@@ -35,6 +37,8 @@
 /* Begin PBXFileReference section */
 		5E7E840B1C2B00640069109C /* MessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageView.swift; path = Classes/MessageView.swift; sourceTree = "<group>"; };
 		5E7E840D1C2B4A3B0069109C /* PostCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostCommentViewController.swift; path = Classes/PostCommentViewController.swift; sourceTree = "<group>"; };
+		5E7E84111C2C65B70069109C /* PostReplyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostReplyViewController.swift; path = Classes/PostReplyViewController.swift; sourceTree = "<group>"; };
+		5E7E84131C2C68A20069109C /* ReplyButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReplyButton.swift; path = Classes/ReplyButton.swift; sourceTree = "<group>"; };
 		5EBEB3381C298A69001E8CDE /* TMTimester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMTimester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EBEB33B1C298A69001E8CDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EBEB3421C298A69001E8CDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -107,6 +111,8 @@
 				5EBEB3591C299819001E8CDE /* HistoryViewController.swift */,
 				5E7E840B1C2B00640069109C /* MessageView.swift */,
 				5E7E840D1C2B4A3B0069109C /* PostCommentViewController.swift */,
+				5E7E84111C2C65B70069109C /* PostReplyViewController.swift */,
+				5E7E84131C2C68A20069109C /* ReplyButton.swift */,
 				5EBEB35D1C29987A001E8CDE /* SettingsViewController.swift */,
 				5EBEB3571C2997DE001E8CDE /* TimerViewController.swift */,
 				5EBEB34F1C298FCF001E8CDE /* Supporting Files */,
@@ -229,9 +235,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EBEB3581C2997DE001E8CDE /* TimerViewController.swift in Sources */,
+				5E7E84121C2C65B70069109C /* PostReplyViewController.swift in Sources */,
 				5E7E840C1C2B00640069109C /* MessageView.swift in Sources */,
 				5EBEB35E1C29987A001E8CDE /* SettingsViewController.swift in Sources */,
 				5EBEB35C1C299849001E8CDE /* ForumViewController.swift in Sources */,
+				5E7E84141C2C68A20069109C /* ReplyButton.swift in Sources */,
 				5EBEB33C1C298A69001E8CDE /* AppDelegate.swift in Sources */,
 				5E7E840E1C2B4A3B0069109C /* PostCommentViewController.swift in Sources */,
 				5EBEB35A1C299819001E8CDE /* HistoryViewController.swift in Sources */,
