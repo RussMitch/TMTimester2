@@ -15,7 +15,7 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     let kCreatedAt = "createdAt"
     let kCommentClass = "Comment"
     let tableView: UITableView = UITableView()
-    let postMessageViewController = PostMessageViewController()
+    var postCommentViewController: PostCommentViewController!
     
     var heightForRow : [CGFloat] = []
     var repliesForRow : [NSArray] = []
@@ -137,7 +137,9 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     func postNewMessageButtonTapped()
     //------------------------------------------------------------------------------
     {
-        self.presentViewController( self.postMessageViewController, animated: true, completion: nil )        
+        self.postCommentViewController = PostCommentViewController()
+        
+        self.presentViewController( self.postCommentViewController, animated: true, completion: nil )
     }
     
     //------------------------------------------------------------------------------

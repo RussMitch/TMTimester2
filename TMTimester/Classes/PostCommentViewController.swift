@@ -9,7 +9,7 @@
 
 import UIKit
 
-class PostMessageViewController: UIViewController,UITextFieldDelegate,UITextViewDelegate {
+class PostCommentViewController: UIViewController,UITextFieldDelegate,UITextViewDelegate {
 
     var contentView: UIView!
     var nameTextField: UITextField!
