@@ -33,98 +33,122 @@ class PostCommentViewController: UIViewController,UITextFieldDelegate,UITextView
         // title layout
         //------------------------------------------------------------------------------
         
-        let titleLabel = UILabel()
-        titleLabel.text = "Title"
-        titleLabel.frame = CGRectMake( 10, y, self.view.frame.width-20, 44 )
-        self.contentView.addSubview( titleLabel )
+        do
+        {
+            let label = UILabel()
+            label.text = "Title"
+            label.frame = CGRectMake( 10, y, self.view.frame.width-20, 44 )
+            self.contentView.addSubview( label )
+        }
         
         y += 44
         
-        let titleFrame = UIView( frame: CGRectMake( 10, y, self.view.frame.width-20, 44 ))
-        titleFrame.layer.borderColor = UIColor.blackColor().CGColor
-        titleFrame.layer.borderWidth = 1
-        self.contentView.addSubview( titleFrame )
+        do
+        {
+            let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-20, 44 ))
+            view.layer.borderColor = UIColor.blackColor().CGColor
+            view.layer.borderWidth = 1
+            self.contentView.addSubview( view )
+            
+            self.titleTextField = UITextField( frame: CGRectMake( 10, 0, view.frame.width-10, 44 ))
+            self.titleTextField.delegate = self
+            self.titleTextField.returnKeyType = UIReturnKeyType.Done
+            view.addSubview( self.titleTextField )
+        }
         
-        self.titleTextField = UITextField( frame: CGRectMake( 10, 0, titleFrame.frame.width-20, 44 ))
-        self.titleTextField.delegate = self
-        self.titleTextField.returnKeyType = UIReturnKeyType.Done
-        titleFrame.addSubview( self.titleTextField )
-
         y += 44
         
         // comment layout
         //------------------------------------------------------------------------------
         
-        let commentLabel = UILabel()
-        commentLabel.text = "Comment"
-        commentLabel.frame = CGRectMake( 10, y, self.view.frame.width-20, 44 )
-        self.contentView.addSubview( commentLabel )
+        do
+        {
+            let label = UILabel()
+            label.text = "Comment"
+            label.frame = CGRectMake( 10, y, self.view.frame.width-20, 44 )
+            self.contentView.addSubview( label )
+        }
         
         y += 44
         
-        let commentFrame = UIView( frame: CGRectMake( 10, y, self.view.frame.width-20, 200 ))
-        commentFrame.layer.borderColor = UIColor.blackColor().CGColor
-        commentFrame.layer.borderWidth = 1
-        self.contentView.addSubview( commentFrame )
-        
-        self.commentTextView = UITextView( frame: CGRectMake( 5, 0, commentFrame.frame.width-10, 200 ))
-        self.commentTextView.delegate = self
-        commentFrame.addSubview( self.commentTextView )
+        do
+        {
+            let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-20, 200 ))
+            view.layer.borderColor = UIColor.blackColor().CGColor
+            view.layer.borderWidth = 1
+            self.contentView.addSubview( view )
+            
+            self.commentTextView = UITextView( frame: CGRectMake( 5, 0, view.frame.width-10, 200 ))
+            self.commentTextView.delegate = self
+            view.addSubview( self.commentTextView )
+        }
         
         y += 200
         
         // name layout
         //------------------------------------------------------------------------------
         
-        let nameLabel = UILabel()
-        nameLabel.text = "Name"
-        nameLabel.frame = CGRectMake( 10, y, self.view.frame.width-20, 44 )
-        self.contentView.addSubview( nameLabel )
+        do
+        {
+            let label = UILabel()
+            label.text = "Name"
+            label.frame = CGRectMake( 10, y, self.view.frame.width-20, 44 )
+            self.contentView.addSubview( label )
+        }
         
         y += 44
         
-        let nameFrame = UIView( frame: CGRectMake( 10, y, self.view.frame.width-20, 44 ))
-        nameFrame.layer.borderColor = UIColor.blackColor().CGColor
-        nameFrame.layer.borderWidth = 1
-        self.contentView.addSubview( nameFrame )
-        
-        self.nameTextField = UITextField( frame: CGRectMake( 10, 0, titleFrame.frame.width-20, 44 ))
-        self.nameTextField.delegate = self
-        self.nameTextField.returnKeyType = UIReturnKeyType.Done
-        nameFrame.addSubview( self.nameTextField )
+        do
+        {
+            let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-20, 44 ))
+            view.layer.borderColor = UIColor.blackColor().CGColor
+            view.layer.borderWidth = 1
+            self.contentView.addSubview( view )
+            
+            self.nameTextField = UITextField( frame: CGRectMake( 10, 0, view.frame.width-10, 44 ))
+            self.nameTextField.delegate = self
+            self.nameTextField.returnKeyType = UIReturnKeyType.Done
+            view.addSubview( self.nameTextField )
+        }
         
         y += 44
         
-        let postButton = UIButton( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
-        postButton.setTitle( "Post Comment", forState: .Normal )
-        postButton.setTitleColor( UIColor.redColor(), forState: .Normal )
-        postButton.addTarget( self, action: Selector( "postCommentButtonTapped" ), forControlEvents: .TouchUpInside )
-        self.contentView.addSubview( postButton )
+        do
+        {
+            let button = UIButton( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
+            button.setTitle( "Post Comment", forState: .Normal )
+            button.setTitleColor( UIColor.redColor(), forState: .Normal )
+            button.addTarget( self, action: Selector( "postCommentButtonTapped" ), forControlEvents: .TouchUpInside )
+            self.contentView.addSubview( button )
+        }
         
         // top bar layout
         //------------------------------------------------------------------------------
         
-        let topBarView = UIView( frame: CGRectMake( 0, 0, self.view.frame.width, 64 ))
-        topBarView.backgroundColor = UIColor( red: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 1.0 )
-        self.view.addSubview( topBarView )
-        
-        let title = UILabel( frame: CGRectMake( 0, 20, self.view.frame.width, 44 ))
-        title.text = "Post New Comment"
-        title.textColor = UIColor.blackColor()
-        title.font = UIFont.boldSystemFontOfSize( 17 )
-        title.textAlignment = NSTextAlignment.Center
-        topBarView.addSubview( title )
-        
-        let button =  UIButton(type: .Custom)
-        button.frame = CGRectMake( self.view.frame.width - 70, 20, 70, 44 )
-        button.setTitleColor( UIColor.redColor(), forState: .Normal )
-        button.setTitle("Done", forState: UIControlState.Normal)
-        button.addTarget(self, action: Selector("doneButtonTapped"), forControlEvents: UIControlEvents.TouchUpInside)
-        topBarView.addSubview( button )
-        
-        let topBarSeparatorView = UIView( frame: CGRectMake( 0, 64-1, self.view.frame.width, 1 ))
-        topBarSeparatorView.backgroundColor = UIColor.lightGrayColor()
-        topBarView.addSubview( topBarSeparatorView )
+        do
+        {
+            let topBarView = UIView( frame: CGRectMake( 0, 0, self.view.frame.width, 64 ))
+            topBarView.backgroundColor = UIColor( red: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 1.0 )
+            self.view.addSubview( topBarView )
+            
+            let label = UILabel( frame: CGRectMake( 0, 20, self.view.frame.width, 44 ))
+            label.text = "Post New Comment"
+            label.textColor = UIColor.blackColor()
+            label.font = UIFont.boldSystemFontOfSize( 17 )
+            label.textAlignment = NSTextAlignment.Center
+            topBarView.addSubview( label )
+            
+            let button =  UIButton(type: .Custom)
+            button.frame = CGRectMake( self.view.frame.width - 70, 20, 70, 44 )
+            button.setTitleColor( UIColor.redColor(), forState: .Normal )
+            button.setTitle("Done", forState: UIControlState.Normal)
+            button.addTarget(self, action: Selector("doneButtonTapped"), forControlEvents: UIControlEvents.TouchUpInside)
+            topBarView.addSubview( button )
+            
+            let view = UIView( frame: CGRectMake( 0, 64-1, self.view.frame.width, 1 ))
+            view.backgroundColor = UIColor.lightGrayColor()
+            topBarView.addSubview( view )
+        }
     }
     
     //------------------------------------------------------------------------------
