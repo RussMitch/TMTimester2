@@ -320,8 +320,7 @@ class PostReplyViewController: UIViewController,UITextViewDelegate,UITextFieldDe
                 
                 self.dismissViewControllerAnimated( true, completion: nil )
                 
-            }
-            
+            }            
         }
     }
     
