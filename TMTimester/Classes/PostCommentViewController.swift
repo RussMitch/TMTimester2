@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 import UIKit
+import Parse
 
 class PostCommentViewController: UIViewController,UITextFieldDelegate,UITextViewDelegate {
 
@@ -243,8 +244,28 @@ class PostCommentViewController: UIViewController,UITextFieldDelegate,UITextView
             
         } else {
             
-            doneButtonTapped()
+            let overlayView = UIView( frame: self.view.bounds )
+            overlayView.backgroundColor = UIColor.clearColor()
+            self.view.addSubview( overlayView )
             
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "EEEE MMMM d, yyyy"
+            
+            let name = "By " + name + " on " + dateFormatter.stringFromDate( NSDate())
+            
+            let pfObject: PFObject = PFObject( className: "Comment" )
+            
+            pfObject[kName] = name
+            pfObject[kTitle] = title
+            pfObject[kComment] = comment
+
+            pfObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                
+                overlayView.removeFromSuperview()
+                
+                self.dismissViewControllerAnimated( true, completion: nil )
+                
+            }
         }
     }
     

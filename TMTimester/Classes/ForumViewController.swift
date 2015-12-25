@@ -12,8 +12,6 @@ import Parse
 
 class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-    let kCreatedAt = "createdAt"
-    let kCommentClass = "Comment"
     let tableView: UITableView = UITableView()
 
     var pfObjects :[PFObject] = []
@@ -50,7 +48,12 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
         self.tableView.registerClass( UITableViewCell.self, forCellReuseIdentifier: "cell" )
         self.view.addSubview( self.tableView )
-        
+    }
+    
+    //------------------------------------------------------------------------------
+    override func viewDidAppear( animated: Bool )
+    //------------------------------------------------------------------------------
+    {
         let query = PFQuery( className:kCommentClass )
         
         query.orderByDescending( kCreatedAt )
@@ -61,6 +64,10 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             if error == nil && objects != nil {
                 
                 self.pfObjects = objects!
+
+                self.textForRow = []
+                self.heightForRow = []
+                self.repliesForRow = []
                 
                 for object in objects! {
                     
@@ -83,7 +90,7 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                     let titleLength = title.characters.count
                     let commentLength = comment.characters.count
                     let nameLength = name.characters.count
-                
+                    
                     let attributedText = NSMutableAttributedString( string: title + "\n" + comment + "\n" + name )
                     
                     attributedText.addAttribute( NSFontAttributeName, value: UIFont.boldSystemFontOfSize(18), range: NSMakeRange( 0, titleLength ))
@@ -101,7 +108,7 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                     var height : CGFloat = rect.height
                     
                     var replies : [NSMutableAttributedString] = []
-
+                    
                     if let pReplies = object["replies"] as? NSArray {
                         
                         for var i = 0;i < pReplies.count; i++ {
@@ -126,7 +133,7 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                     }
                     
                     self.repliesForRow.append( replies )
-
+                    
                     height += 44
                     
                     self.heightForRow.append( height )
