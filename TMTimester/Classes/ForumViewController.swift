@@ -75,15 +75,15 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                     var comment : String = ""
                     var name : String = ""
                     
-                    if let pTitle = object["title"] as? String {
+                    if let pTitle = object[kTitle] as? String {
                         title = pTitle
                     }
                     
-                    if let pComment = object["comment"] as? String {
+                    if let pComment = object[kComment] as? String {
                         comment = pComment
                     }
                     
-                    if let pName = object["name"] as? String {
+                    if let pName = object[kName] as? String {
                         name = pName
                     }
                     
@@ -109,7 +109,7 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                     
                     var replies : [NSMutableAttributedString] = []
                     
-                    if let pReplies = object["replies"] as? NSArray {
+                    if let pReplies = object[kReplies] as? NSArray {
                         
                         for var i = 0;i < pReplies.count; i++ {
                             

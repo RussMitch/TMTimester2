@@ -192,7 +192,7 @@ class PostReplyViewController: UIViewController,UITextViewDelegate,UITextFieldDe
         do
         {
             let button = UIButton( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
-            button.setTitle( "Post Comment", forState: .Normal )
+            button.setTitle( "Post Reply", forState: .Normal )
             button.setTitleColor( UIColor.redColor(), forState: .Normal )
             button.addTarget( self, action: Selector( "postCommentButtonTapped" ), forControlEvents: .TouchUpInside )
             self.contentView.addSubview( button )
@@ -292,7 +292,35 @@ class PostReplyViewController: UIViewController,UITextViewDelegate,UITextFieldDe
             
         } else {
             
-            doneButtonTapped()
+            let overlayView = UIView( frame: self.view.bounds )
+            overlayView.backgroundColor = UIColor.clearColor()
+            self.view.addSubview( overlayView )
+
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "MMM d, ''yy"
+            
+            let reply = reply + "|" + name + "|" + dateFormatter.stringFromDate( NSDate())
+            
+            if let replies = self.pfObject[kReplies] as? NSMutableArray {
+                
+                replies.addObject( reply )
+                self.pfObject[kReplies] = replies
+                
+            } else {
+                
+                let replies: NSMutableArray = []
+                replies.addObject( reply )
+                self.pfObject[kReplies] = replies
+                
+            }
+            
+            self.pfObject.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                
+                overlayView.removeFromSuperview()
+                
+                self.dismissViewControllerAnimated( true, completion: nil )
+                
+            }
             
         }
     }
