@@ -19,7 +19,7 @@
 		5E7E84221C2CA0D90069109C /* profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E7E841A1C2CA0D90069109C /* profile@2x.png */; };
 		5E7E84231C2CA0D90069109C /* clock@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E7E841B1C2CA0D90069109C /* clock@3x.png */; };
 		5E7E84241C2CA0D90069109C /* clock@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E7E841C1C2CA0D90069109C /* clock@2x.png */; };
-		5E7E84281C2D980C0069109C /* ParseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E84271C2D980C0069109C /* ParseManager.swift */; };
+		5E7E84281C2D980C0069109C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E84271C2D980C0069109C /* Constants.swift */; };
 		5EBEB33C1C298A69001E8CDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EBEB33B1C298A69001E8CDE /* AppDelegate.swift */; };
 		5EBEB3431C298A69001E8CDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5EBEB3411C298A69001E8CDE /* Main.storyboard */; };
 		5EBEB3451C298A69001E8CDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5EBEB3441C298A69001E8CDE /* Assets.xcassets */; };
@@ -56,7 +56,7 @@
 		5E7E841A1C2CA0D90069109C /* profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile@2x.png"; sourceTree = "<group>"; };
 		5E7E841B1C2CA0D90069109C /* clock@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock@3x.png"; sourceTree = "<group>"; };
 		5E7E841C1C2CA0D90069109C /* clock@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clock@2x.png"; sourceTree = "<group>"; };
-		5E7E84271C2D980C0069109C /* ParseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParseManager.swift; path = Classes/ParseManager.swift; sourceTree = "<group>"; };
+		5E7E84271C2D980C0069109C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = Classes/Constants.swift; sourceTree = "<group>"; };
 		5EBEB3381C298A69001E8CDE /* TMTimester.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMTimester.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EBEB33B1C298A69001E8CDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5EBEB3421C298A69001E8CDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 				5EBEB35B1C299849001E8CDE /* ForumViewController.swift */,
 				5EBEB3591C299819001E8CDE /* HistoryViewController.swift */,
 				5E7E840B1C2B00640069109C /* MessageView.swift */,
-				5E7E84271C2D980C0069109C /* ParseManager.swift */,
+				5E7E84271C2D980C0069109C /* Constants.swift */,
 				5E7E840D1C2B4A3B0069109C /* PostCommentViewController.swift */,
 				5E7E84111C2C65B70069109C /* PostReplyViewController.swift */,
 				5E7E84131C2C68A20069109C /* ReplyButton.swift */,
@@ -270,7 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5EBEB3581C2997DE001E8CDE /* TimerViewController.swift in Sources */,
-				5E7E84281C2D980C0069109C /* ParseManager.swift in Sources */,
+				5E7E84281C2D980C0069109C /* Constants.swift in Sources */,
 				5E7E84121C2C65B70069109C /* PostReplyViewController.swift in Sources */,
 				5E7E840C1C2B00640069109C /* MessageView.swift in Sources */,
 				5EBEB35E1C29987A001E8CDE /* SettingsViewController.swift in Sources */,
