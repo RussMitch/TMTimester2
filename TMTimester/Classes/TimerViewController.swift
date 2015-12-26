@@ -19,8 +19,8 @@ class TimerViewController: UIViewController {
     var count2 : Int = 0
     var count3 : Int = 0
 
+    var restAlarm : String = ""
     var meditationAlarm : String = ""
-    var completionAlarm : String = ""
     var preparationAlarm : String = ""
     
     //------------------------------------------------------------------------------
@@ -70,13 +70,13 @@ class TimerViewController: UIViewController {
         
         self.meditationAlarm = NSUserDefaults.standardUserDefaults().objectForKey( kMeditationAlarmKey ) as! String
         
-        if NSUserDefaults.standardUserDefaults().objectForKey( kCompletionAlarmKey ) == nil {
-            NSUserDefaults.standardUserDefaults().setValue( kCompletionAlarmDef, forKey: kCompletionAlarmKey )
+        if NSUserDefaults.standardUserDefaults().objectForKey( kRestAlarmKey ) == nil {
+            NSUserDefaults.standardUserDefaults().setValue( kRestAlarmDef, forKey: kRestAlarmKey )
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         
-        self.completionAlarm = NSUserDefaults.standardUserDefaults().objectForKey( kCompletionAlarmKey ) as! String
-
+        self.restAlarm = NSUserDefaults.standardUserDefaults().objectForKey( kRestAlarmKey ) as! String
+        
         var y: CGFloat = 64
         
         self.timerLabel = UILabel( frame: CGRectMake( 0, y, self.view.frame.width, 200 ))

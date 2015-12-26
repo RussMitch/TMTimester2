@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E24C55B1C2EF4D30025B63A /* SoundViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E24C55A1C2EF4D30025B63A /* SoundViewController.swift */; };
+		5E24C56A1C2EF83B0025B63A /* bell.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C55D1C2EF83B0025B63A /* bell.wav */; };
+		5E24C56B1C2EF83B0025B63A /* chime.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C55E1C2EF83B0025B63A /* chime.wav */; };
+		5E24C56C1C2EF83B0025B63A /* gong.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C55F1C2EF83B0025B63A /* gong.wav */; };
+		5E24C56D1C2EF83B0025B63A /* gong2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C5601C2EF83B0025B63A /* gong2.wav */; };
+		5E24C56E1C2EF83B0025B63A /* jai-guru-dev.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C5611C2EF83B0025B63A /* jai-guru-dev.wav */; };
+		5E24C56F1C2EF83B0025B63A /* none.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C5621C2EF83B0025B63A /* none.wav */; };
+		5E24C5701C2EF83B0025B63A /* ocean.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C5631C2EF83B0025B63A /* ocean.wav */; };
+		5E24C5711C2EF83B0025B63A /* rain.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C5641C2EF83B0025B63A /* rain.wav */; };
+		5E24C5721C2EF83B0025B63A /* ting.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C5651C2EF83B0025B63A /* ting.wav */; };
+		5E24C5731C2EF83B0025B63A /* water-drop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C5661C2EF83B0025B63A /* water-drop.wav */; };
+		5E24C5741C2EF83B0025B63A /* waterfall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C5671C2EF83B0025B63A /* waterfall.wav */; };
+		5E24C5751C2EF83B0025B63A /* whales.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C5681C2EF83B0025B63A /* whales.wav */; };
+		5E24C5761C2EF83B0025B63A /* whippoorwill.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C5691C2EF83B0025B63A /* whippoorwill.wav */; };
 		5E7E840C1C2B00640069109C /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E840B1C2B00640069109C /* MessageView.swift */; };
 		5E7E840E1C2B4A3B0069109C /* PostCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E840D1C2B4A3B0069109C /* PostCommentViewController.swift */; };
 		5E7E84121C2C65B70069109C /* PostReplyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E84111C2C65B70069109C /* PostReplyViewController.swift */; };
@@ -44,6 +58,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5E24C55A1C2EF4D30025B63A /* SoundViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SoundViewController.swift; path = Classes/SoundViewController.swift; sourceTree = "<group>"; };
+		5E24C55D1C2EF83B0025B63A /* bell.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = bell.wav; path = Sounds/bell.wav; sourceTree = "<group>"; };
+		5E24C55E1C2EF83B0025B63A /* chime.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = chime.wav; path = Sounds/chime.wav; sourceTree = "<group>"; };
+		5E24C55F1C2EF83B0025B63A /* gong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = gong.wav; path = Sounds/gong.wav; sourceTree = "<group>"; };
+		5E24C5601C2EF83B0025B63A /* gong2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = gong2.wav; path = Sounds/gong2.wav; sourceTree = "<group>"; };
+		5E24C5611C2EF83B0025B63A /* jai-guru-dev.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "jai-guru-dev.wav"; path = "Sounds/jai-guru-dev.wav"; sourceTree = "<group>"; };
+		5E24C5621C2EF83B0025B63A /* none.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = none.wav; path = Sounds/none.wav; sourceTree = "<group>"; };
+		5E24C5631C2EF83B0025B63A /* ocean.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = ocean.wav; path = Sounds/ocean.wav; sourceTree = "<group>"; };
+		5E24C5641C2EF83B0025B63A /* rain.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = rain.wav; path = Sounds/rain.wav; sourceTree = "<group>"; };
+		5E24C5651C2EF83B0025B63A /* ting.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = ting.wav; path = Sounds/ting.wav; sourceTree = "<group>"; };
+		5E24C5661C2EF83B0025B63A /* water-drop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = "water-drop.wav"; path = "Sounds/water-drop.wav"; sourceTree = "<group>"; };
+		5E24C5671C2EF83B0025B63A /* waterfall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = waterfall.wav; path = Sounds/waterfall.wav; sourceTree = "<group>"; };
+		5E24C5681C2EF83B0025B63A /* whales.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = whales.wav; path = Sounds/whales.wav; sourceTree = "<group>"; };
+		5E24C5691C2EF83B0025B63A /* whippoorwill.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = whippoorwill.wav; path = Sounds/whippoorwill.wav; sourceTree = "<group>"; };
 		5E7E840B1C2B00640069109C /* MessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageView.swift; path = Classes/MessageView.swift; sourceTree = "<group>"; };
 		5E7E840D1C2B4A3B0069109C /* PostCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostCommentViewController.swift; path = Classes/PostCommentViewController.swift; sourceTree = "<group>"; };
 		5E7E84111C2C65B70069109C /* PostReplyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostReplyViewController.swift; path = Classes/PostReplyViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +133,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5E24C55C1C2EF7D80025B63A /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				5E24C55D1C2EF83B0025B63A /* bell.wav */,
+				5E24C55E1C2EF83B0025B63A /* chime.wav */,
+				5E24C55F1C2EF83B0025B63A /* gong.wav */,
+				5E24C5601C2EF83B0025B63A /* gong2.wav */,
+				5E24C5611C2EF83B0025B63A /* jai-guru-dev.wav */,
+				5E24C5621C2EF83B0025B63A /* none.wav */,
+				5E24C5631C2EF83B0025B63A /* ocean.wav */,
+				5E24C5641C2EF83B0025B63A /* rain.wav */,
+				5E24C5651C2EF83B0025B63A /* ting.wav */,
+				5E24C5661C2EF83B0025B63A /* water-drop.wav */,
+				5E24C5671C2EF83B0025B63A /* waterfall.wav */,
+				5E24C5681C2EF83B0025B63A /* whales.wav */,
+				5E24C5691C2EF83B0025B63A /* whippoorwill.wav */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
 		5EBEB32F1C298A69001E8CDE = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +181,7 @@
 				5E7E84111C2C65B70069109C /* PostReplyViewController.swift */,
 				5E7E84131C2C68A20069109C /* ReplyButton.swift */,
 				5EBEB35D1C29987A001E8CDE /* SettingsViewController.swift */,
+				5E24C55A1C2EF4D30025B63A /* SoundViewController.swift */,
 				5EBEB3571C2997DE001E8CDE /* TimerViewController.swift */,
 				5EBEB34F1C298FCF001E8CDE /* Supporting Files */,
 				5EBEB3501C299571001E8CDE /* Resources */,
@@ -155,6 +204,7 @@
 		5EBEB3501C299571001E8CDE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5E24C55C1C2EF7D80025B63A /* Sounds */,
 				5EBEB3511C299594001E8CDE /* AppStoreIcon.png */,
 				5E7E84151C2CA0D90069109C /* settings@3x.png */,
 				5E7E84161C2CA0D90069109C /* settings@2x.png */,
@@ -247,18 +297,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E24C5721C2EF83B0025B63A /* ting.wav in Resources */,
+				5E24C56C1C2EF83B0025B63A /* gong.wav in Resources */,
+				5E24C5741C2EF83B0025B63A /* waterfall.wav in Resources */,
 				5E7E84211C2CA0D90069109C /* profile@3x.png in Resources */,
+				5E24C56D1C2EF83B0025B63A /* gong2.wav in Resources */,
 				5E7E84231C2CA0D90069109C /* clock@3x.png in Resources */,
 				5EBEB3481C298A69001E8CDE /* LaunchScreen.storyboard in Resources */,
 				5E7E841E1C2CA0D90069109C /* settings@2x.png in Resources */,
+				5E24C56F1C2EF83B0025B63A /* none.wav in Resources */,
+				5E24C56A1C2EF83B0025B63A /* bell.wav in Resources */,
+				5E24C56E1C2EF83B0025B63A /* jai-guru-dev.wav in Resources */,
 				5E7E841F1C2CA0D90069109C /* calendar@3x.png in Resources */,
+				5E24C5711C2EF83B0025B63A /* rain.wav in Resources */,
 				5E7E84221C2CA0D90069109C /* profile@2x.png in Resources */,
+				5E24C5731C2EF83B0025B63A /* water-drop.wav in Resources */,
 				5EBEB3451C298A69001E8CDE /* Assets.xcassets in Resources */,
 				5EBEB3521C299594001E8CDE /* AppStoreIcon.png in Resources */,
 				5E7E841D1C2CA0D90069109C /* settings@3x.png in Resources */,
+				5E24C5751C2EF83B0025B63A /* whales.wav in Resources */,
 				5E7E84241C2CA0D90069109C /* clock@2x.png in Resources */,
 				5E7E84201C2CA0D90069109C /* calendar@2x.png in Resources */,
+				5E24C5701C2EF83B0025B63A /* ocean.wav in Resources */,
 				5EBEB3431C298A69001E8CDE /* Main.storyboard in Resources */,
+				5E24C5761C2EF83B0025B63A /* whippoorwill.wav in Resources */,
+				5E24C56B1C2EF83B0025B63A /* chime.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +335,7 @@
 				5EBEB3581C2997DE001E8CDE /* TimerViewController.swift in Sources */,
 				5E7E84281C2D980C0069109C /* Constants.swift in Sources */,
 				5E7E84121C2C65B70069109C /* PostReplyViewController.swift in Sources */,
+				5E24C55B1C2EF4D30025B63A /* SoundViewController.swift in Sources */,
 				5E7E840C1C2B00640069109C /* MessageView.swift in Sources */,
 				5EBEB35E1C29987A001E8CDE /* SettingsViewController.swift in Sources */,
 				5EBEB35C1C299849001E8CDE /* ForumViewController.swift in Sources */,

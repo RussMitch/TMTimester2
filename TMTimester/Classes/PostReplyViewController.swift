@@ -207,6 +207,8 @@ class PostReplyViewController: UIViewController,UITextViewDelegate,UITextFieldDe
     override func viewDidAppear(animated: Bool)
     //------------------------------------------------------------------------------
     {
+        super.viewDidAppear( animated )
+
         NSNotificationCenter.defaultCenter().addObserver( self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver( self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
     }

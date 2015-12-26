@@ -54,6 +54,8 @@ class ForumViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     override func viewDidAppear( animated: Bool )
     //------------------------------------------------------------------------------
     {
+        super.viewDidAppear( animated )
+
         let query = PFQuery( className:kCommentClass )
         
         query.orderByDescending( kCreatedAt )

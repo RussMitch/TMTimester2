@@ -12,11 +12,11 @@ import UIKit
 class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource {
 
     var restTimeLabel: UILabel!
+    var restAlarmLabel: UILabel!
     var pickerContainerView: UIView!
     var completionSongLabel: UILabel!
     var meditationTimeLabel: UILabel!
     var meditationAlarmLabel: UILabel!
-    var completionAlarmLabel: UILabel!
     var preparationTimeLabel: UILabel!
     var preparationAlarmLabel: UILabel!
     
@@ -169,7 +169,6 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
             view.addSubview( label )
             
             self.preparationAlarmLabel = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
-            self.preparationAlarmLabel.text = "ting"
             self.preparationAlarmLabel.textAlignment = NSTextAlignment.Right
             self.preparationAlarmLabel.textColor = UIColor.redColor()
             self.preparationAlarmLabel.font = UIFont.systemFontOfSize( 18 )
@@ -202,7 +201,6 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
             view.addSubview( label )
             
             self.meditationAlarmLabel = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
-            self.meditationAlarmLabel.text = "Jai Guru Dev"
             self.meditationAlarmLabel.textAlignment = NSTextAlignment.Right
             self.meditationAlarmLabel.textColor = UIColor.redColor()
             self.meditationAlarmLabel.font = UIFont.systemFontOfSize( 18 )
@@ -225,7 +223,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
             let view = UIView( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
             self.view.addSubview( view )
             
-            let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "completionAlarmTapped" ))
+            let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "restAlarmTapped" ))
             view.addGestureRecognizer( tapGestureRecognizer )
             
             let label = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
@@ -234,12 +232,11 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
             label.font = UIFont.systemFontOfSize( 18 )
             view.addSubview( label )
             
-            self.completionAlarmLabel = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
-            self.completionAlarmLabel.text = "Gong"
-            self.completionAlarmLabel.textAlignment = NSTextAlignment.Right
-            self.completionAlarmLabel.textColor = UIColor.redColor()
-            self.completionAlarmLabel.font = UIFont.systemFontOfSize( 18 )
-            view.addSubview( self.completionAlarmLabel )
+            self.restAlarmLabel = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
+            self.restAlarmLabel.textAlignment = NSTextAlignment.Right
+            self.restAlarmLabel.textColor = UIColor.redColor()
+            self.restAlarmLabel.font = UIFont.systemFontOfSize( 18 )
+            view.addSubview( self.restAlarmLabel )
         }
         
         y += 44
@@ -284,6 +281,58 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
     }
     
     //------------------------------------------------------------------------------
+    override func viewDidAppear(animated: Bool)
+    //------------------------------------------------------------------------------
+    {
+        super.viewDidAppear( animated )
+        
+        do
+        {
+            var alarm = NSUserDefaults.standardUserDefaults().objectForKey( kPreparationAlarmKey ) as! String
+            
+            if alarm == "jai-guru-dev.wav" {
+                alarm = "Jai Guru Dev"
+            } else if alarm == "water-drop.wav" {
+                alarm = "Water Drop"
+            } else {
+                alarm = alarm.substringToIndex( alarm.endIndex.advancedBy(-4)).capitalizedString
+            }
+            
+            self.preparationAlarmLabel.text = alarm
+        }
+
+        do
+        {
+            var alarm = NSUserDefaults.standardUserDefaults().objectForKey( kMeditationAlarmKey ) as! String
+            
+            if alarm == "jai-guru-dev.wav" {
+                alarm = "Jai Guru Dev"
+            } else if alarm == "water-drop.wav" {
+                alarm = "Water Drop"
+            } else {
+                alarm = alarm.substringToIndex( alarm.endIndex.advancedBy(-4)).capitalizedString
+            }
+            
+            self.meditationAlarmLabel.text = alarm
+        }
+
+        do
+        {
+            var alarm = NSUserDefaults.standardUserDefaults().objectForKey( kRestAlarmKey ) as! String
+            
+            if alarm == "jai-guru-dev.wav" {
+                alarm = "Jai Guru Dev"
+            } else if alarm == "water-drop.wav" {
+                alarm = "Water Drop"
+            } else {
+                alarm = alarm.substringToIndex( alarm.endIndex.advancedBy(-4)).capitalizedString
+            }
+            
+            self.restAlarmLabel.text = alarm
+        }
+    }
+    
+    //------------------------------------------------------------------------------
     func preparationTimeTapped()
     //------------------------------------------------------------------------------
     {
@@ -314,21 +363,24 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
     func preparationAlarmTapped()
     //------------------------------------------------------------------------------
     {
-        print( "preparationAlarmTapped" )
+        let soundViewController = SoundViewController( name: "Preparation" )
+        self.presentViewController( soundViewController, animated: true, completion: nil )
     }
     
     //------------------------------------------------------------------------------
     func meditationAlarmTapped()
     //------------------------------------------------------------------------------
     {
-        print( "meditationAlarmTapped" )
+        let soundViewController = SoundViewController( name: "Meditation" )
+        self.presentViewController( soundViewController, animated: true, completion: nil )
     }
 
     //------------------------------------------------------------------------------
-    func completionAlarmTapped()
+    func restAlarmTapped()
     //------------------------------------------------------------------------------
     {
-        print( "completionAlarmTapped" )
+        let soundViewController = SoundViewController( name: "Rest" )
+        self.presentViewController( soundViewController, animated: true, completion: nil )
     }
 
     //------------------------------------------------------------------------------
