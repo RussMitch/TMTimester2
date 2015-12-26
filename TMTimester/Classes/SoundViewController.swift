@@ -8,11 +8,13 @@
 //------------------------------------------------------------------------------
 
 import UIKit
+import AVFoundation
 
 class SoundViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
     var name: String = ""
     var soundFileName: String = ""
+    var audioPlayer: AVAudioPlayer!
     var tableData: NSMutableArray = []
     
     //------------------------------------------------------------------------------
@@ -176,6 +178,24 @@ class SoundViewController: UIViewController,UITableViewDataSource,UITableViewDel
         }
         
         tableView.reloadData()
+        
+        playSound()
+    }
+    
+    //------------------------------------------------------------------------------
+    func playSound()
+    //------------------------------------------------------------------------------
+    {
+        let name = self.soundFileName.substringToIndex( self.soundFileName.endIndex.advancedBy(-4))
+        
+        let url = NSURL( fileURLWithPath: NSBundle.mainBundle().pathForResource(name, ofType: "wav")! )
+        
+        do {
+            self.audioPlayer = try AVAudioPlayer( contentsOfURL: url )
+            self.audioPlayer.prepareToPlay()
+            self.audioPlayer.play()
+        } catch {
+        }
     }
     
     //------------------------------------------------------------------------------
