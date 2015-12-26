@@ -250,10 +250,7 @@ class PostReplyViewController: UIViewController,UITextViewDelegate,UITextFieldDe
                 let offset = y1 - y2 + 10
                 
                 self.contentView.contentOffset = CGPointMake( 0, offset )
-                
-                print( self.contentView.frame )
-                print( self.contentView.contentOffset )
-                
+                                
             }
         }
     }
