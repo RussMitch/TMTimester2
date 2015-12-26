@@ -242,14 +242,17 @@ class PostReplyViewController: UIViewController,UITextViewDelegate,UITextFieldDe
             
             let superView = view.superview!
             
-            let y1: CGFloat = superView.frame.origin.y + view.frame.height
+            let y1: CGFloat = superView.frame.origin.y + view.frame.height + 64
             let y2: CGFloat = self.view.frame.height - frame.height
             
             if y1 > y2 {
                 
-                let offset = y1 - y2 + 10 + 64
+                let offset = y1 - y2 + 10
                 
                 self.contentView.contentOffset = CGPointMake( 0, offset )
+                
+                print( self.contentView.frame )
+                print( self.contentView.contentOffset )
                 
             }
         }
