@@ -9,13 +9,15 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource {
 
     var restTimeLabel: UILabel!
     var completionSongLabel: UILabel!
     var meditationTimeLabel: UILabel!
     var meditationAlarmLabel: UILabel!
     var completionAlarmLabel: UILabel!
+    var preparationTimeLabel: UILabel!
+    var preparationAlarmLabel: UILabel!
     
     let barColor = UIColor( red: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 1 )
     
@@ -44,6 +46,39 @@ class SettingsViewController: UIViewController {
         }
         
         y += 30
+
+        do
+        {
+            let view = UIView( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
+            self.view.addSubview( view )
+            
+            let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "preparationTimeTapped" ))
+            view.addGestureRecognizer( tapGestureRecognizer )
+            
+            let label = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
+            label.text = "Preparation Time"
+            label.textColor = UIColor.blackColor()
+            label.font = UIFont.systemFontOfSize( 18 )
+            view.addSubview( label )
+            
+            self.preparationTimeLabel = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
+            self.preparationTimeLabel.text = "00:30"
+            self.preparationTimeLabel.textAlignment = NSTextAlignment.Right
+            self.preparationTimeLabel.textColor = UIColor.redColor()
+            self.preparationTimeLabel.font = UIFont.systemFontOfSize( 18 )
+            view.addSubview( self.preparationTimeLabel )
+        }
+        
+        y += 44
+        
+        do
+        {
+            let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-10, 1 ))
+            view.backgroundColor = UIColor.lightGrayColor()
+            self.view.addSubview( view )
+        }
+        
+        y += 1
         
         do
         {
@@ -119,6 +154,39 @@ class SettingsViewController: UIViewController {
             let view = UIView( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
             self.view.addSubview( view )
             
+            let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "preparationAlarmTapped" ))
+            view.addGestureRecognizer( tapGestureRecognizer )
+            
+            let label = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
+            label.text = "Preparation Alarm"
+            label.textColor = UIColor.blackColor()
+            label.font = UIFont.systemFontOfSize( 18 )
+            view.addSubview( label )
+            
+            self.preparationAlarmLabel = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
+            self.preparationAlarmLabel.text = "ting"
+            self.preparationAlarmLabel.textAlignment = NSTextAlignment.Right
+            self.preparationAlarmLabel.textColor = UIColor.redColor()
+            self.preparationAlarmLabel.font = UIFont.systemFontOfSize( 18 )
+            view.addSubview( self.preparationAlarmLabel )
+        }
+        
+        y += 44
+        
+        do
+        {
+            let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-10, 1 ))
+            view.backgroundColor = UIColor.lightGrayColor()
+            self.view.addSubview( view )
+        }
+        
+        y += 1
+        
+        do
+        {
+            let view = UIView( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
+            self.view.addSubview( view )
+            
             let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "meditationAlarmTapped" ))
             view.addGestureRecognizer( tapGestureRecognizer )
             
@@ -156,13 +224,13 @@ class SettingsViewController: UIViewController {
             view.addGestureRecognizer( tapGestureRecognizer )
             
             let label = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
-            label.text = "Completion Alarm"
+            label.text = "Rest Alarm"
             label.textColor = UIColor.blackColor()
             label.font = UIFont.systemFontOfSize( 18 )
             view.addSubview( label )
             
             self.completionAlarmLabel = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
-            self.completionAlarmLabel.text = "gong"
+            self.completionAlarmLabel.text = "Gong"
             self.completionAlarmLabel.textAlignment = NSTextAlignment.Right
             self.completionAlarmLabel.textColor = UIColor.redColor()
             self.completionAlarmLabel.font = UIFont.systemFontOfSize( 18 )
@@ -211,12 +279,43 @@ class SettingsViewController: UIViewController {
     }
     
     //------------------------------------------------------------------------------
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int
+    //------------------------------------------------------------------------------
+    {
+        return 3
+    }
+
+    //------------------------------------------------------------------------------
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
+    //------------------------------------------------------------------------------
+    {
+        return 60
+    }
+    
+    //------------------------------------------------------------------------------
+    func rowSizeForComponent(component: Int) -> CGSize
+    //------------------------------------------------------------------------------
+    {
+        return CGSizeMake( self.view.frame.width, 44 )
+    }
+    
+    //------------------------------------------------------------------------------
+    func preparationTimeTapped()
+    //------------------------------------------------------------------------------
+    {
+        print( "preparationTimeTapped" )
+    }
+
+    //------------------------------------------------------------------------------
     func meditationTimeTapped()
     //------------------------------------------------------------------------------
     {
-        print( "meditationTimeTapped" )
+        let pickerView = UIPickerView( frame: CGRectMake( 0, 0, self.view.frame.width, 200 ))
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        self.view.addSubview( pickerView )
     }
-    
+
     //------------------------------------------------------------------------------
     func restTimeTapped()
     //------------------------------------------------------------------------------
@@ -224,6 +323,13 @@ class SettingsViewController: UIViewController {
         print( "restTimeTapped" )
     }
 
+    //------------------------------------------------------------------------------
+    func preparationAlarmTapped()
+    //------------------------------------------------------------------------------
+    {
+        print( "preparationAlarmTapped" )
+    }
+    
     //------------------------------------------------------------------------------
     func meditationAlarmTapped()
     //------------------------------------------------------------------------------

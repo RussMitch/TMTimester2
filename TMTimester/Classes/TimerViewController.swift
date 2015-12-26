@@ -15,11 +15,14 @@ class TimerViewController: UIViewController {
     var startLabel: UILabel!
     var resetLabel: UILabel!
     
+    var count1 : Int = 0
     var count2 : Int = 0
     var count3 : Int = 0
+
     var meditationAlarm : String = ""
     var completionAlarm : String = ""
-        
+    var preparationAlarm : String = ""
+    
     //------------------------------------------------------------------------------
     override func viewDidLoad()
     //------------------------------------------------------------------------------
@@ -31,6 +34,13 @@ class TimerViewController: UIViewController {
         self.view.backgroundColor = UIColor.whiteColor()
         
         self.navigationItem.title = "Timer"
+
+        if NSUserDefaults.standardUserDefaults().objectForKey( kCount1Key ) == nil {
+            NSUserDefaults.standardUserDefaults().setInteger( kCount1Def, forKey: kCount1Key )
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+        
+        self.count1 = NSUserDefaults.standardUserDefaults().objectForKey( kCount2Key ) as! Int
         
         if NSUserDefaults.standardUserDefaults().objectForKey( kCount2Key ) == nil {
             NSUserDefaults.standardUserDefaults().setInteger( kCount2Def, forKey: kCount2Key )
@@ -45,6 +55,13 @@ class TimerViewController: UIViewController {
         }
         
         self.count3 = NSUserDefaults.standardUserDefaults().objectForKey( kCount3Key ) as! Int
+
+        if NSUserDefaults.standardUserDefaults().objectForKey( kPreparationAlarmKey ) == nil {
+            NSUserDefaults.standardUserDefaults().setValue( kPreparationAlarmDef, forKey: kPreparationAlarmKey )
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+        
+        self.preparationAlarm = NSUserDefaults.standardUserDefaults().objectForKey( kPreparationAlarmKey ) as! String
         
         if NSUserDefaults.standardUserDefaults().objectForKey( kMeditationAlarmKey ) == nil {
             NSUserDefaults.standardUserDefaults().setValue( kMeditationAlarmDef, forKey: kMeditationAlarmKey )
