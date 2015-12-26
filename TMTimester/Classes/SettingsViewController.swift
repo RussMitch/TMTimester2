@@ -262,7 +262,6 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
             view.addGestureRecognizer( tapGestureRecognizer )
             
             self.completionSongLabel = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
-            self.completionSongLabel.text = "None"
             self.completionSongLabel.textColor = UIColor.redColor()
             self.completionSongLabel.font = UIFont.systemFontOfSize( 18 )
             view.addSubview( self.completionSongLabel )
@@ -330,6 +329,9 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
             
             self.restAlarmLabel.text = alarm
         }
+        
+        let song = NSUserDefaults.standardUserDefaults().objectForKey( kCompletionSongNameKey ) as! String
+        self.completionSongLabel.text = song
     }
     
     //------------------------------------------------------------------------------
@@ -387,7 +389,8 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
     func completionSongTapped()
     //------------------------------------------------------------------------------
     {
-        print( "completionSongTapped" )
+        let songViewController = SongViewController()
+        self.presentViewController( songViewController, animated: true, completion: nil )
     }
 
     //------------------------------------------------------------------------------

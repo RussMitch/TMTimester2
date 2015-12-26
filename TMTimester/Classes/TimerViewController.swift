@@ -15,13 +15,14 @@ class TimerViewController: UIViewController {
     var startLabel: UILabel!
     var resetLabel: UILabel!
     
-    var count1 : Int = 0
-    var count2 : Int = 0
-    var count3 : Int = 0
+    var count1: Int = 0
+    var count2: Int = 0
+    var count3: Int = 0
 
-    var restAlarm : String = ""
-    var meditationAlarm : String = ""
-    var preparationAlarm : String = ""
+    var restAlarm: String = ""
+    var meditationAlarm: String = ""
+    var preparationAlarm: String = ""
+    var completionSong: String = ""
     
     //------------------------------------------------------------------------------
     override func viewDidLoad()
@@ -76,6 +77,13 @@ class TimerViewController: UIViewController {
         }
         
         self.restAlarm = NSUserDefaults.standardUserDefaults().objectForKey( kRestAlarmKey ) as! String
+
+        if NSUserDefaults.standardUserDefaults().objectForKey( kCompletionSongNameKey ) == nil {
+            NSUserDefaults.standardUserDefaults().setValue( kCompletionSongNameDef, forKey: kCompletionSongNameKey )
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+        
+        self.completionSong = NSUserDefaults.standardUserDefaults().objectForKey( kCompletionSongNameKey ) as! String
         
         var y: CGFloat = 64
         

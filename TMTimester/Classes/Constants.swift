@@ -36,4 +36,9 @@ let kMeditationAlarmDef = "jai-guru-dev.wav"
 let kRestAlarmKey = "RestAlarm"
 let kRestAlarmDef = "gong.wav"
 
+let kCompletionSongNameKey = "SongNameKey"
+let kCompletionSongNameDef = "Select Song"
+
+let kCompletionSongIdKey = "SongIdKey"
+
 let kBarColor = UIColor( red: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 1 )

@@ -133,15 +133,15 @@ class SoundViewController: UIViewController,UITableViewDataSource,UITableViewDel
         
         if cell == nil {
             
-           cell = UITableViewCell( style: UITableViewCellStyle.Default, reuseIdentifier: "cell" )
-           cell!.selectionStyle = UITableViewCellSelectionStyle.None
+            cell = UITableViewCell( style: UITableViewCellStyle.Default, reuseIdentifier: "cell" )
+            cell!.selectionStyle = UITableViewCellSelectionStyle.None
+            cell!.textLabel!.textColor = UIColor.redColor()
             
         }
         
         let dict = self.tableData[indexPath.row] as! Dictionary<String,String>
         
         cell!.textLabel!.text = dict["title"]
-        cell!.textLabel!.textColor = UIColor.redColor()
         
         if dict["name"] == self.soundFileName {
             cell!.accessoryType = UITableViewCellAccessoryType.Checkmark

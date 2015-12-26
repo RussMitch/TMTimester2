@@ -55,6 +55,7 @@
 		5EBEB3751C29A8E8001E8CDE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EBEB36B1C29A8E8001E8CDE /* Security.framework */; };
 		5EBEB3761C29A8E8001E8CDE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EBEB36C1C29A8E8001E8CDE /* StoreKit.framework */; };
 		5EBEB3771C29A8E8001E8CDE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EBEB36D1C29A8E8001E8CDE /* SystemConfiguration.framework */; };
+		5EDADF921C2F13470045FC75 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDADF911C2F13470045FC75 /* SongViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		5EBEB36B1C29A8E8001E8CDE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		5EBEB36C1C29A8E8001E8CDE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5EBEB36D1C29A8E8001E8CDE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5EDADF911C2F13470045FC75 /* SongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SongViewController.swift; path = Classes/SongViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 				5E7E84111C2C65B70069109C /* PostReplyViewController.swift */,
 				5E7E84131C2C68A20069109C /* ReplyButton.swift */,
 				5EBEB35D1C29987A001E8CDE /* SettingsViewController.swift */,
+				5EDADF911C2F13470045FC75 /* SongViewController.swift */,
 				5E24C55A1C2EF4D30025B63A /* SoundViewController.swift */,
 				5EBEB3571C2997DE001E8CDE /* TimerViewController.swift */,
 				5EBEB34F1C298FCF001E8CDE /* Supporting Files */,
@@ -341,6 +344,7 @@
 				5EBEB35C1C299849001E8CDE /* ForumViewController.swift in Sources */,
 				5E7E84141C2C68A20069109C /* ReplyButton.swift in Sources */,
 				5EBEB33C1C298A69001E8CDE /* AppDelegate.swift in Sources */,
+				5EDADF921C2F13470045FC75 /* SongViewController.swift in Sources */,
 				5E7E840E1C2B4A3B0069109C /* PostCommentViewController.swift in Sources */,
 				5EBEB35A1C299819001E8CDE /* HistoryViewController.swift in Sources */,
 			);
