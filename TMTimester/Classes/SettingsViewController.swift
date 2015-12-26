@@ -12,6 +12,7 @@ import UIKit
 class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource {
 
     var restTimeLabel: UILabel!
+    var pickerContainerView: UIView!
     var completionSongLabel: UILabel!
     var meditationTimeLabel: UILabel!
     var meditationAlarmLabel: UILabel!
@@ -19,15 +20,13 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
     var preparationTimeLabel: UILabel!
     var preparationAlarmLabel: UILabel!
     
-    let barColor = UIColor( red: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 1 )
-    
     //------------------------------------------------------------------------------
     override func viewDidLoad()
     //------------------------------------------------------------------------------
     {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.barTintColor = barColor
+        self.navigationController?.navigationBar.barTintColor = kBarColor
         
         self.navigationItem.title = "Settings"
         
@@ -38,7 +37,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         do
         {
             let label = UILabel( frame: CGRectMake( 0, y, self.view.frame.width, 30 ))
-            label.backgroundColor = barColor
+            label.backgroundColor = kBarColor
             label.text = "  Meditation Times"
             label.textColor = UIColor.blackColor()
             label.font = UIFont.boldSystemFontOfSize( 18 )
@@ -61,8 +60,10 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
             label.font = UIFont.systemFontOfSize( 18 )
             view.addSubview( label )
             
+            let count1 = NSUserDefaults.standardUserDefaults().objectForKey( kCount1Key ) as! Int
+            
             self.preparationTimeLabel = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
-            self.preparationTimeLabel.text = "00:30"
+            self.preparationTimeLabel.text = String( format: "%d:%02d", count1/60, count1%60 )
             self.preparationTimeLabel.textAlignment = NSTextAlignment.Right
             self.preparationTimeLabel.textColor = UIColor.redColor()
             self.preparationTimeLabel.font = UIFont.systemFontOfSize( 18 )
@@ -94,8 +95,10 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
             label.font = UIFont.systemFontOfSize( 18 )
             view.addSubview( label )
 
+            let count2 = NSUserDefaults.standardUserDefaults().objectForKey( kCount2Key ) as! Int
+            
             self.meditationTimeLabel = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
-            self.meditationTimeLabel.text = "20:00"
+            self.meditationTimeLabel.text = String( format: "%d:%02d", count2/60, count2%60 )
             self.meditationTimeLabel.textAlignment = NSTextAlignment.Right
             self.meditationTimeLabel.textColor = UIColor.redColor()
             self.meditationTimeLabel.font = UIFont.systemFontOfSize( 18 )
@@ -127,8 +130,10 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
             label.font = UIFont.systemFontOfSize( 18 )
             view.addSubview( label )
             
+            let count3 = NSUserDefaults.standardUserDefaults().objectForKey( kCount3Key ) as! Int
+            
             self.restTimeLabel = UILabel( frame: CGRectMake( 10, 0, self.view.frame.width-20, 44 ))
-            self.restTimeLabel.text = "2:00"
+            self.restTimeLabel.text = String( format: "%d:%02d", count3/60, count3%60 )
             self.restTimeLabel.textAlignment = NSTextAlignment.Right
             self.restTimeLabel.textColor = UIColor.redColor()
             self.restTimeLabel.font = UIFont.systemFontOfSize( 18 )
@@ -140,7 +145,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         do
         {
             let label = UILabel( frame: CGRectMake( 0, y, self.view.frame.width, 30 ))
-            label.backgroundColor = barColor
+            label.backgroundColor = kBarColor
             label.text = "  Alarm Sounds"
             label.textColor = UIColor.blackColor()
             label.font = UIFont.boldSystemFontOfSize( 18 )
@@ -242,7 +247,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         do
         {
             let label = UILabel( frame: CGRectMake( 0, y, self.view.frame.width, 30 ))
-            label.backgroundColor = barColor
+            label.backgroundColor = kBarColor
             label.text = "  Completion Song"
             label.textColor = UIColor.blackColor()
             label.font = UIFont.boldSystemFontOfSize( 18 )
@@ -279,48 +284,30 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
     }
     
     //------------------------------------------------------------------------------
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int
-    //------------------------------------------------------------------------------
-    {
-        return 3
-    }
-
-    //------------------------------------------------------------------------------
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
-    //------------------------------------------------------------------------------
-    {
-        return 60
-    }
-    
-    //------------------------------------------------------------------------------
-    func rowSizeForComponent(component: Int) -> CGSize
-    //------------------------------------------------------------------------------
-    {
-        return CGSizeMake( self.view.frame.width, 44 )
-    }
-    
-    //------------------------------------------------------------------------------
     func preparationTimeTapped()
     //------------------------------------------------------------------------------
     {
-        print( "preparationTimeTapped" )
+        let count1 = NSUserDefaults.standardUserDefaults().objectForKey( kCount1Key ) as! Int
+
+        createPickerWithTitle( "Preparation Time", tag: 1, count: count1 )
     }
 
     //------------------------------------------------------------------------------
     func meditationTimeTapped()
     //------------------------------------------------------------------------------
     {
-        let pickerView = UIPickerView( frame: CGRectMake( 0, 0, self.view.frame.width, 200 ))
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        self.view.addSubview( pickerView )
-    }
+        let count2 = NSUserDefaults.standardUserDefaults().objectForKey( kCount2Key ) as! Int
 
+        createPickerWithTitle( "Meditation Time", tag: 2, count: count2 )
+    }
+    
     //------------------------------------------------------------------------------
     func restTimeTapped()
     //------------------------------------------------------------------------------
     {
-        print( "restTimeTapped" )
+        let count3 = NSUserDefaults.standardUserDefaults().objectForKey( kCount3Key ) as! Int
+
+        createPickerWithTitle( "Rest Time", tag: 3, count: count3 )
     }
 
     //------------------------------------------------------------------------------
@@ -349,5 +336,186 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
     //------------------------------------------------------------------------------
     {
         print( "completionSongTapped" )
+    }
+
+    //------------------------------------------------------------------------------
+    func createPickerWithTitle( title: String, tag: Int, count: Int )
+    //------------------------------------------------------------------------------
+    {
+        self.pickerContainerView = UIView( frame: self.view.bounds )
+        self.pickerContainerView.tag = tag
+        self.view.addSubview( self.pickerContainerView )
+        
+        let overlayView = UIView( frame: self.view.bounds )
+        overlayView.backgroundColor = UIColor.blackColor()
+        overlayView.alpha = 0
+        overlayView.tag = 1
+        self.pickerContainerView.addSubview( overlayView )
+        
+        let pickerViewHolder = UIView( frame: CGRectMake( 0, self.view.frame.height, self.view.frame.width, 216+44 ))
+        pickerViewHolder.tag = 2
+        pickerViewHolder.backgroundColor = UIColor.whiteColor()
+        self.pickerContainerView.addSubview( pickerViewHolder )
+        
+        do
+        {
+            let view = UIView( frame: CGRectMake( 0, 0, pickerViewHolder.frame.width, 44 ))
+            view.backgroundColor = kBarColor
+            pickerViewHolder.addSubview( view )
+            
+            let label = UILabel( frame: view.bounds )
+            label.text = title
+            label.textColor = UIColor.blackColor()
+            label.textAlignment = NSTextAlignment.Center
+            label.font = UIFont.boldSystemFontOfSize( 18 )
+            view.addSubview( label )
+            
+            let button = UIButton( frame: CGRectMake( pickerViewHolder.frame.width - 70, 0, 70,44 ))
+            button.setTitle( "Done", forState: .Normal )
+            button.setTitleColor( UIColor.redColor(), forState: .Normal )
+            button.addTarget( self, action: Selector( "pickerDoneButtonTapped" ), forControlEvents: .TouchUpInside )
+            view.addSubview( button )
+        }
+        
+        let pickerView = UIPickerView( frame: CGRectMake( 0, 44, self.view.frame.width, 216 ))
+        pickerView.tag = 10
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        pickerViewHolder.addSubview( pickerView )
+        
+        let mins = count / 60
+        let secs = count % 60
+        
+        pickerView.selectRow( 30, inComponent: 0, animated: false )
+        pickerView.selectRow( mins, inComponent: 1, animated: false )
+        pickerView.selectRow( secs, inComponent: 2, animated: false )
+        
+        var x: CGFloat = 0
+        
+        do
+        {
+            let label = UILabel( frame: CGRectMake( x-10, pickerView.frame.height/2-15, pickerView.frame.width/3, 30 ))
+            label.textAlignment = NSTextAlignment.Right
+            label.textColor = UIColor.blackColor()
+            label.text = "hrs"
+            pickerView.addSubview( label )
+        }
+        
+        x += pickerView.frame.width/3
+        
+        do
+        {
+            let label = UILabel( frame: CGRectMake( x-10, pickerView.frame.height/2-15, pickerView.frame.width/3, 30 ))
+            label.textAlignment = NSTextAlignment.Right
+            label.textColor = UIColor.blackColor()
+            label.text = "mins"
+            pickerView.addSubview( label )
+        }
+
+        x += pickerView.frame.width/3
+        
+        do
+        {
+            let label = UILabel( frame: CGRectMake( x-10, pickerView.frame.height/2-15, pickerView.frame.width/3, 30 ))
+            label.textAlignment = NSTextAlignment.Right
+            label.textColor = UIColor.blackColor()
+            label.text = "secs"
+            pickerView.addSubview( label )
+        }
+        
+        let tabBarHeight = self.tabBarController!.tabBar.frame.height
+
+        UIView.animateWithDuration( 0.25, animations: {
+            overlayView.alpha = 0.25
+            pickerViewHolder.frame.origin.y -= (216+44+tabBarHeight)
+        })
+    }
+    
+    //------------------------------------------------------------------------------
+    func numberOfComponentsInPickerView( pickerView: UIPickerView ) -> Int
+    //------------------------------------------------------------------------------
+    {
+        return 3
+    }
+    
+    //------------------------------------------------------------------------------
+    func pickerView( pickerView: UIPickerView, numberOfRowsInComponent component: Int ) -> Int
+    //------------------------------------------------------------------------------
+    {
+        return 60
+    }
+    
+    //------------------------------------------------------------------------------
+    func rowSizeForComponent( component: Int ) -> CGSize
+    //------------------------------------------------------------------------------
+    {
+        return CGSizeMake( self.view.frame.width, 44 )
+    }
+    
+    //------------------------------------------------------------------------------
+    func pickerView( pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView
+    //------------------------------------------------------------------------------
+    {
+        let label = UILabel( frame: CGRectMake( 0, 0, pickerView.frame.width/3, 30 ))
+        label.textColor = UIColor.redColor()
+        label.textAlignment = NSTextAlignment.Center
+        
+        if component == 0 {
+            label.text = "0"
+        } else {
+            label.text = String( format: "%lu", arguments: [row] )
+        }
+        
+        return label
+    }
+
+    //------------------------------------------------------------------------------
+    func pickerDoneButtonTapped()
+    //------------------------------------------------------------------------------
+    {
+        let overlayView = self.pickerContainerView.viewWithTag( 1 )!
+        let pickerViewHolder = self.pickerContainerView.viewWithTag( 2 )!
+        
+        let tabBarHeight = self.tabBarController!.tabBar.frame.height
+        
+        UIView.animateWithDuration( 0.25, animations: {
+            
+            overlayView.alpha = 0
+            pickerViewHolder.frame.origin.y += 216+44+tabBarHeight
+            
+        }, completion: { (value: Bool) in
+                
+            self.pickerContainerView.removeFromSuperview()
+                
+        })
+
+        let pickerView: UIPickerView  = pickerViewHolder.viewWithTag( 10 ) as! UIPickerView
+        
+        let mins = pickerView.selectedRowInComponent( 1 )
+        let secs = pickerView.selectedRowInComponent( 2 )
+        
+        if self.pickerContainerView.tag == 1 {
+            
+            NSUserDefaults.standardUserDefaults().setInteger( mins*60+secs, forKey: kCount1Key )
+            NSUserDefaults.standardUserDefaults().synchronize()
+            
+            self.preparationTimeLabel.text = String( format: "%d:%02d", mins, secs )
+            
+        } else if self.pickerContainerView.tag == 2 {
+            
+            NSUserDefaults.standardUserDefaults().setInteger( mins*60+secs, forKey: kCount2Key )
+            NSUserDefaults.standardUserDefaults().synchronize()
+
+            self.meditationTimeLabel.text = String( format: "%d:%02d", mins, secs )
+            
+        } else {
+            
+            NSUserDefaults.standardUserDefaults().setInteger( mins*60+secs, forKey: kCount3Key )
+            NSUserDefaults.standardUserDefaults().synchronize()
+
+            self.restTimeLabel.text = String( format: "%d:%02d", mins, secs )
+            
+        }
+        
     }
 }

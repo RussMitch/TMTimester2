@@ -40,7 +40,7 @@ class TimerViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         
-        self.count1 = NSUserDefaults.standardUserDefaults().objectForKey( kCount2Key ) as! Int
+        self.count1 = NSUserDefaults.standardUserDefaults().objectForKey( kCount1Key ) as! Int
         
         if NSUserDefaults.standardUserDefaults().objectForKey( kCount2Key ) == nil {
             NSUserDefaults.standardUserDefaults().setInteger( kCount2Def, forKey: kCount2Key )
@@ -144,8 +144,7 @@ class TimerViewController: UIViewController {
         {
             let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "resetLabelTapped" ))
             self.resetLabel.addGestureRecognizer( tapGestureRecognizer )
-        }
-        
+        }        
     }
     
     //------------------------------------------------------------------------------

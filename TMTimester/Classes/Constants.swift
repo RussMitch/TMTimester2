@@ -7,6 +7,7 @@
 //
 //------------------------------------------------------------------------------
 
+import UIKit
 import Foundation
 
 let kCommentClass = "Comment"
@@ -34,3 +35,5 @@ let kMeditationAlarmDef = "jai-guru-dev.wav"
 
 let kCompletionAlarmKey = "CompletionAlarm"
 let kCompletionAlarmDef = "gong.wav"
+
+let kBarColor = UIColor( red: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 1 )
