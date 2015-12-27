@@ -61,6 +61,7 @@
 		5EDADFA01C3070490045FC75 /* half-star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDADF9C1C3070490045FC75 /* half-star@3x.png */; };
 		5EDADFA11C3070490045FC75 /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDADF9D1C3070490045FC75 /* star@2x.png */; };
 		5EDADFA21C3070490045FC75 /* star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDADF9E1C3070490045FC75 /* star@3x.png */; };
+		5EDADFEC1C3083B20045FC75 /* TMTimester.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5EDADFEA1C3083B20045FC75 /* TMTimester.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +121,7 @@
 		5EDADF9C1C3070490045FC75 /* half-star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "half-star@3x.png"; sourceTree = "<group>"; };
 		5EDADF9D1C3070490045FC75 /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
 		5EDADF9E1C3070490045FC75 /* star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@3x.png"; sourceTree = "<group>"; };
+		5EDADFEB1C3083B20045FC75 /* TMTimester.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMTimester.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 				5EBEB3461C298A69001E8CDE /* LaunchScreen.storyboard */,
 				5EBEB3411C298A69001E8CDE /* Main.storyboard */,
 				5EBEB3441C298A69001E8CDE /* Assets.xcassets */,
+				5EDADFEA1C3083B20045FC75 /* TMTimester.xcdatamodeld */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -383,6 +386,7 @@
 				5EDADF921C2F13470045FC75 /* SongViewController.swift in Sources */,
 				5E7E840E1C2B4A3B0069109C /* PostCommentViewController.swift in Sources */,
 				5EBEB35A1C299819001E8CDE /* HistoryViewController.swift in Sources */,
+				5EDADFEC1C3083B20045FC75 /* TMTimester.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,6 +547,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5EDADFEA1C3083B20045FC75 /* TMTimester.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5EDADFEB1C3083B20045FC75 /* TMTimester.xcdatamodel */,
+			);
+			currentVersion = 5EDADFEB1C3083B20045FC75 /* TMTimester.xcdatamodel */;
+			path = TMTimester.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5EBEB3301C298A69001E8CDE /* Project object */;
 }

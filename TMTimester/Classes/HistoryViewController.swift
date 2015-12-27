@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 import UIKit
+import CoreData
 
 class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
@@ -15,12 +16,78 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     
     var cellHeight: CGFloat!
     var numMonths: Int!
+    var meditationRecords = [NSManagedObject]()
+    
+    //------------------------------------------------------------------------------
+    func saveMeditationRecordForDay( day: Int, month: Int, year: Int, count: Int )
+    //------------------------------------------------------------------------------
+    {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let entity =  NSEntityDescription.entityForName( kMeditationRecord, inManagedObjectContext:appDelegate.managedObjectContext )
+        
+        let meditationRecord = NSManagedObject( entity: entity!, insertIntoManagedObjectContext: appDelegate.managedObjectContext )
+        
+        meditationRecord.setValue( day, forKey: kDay )
+        meditationRecord.setValue( month, forKey: kMonth )
+        meditationRecord.setValue( year, forKey: kYear )
+        meditationRecord.setValue( count, forKey: kCount )
+        
+        self.meditationRecords.append( meditationRecord )
+        
+        do {
+            try appDelegate.managedObjectContext.save()
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+        
+    }
+
+    //------------------------------------------------------------------------------
+    func clearDataBase()
+    //------------------------------------------------------------------------------
+    {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let request = NSFetchRequest( entityName: kMeditationRecord )
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try appDelegate.persistentStoreCoordinator.executeRequest( deleteRequest, withContext: appDelegate.managedObjectContext )
+        } catch _ as NSError {
+        }
+    }
     
     //------------------------------------------------------------------------------
     override func viewDidLoad()
     //------------------------------------------------------------------------------
     {
         super.viewDidLoad()
+
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let fetchRequest = NSFetchRequest( entityName: kMeditationRecord )
+        
+        let predicate1 = NSPredicate( format: "month == 12" )
+        let predicate2 = NSPredicate( format: "year == 2015" )
+        
+        fetchRequest.predicate = NSCompoundPredicate( andPredicateWithSubpredicates: [predicate1,predicate2] )
+        
+        do {
+            
+            let results = try appDelegate.managedObjectContext.executeFetchRequest( fetchRequest )
+
+            self.meditationRecords = results as! [NSManagedObject]
+
+//            saveMeditationRecordForDay( 1, month: 12, year: 2014, count: 2 )
+//            saveMeditationRecordForDay( 3, month: 12, year: 2014, count: 1 )
+//            saveMeditationRecordForDay( 5, month: 12, year: 2014, count: 2 )
+//
+//            saveMeditationRecordForDay( 1, month: 12, year: 2015, count: 2 )
+//            saveMeditationRecordForDay( 3, month: 12, year: 2015, count: 1 )
+//            saveMeditationRecordForDay( 5, month: 12, year: 2015, count: 2 )
+            
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
         
         self.navigationController?.navigationBar.barTintColor = kBarColor
         
@@ -110,11 +177,28 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
         dateComponents.day = 1
         dateComponents.month = (indexPath.row % 12) + 1
         dateComponents.year = 2014 + indexPath.row / 12
+
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let fetchRequest = NSFetchRequest( entityName: kMeditationRecord )
+        
+        let predicate1 = NSPredicate( format: "month == %d", dateComponents.month )
+        let predicate2 = NSPredicate( format: "year == %d", dateComponents.year )
+        
+        fetchRequest.predicate = NSCompoundPredicate( andPredicateWithSubpredicates: [predicate1,predicate2] )
+        fetchRequest.returnsObjectsAsFaults = false
+        
+        var records = [NSManagedObject]()
+        
+        do {
+            let results = try appDelegate.managedObjectContext.executeFetchRequest( fetchRequest )            
+            records = results as! [NSManagedObject]
+        } catch _ as NSError {
+        }
         
         let date = NSCalendar.currentCalendar().dateFromComponents( dateComponents )
 
-        monthView.setDate( date! )
-        monthView.setFullStarForDate( date! )
+        monthView.setDate( date!, records: records )
         
         self.navigationItem.title = String( dateComponents.year )
         

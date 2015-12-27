@@ -8,13 +8,18 @@
 //------------------------------------------------------------------------------
 
 import UIKit
+import CoreData
 
 class MonthView: UIView {
     
     //------------------------------------------------------------------------------
-    func setDate( date: NSDate )
+    func setDate( date: NSDate, records: [NSManagedObject] )
     //------------------------------------------------------------------------------
     {
+        if records.count > 0 {
+            print( records[0] )
+        }
+        
         while self.subviews.count > 0 {
             self.subviews[0].removeFromSuperview()
         }
@@ -22,7 +27,6 @@ class MonthView: UIView {
         var dateComponents = NSCalendar.currentCalendar().components( [NSCalendarUnit.Day,NSCalendarUnit.Month,NSCalendarUnit.Year], fromDate: date )
 
         dateComponents.day = 1
-        let year = dateComponents.year
         
         let firstDate = NSCalendar.currentCalendar().dateFromComponents( dateComponents )
         
@@ -53,18 +57,15 @@ class MonthView: UIView {
             for j=startDay; j<7; j++ {
                 
                 let contentView = UIView( frame: CGRectMake( x, y, width, width ))
-                contentView.tag = year
                 self.addSubview( contentView )
                 
                 let label = UILabel( frame: CGRectMake( 0, 0, width, 30 ))
-                label.tag = 2
                 label.textAlignment = NSTextAlignment.Center
                 label.textColor = UIColor.blackColor()
                 label.text = String( format: "%d", day )
                 contentView.addSubview( label )
                 
                 let imageView = UIImageView( frame: CGRectMake( width/2-14, width-30, 28, 28 ))
-                imageView.tag = 3
                 contentView.addSubview( imageView )
 
                 if (j&1) == 0 {
@@ -92,29 +93,6 @@ class MonthView: UIView {
             x = 0
             y += width
             startDay = 0
-        }
-    }
-    
-    //------------------------------------------------------------------------------
-    func setFullStarForDate( date: NSDate )
-    //------------------------------------------------------------------------------
-    {
-        let dateComponents = NSCalendar.currentCalendar().components( [NSCalendarUnit.Day,NSCalendarUnit.Month,NSCalendarUnit.Year], fromDate: date )
-
-        for view in self.subviews {
-            
-            if view.tag == dateComponents.year {
-
-                let label = view.viewWithTag( 2 ) as! UILabel
-                
-                if label.text == String( format: "%d", dateComponents.day ) {
-                    
-                    let imageView = viewWithTag( 3 ) as! UIImageView
-                    
-                    imageView.image = UIImage( named: "star" )
-                    
-                }
-            }
         }
     }
 }
