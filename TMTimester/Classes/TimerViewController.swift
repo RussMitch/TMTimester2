@@ -183,8 +183,8 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
             self.startLabel.textColor = UIColor.redColor()
             self.startLabel.layer.borderColor = UIColor.redColor().CGColor
             
-            self.startDate = NSDate()
             self.pauseDate = nil
+            self.startDate = NSDate()
             
             self.restTimeOver = false
             self.meditationTimeOver = false
@@ -196,11 +196,16 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
             
         } else if self.startLabel.text == "Pause" {
             
+            self.pauseDate = NSDate()
+            
             self.startLabel.text = "Restart"
             self.startLabel.textColor = UIColor.greenColor()
             self.startLabel.layer.borderColor = UIColor.greenColor().CGColor
             
         } else if self.startLabel.text == "Restart" {
+            
+            self.startDate = NSDate( timeInterval: fabs( self.pauseDate.timeIntervalSinceNow ), sinceDate: self.startDate )
+            self.pauseDate = nil
             
             self.startLabel.text = "Pause"
             self.startLabel.textColor = UIColor.redColor()
