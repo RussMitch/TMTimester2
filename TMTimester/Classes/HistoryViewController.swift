@@ -114,6 +114,7 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
         let date = NSCalendar.currentCalendar().dateFromComponents( dateComponents )
 
         monthView.setDate( date! )
+        monthView.setFullStarForDate( date! )
         
         self.navigationItem.title = String( dateComponents.year )
         

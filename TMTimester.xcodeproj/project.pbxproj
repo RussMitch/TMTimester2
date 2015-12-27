@@ -57,6 +57,10 @@
 		5EBEB3771C29A8E8001E8CDE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EBEB36D1C29A8E8001E8CDE /* SystemConfiguration.framework */; };
 		5EDADF921C2F13470045FC75 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDADF911C2F13470045FC75 /* SongViewController.swift */; };
 		5EDADF961C303B040045FC75 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDADF951C303B040045FC75 /* MonthView.swift */; };
+		5EDADF9F1C3070490045FC75 /* half-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDADF9B1C3070490045FC75 /* half-star@2x.png */; };
+		5EDADFA01C3070490045FC75 /* half-star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDADF9C1C3070490045FC75 /* half-star@3x.png */; };
+		5EDADFA11C3070490045FC75 /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDADF9D1C3070490045FC75 /* star@2x.png */; };
+		5EDADFA21C3070490045FC75 /* star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDADF9E1C3070490045FC75 /* star@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +116,10 @@
 		5EBEB36D1C29A8E8001E8CDE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5EDADF911C2F13470045FC75 /* SongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SongViewController.swift; path = Classes/SongViewController.swift; sourceTree = "<group>"; };
 		5EDADF951C303B040045FC75 /* MonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonthView.swift; path = Classes/MonthView.swift; sourceTree = "<group>"; };
+		5EDADF9B1C3070490045FC75 /* half-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "half-star@2x.png"; sourceTree = "<group>"; };
+		5EDADF9C1C3070490045FC75 /* half-star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "half-star@3x.png"; sourceTree = "<group>"; };
+		5EDADF9D1C3070490045FC75 /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
+		5EDADF9E1C3070490045FC75 /* star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +210,10 @@
 			isa = PBXGroup;
 			children = (
 				5E24C55C1C2EF7D80025B63A /* Sounds */,
+				5EDADF9B1C3070490045FC75 /* half-star@2x.png */,
+				5EDADF9C1C3070490045FC75 /* half-star@3x.png */,
+				5EDADF9D1C3070490045FC75 /* star@2x.png */,
+				5EDADF9E1C3070490045FC75 /* star@3x.png */,
 				5EBEB3511C299594001E8CDE /* AppStoreIcon.png */,
 				5E7E84151C2CA0D90069109C /* settings@3x.png */,
 				5E7E84161C2CA0D90069109C /* settings@2x.png */,
@@ -321,9 +333,12 @@
 			files = (
 				5E24C5721C2EF83B0025B63A /* ting.wav in Resources */,
 				5E24C56C1C2EF83B0025B63A /* gong.wav in Resources */,
+				5EDADFA11C3070490045FC75 /* star@2x.png in Resources */,
 				5E24C5741C2EF83B0025B63A /* waterfall.wav in Resources */,
 				5E7E84211C2CA0D90069109C /* profile@3x.png in Resources */,
+				5EDADFA21C3070490045FC75 /* star@3x.png in Resources */,
 				5E24C56D1C2EF83B0025B63A /* gong2.wav in Resources */,
+				5EDADFA01C3070490045FC75 /* half-star@3x.png in Resources */,
 				5E7E84231C2CA0D90069109C /* clock@3x.png in Resources */,
 				5EBEB3481C298A69001E8CDE /* LaunchScreen.storyboard in Resources */,
 				5E7E841E1C2CA0D90069109C /* settings@2x.png in Resources */,
@@ -336,6 +351,7 @@
 				5E24C5731C2EF83B0025B63A /* water-drop.wav in Resources */,
 				5EBEB3451C298A69001E8CDE /* Assets.xcassets in Resources */,
 				5EBEB3521C299594001E8CDE /* AppStoreIcon.png in Resources */,
+				5EDADF9F1C3070490045FC75 /* half-star@2x.png in Resources */,
 				5E7E841D1C2CA0D90069109C /* settings@3x.png in Resources */,
 				5E24C5751C2EF83B0025B63A /* whales.wav in Resources */,
 				5E7E84241C2CA0D90069109C /* clock@2x.png in Resources */,
