@@ -146,8 +146,8 @@ class SongViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
             
             let mediaItem: MPMediaItem = mediaItemCollection.items[0]
             
-            let title = mediaItem.valueForProperty( MPMediaItemPropertyTitle )
-            let persistentId = mediaItem.valueForProperty( MPMediaItemPropertyPersistentID )
+            let title: String = mediaItem.valueForProperty( MPMediaItemPropertyTitle ) as! String!
+            let persistentId: NSNumber = mediaItem.valueForProperty( MPMediaItemPropertyPersistentID ) as! NSNumber!
             
             NSUserDefaults.standardUserDefaults().setValue( title, forKey: kCompletionSongNameKey )
             NSUserDefaults.standardUserDefaults().setValue( persistentId, forKey: kCompletionSongIdKey )

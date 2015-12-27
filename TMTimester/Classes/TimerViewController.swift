@@ -8,8 +8,10 @@
 //------------------------------------------------------------------------------
 
 import UIKit
+import MediaPlayer
+import AVFoundation
 
-class TimerViewController: UIViewController {
+class TimerViewController: UIViewController,AVAudioPlayerDelegate {
 
     var timerLabel: UILabel!
     var startLabel: UILabel!
@@ -19,10 +21,21 @@ class TimerViewController: UIViewController {
     var count2: Int = 0
     var count3: Int = 0
 
+    var restTimeOver: Bool = true
+    var meditationTimeOver: Bool = true
+    var preparationTimeOver: Bool = true
+    
+    var timer: NSTimer!
+    var startDate: NSDate!
+    var pauseDate: NSDate!
+    
     var restAlarm: String = ""
     var meditationAlarm: String = ""
     var preparationAlarm: String = ""
     var completionSong: String = ""
+    
+    var audioPlayer: AVAudioPlayer!
+    var musicPlayerController: MPMusicPlayerController!
     
     //------------------------------------------------------------------------------
     override func viewDidLoad()
@@ -41,55 +54,44 @@ class TimerViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         
-        self.count1 = NSUserDefaults.standardUserDefaults().objectForKey( kCount1Key ) as! Int
-        
         if NSUserDefaults.standardUserDefaults().objectForKey( kCount2Key ) == nil {
             NSUserDefaults.standardUserDefaults().setInteger( kCount2Def, forKey: kCount2Key )
             NSUserDefaults.standardUserDefaults().synchronize()
         }
-
-        self.count2 = NSUserDefaults.standardUserDefaults().objectForKey( kCount2Key ) as! Int
 
         if NSUserDefaults.standardUserDefaults().objectForKey( kCount3Key ) == nil {
             NSUserDefaults.standardUserDefaults().setInteger( kCount3Def, forKey: kCount3Key )
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         
-        self.count3 = NSUserDefaults.standardUserDefaults().objectForKey( kCount3Key ) as! Int
-
         if NSUserDefaults.standardUserDefaults().objectForKey( kPreparationAlarmKey ) == nil {
             NSUserDefaults.standardUserDefaults().setValue( kPreparationAlarmDef, forKey: kPreparationAlarmKey )
             NSUserDefaults.standardUserDefaults().synchronize()
         }
-        
-        self.preparationAlarm = NSUserDefaults.standardUserDefaults().objectForKey( kPreparationAlarmKey ) as! String
         
         if NSUserDefaults.standardUserDefaults().objectForKey( kMeditationAlarmKey ) == nil {
             NSUserDefaults.standardUserDefaults().setValue( kMeditationAlarmDef, forKey: kMeditationAlarmKey )
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         
-        self.meditationAlarm = NSUserDefaults.standardUserDefaults().objectForKey( kMeditationAlarmKey ) as! String
-        
         if NSUserDefaults.standardUserDefaults().objectForKey( kRestAlarmKey ) == nil {
             NSUserDefaults.standardUserDefaults().setValue( kRestAlarmDef, forKey: kRestAlarmKey )
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         
-        self.restAlarm = NSUserDefaults.standardUserDefaults().objectForKey( kRestAlarmKey ) as! String
-
         if NSUserDefaults.standardUserDefaults().objectForKey( kCompletionSongNameKey ) == nil {
             NSUserDefaults.standardUserDefaults().setValue( kCompletionSongNameDef, forKey: kCompletionSongNameKey )
             NSUserDefaults.standardUserDefaults().synchronize()
         }
         
-        self.completionSong = NSUserDefaults.standardUserDefaults().objectForKey( kCompletionSongNameKey ) as! String
+        loadUserDefaults()
         
         var y: CGFloat = 64
         
         self.timerLabel = UILabel( frame: CGRectMake( 0, y, self.view.frame.width, 200 ))
         self.timerLabel.font = UIFont( name: "HelveticaNeue-Thin", size: 100 )
-        self.timerLabel.text = "20:00"
+        self.timerLabel.text = String( format: "%02d:%02d", self.count1/60, self.count1%60 )
+        
         self.timerLabel.textAlignment = NSTextAlignment.Center
         self.view.addSubview( self.timerLabel )
         
@@ -156,16 +158,177 @@ class TimerViewController: UIViewController {
     }
     
     //------------------------------------------------------------------------------
+    func loadUserDefaults()
+    //------------------------------------------------------------------------------
+    {
+        self.count1 = NSUserDefaults.standardUserDefaults().objectForKey( kCount1Key ) as! Int
+        self.count2 = NSUserDefaults.standardUserDefaults().objectForKey( kCount2Key ) as! Int
+        self.count3 = NSUserDefaults.standardUserDefaults().objectForKey( kCount3Key ) as! Int
+        
+        self.preparationAlarm = NSUserDefaults.standardUserDefaults().objectForKey( kPreparationAlarmKey ) as! String
+        self.meditationAlarm = NSUserDefaults.standardUserDefaults().objectForKey( kMeditationAlarmKey ) as! String
+        self.restAlarm = NSUserDefaults.standardUserDefaults().objectForKey( kRestAlarmKey ) as! String
+        self.completionSong = NSUserDefaults.standardUserDefaults().objectForKey( kCompletionSongNameKey ) as! String
+    }
+    
+    //------------------------------------------------------------------------------
     func startLabelTapped()
     //------------------------------------------------------------------------------
     {
-        print( "startLabelTapped" )
+        if self.startLabel.text == "Start" {
+
+            loadUserDefaults()
+
+            self.startLabel.text = "Pause"
+            self.startLabel.textColor = UIColor.redColor()
+            self.startLabel.layer.borderColor = UIColor.redColor().CGColor
+            
+            self.startDate = NSDate()
+            self.pauseDate = nil
+            
+            self.restTimeOver = false
+            self.meditationTimeOver = false
+            self.preparationTimeOver = false
+            
+            self.timerLabel.text = String( format: "%02d:%02d", self.count1/60, self.count1%60 )
+            
+            self.timer = NSTimer.scheduledTimerWithTimeInterval( 1, target: self, selector: Selector( "timerFired" ), userInfo: nil, repeats: true )
+            
+        } else if self.startLabel.text == "Pause" {
+            
+            self.startLabel.text = "Restart"
+            self.startLabel.textColor = UIColor.greenColor()
+            self.startLabel.layer.borderColor = UIColor.greenColor().CGColor
+            
+        } else if self.startLabel.text == "Restart" {
+            
+            self.startLabel.text = "Pause"
+            self.startLabel.textColor = UIColor.redColor()
+            self.startLabel.layer.borderColor = UIColor.redColor().CGColor
+            
+        }
     }
     
     //------------------------------------------------------------------------------
     func resetLabelTapped()
     //------------------------------------------------------------------------------
     {
-        print( "resetLabelTapped" )
+        if self.timer != nil {
+            self.timer.invalidate()
+        }
+        
+        if self.audioPlayer != nil {
+            self.audioPlayer.stop()
+        }
+        
+        if self.musicPlayerController != nil {
+            self.musicPlayerController.stop()
+        }
+        
+        loadUserDefaults()
+        
+        self.startLabel.text = "Start"
+        self.startLabel.textColor = UIColor.greenColor()
+        self.startLabel.layer.borderColor = UIColor.greenColor().CGColor
+        
+        self.timerLabel.text = String( format: "%02d:%02d", self.count1/60, self.count1%60 )
+    }
+    
+    //------------------------------------------------------------------------------
+    func timerFired()
+    //------------------------------------------------------------------------------
+    {
+        if self.startDate != nil && self.pauseDate == nil {
+            
+            let count = Int( fabs( self.startDate.timeIntervalSinceNow ))
+            
+            if !preparationTimeOver {
+                
+                let adjustedCount = self.count1 - count
+                
+                self.timerLabel.text = String( format: "%02d:%02d", adjustedCount/60, adjustedCount%60 )
+                
+                if adjustedCount <= 0 {
+                    
+                    self.preparationTimeOver = true
+                    self.startDate = NSDate()
+                    playSoundNamed( self.preparationAlarm, isCompletionSong: false )
+                    
+                }
+                
+            } else if !meditationTimeOver {
+
+                let adjustedCount = self.count2 - count
+                
+                self.timerLabel.text = String( format: "%02d:%02d", adjustedCount/60, adjustedCount%60 )
+                
+                if adjustedCount <= 0 {
+                    
+                    self.meditationTimeOver = true
+                    self.startDate = NSDate()
+                    playSoundNamed( self.meditationAlarm, isCompletionSong: false )
+                    
+                }
+                
+            } else if !restTimeOver {
+
+                let adjustedCount = self.count3 - count
+                
+                self.timerLabel.text = String( format: "%02d:%02d", adjustedCount/60, adjustedCount%60 )
+                
+                if adjustedCount <= 0 {
+                    
+                    self.restTimeOver = true
+                    self.startDate = NSDate()
+                    playSoundNamed( self.restAlarm, isCompletionSong: true )
+                    
+                }
+            }
+        }
+    }
+    
+    //------------------------------------------------------------------------------
+    func playSoundNamed( name: String, isCompletionSong: Bool )
+    //------------------------------------------------------------------------------
+    {
+        let nameWithoutExtension = name.substringToIndex( name.endIndex.advancedBy(-4))
+        
+        let url = NSURL( fileURLWithPath: NSBundle.mainBundle().pathForResource( nameWithoutExtension, ofType: "wav" )! )
+        
+        do
+        {
+            self.audioPlayer = try AVAudioPlayer( contentsOfURL: url )
+            self.audioPlayer.prepareToPlay()
+            self.audioPlayer.play()
+            
+            if isCompletionSong && self.completionSong != kCompletionSongNameDef {
+                self.audioPlayer.delegate = self
+            }
+            
+        } catch {
+        }
+    }
+    
+    //------------------------------------------------------------------------------
+    func audioPlayerDidFinishPlaying( player: AVAudioPlayer, successfully flag: Bool )
+    //------------------------------------------------------------------------------
+    {
+        resetLabelTapped()
+        
+        let persistentId: NSNumber = NSUserDefaults.standardUserDefaults().objectForKey( kCompletionSongIdKey ) as! NSNumber!
+        
+        let mediaPropertyPredicate: MPMediaPropertyPredicate = MPMediaPropertyPredicate( value: persistentId, forProperty: MPMediaItemPropertyPersistentID )
+        
+        let mediaQuery: MPMediaQuery = MPMediaQuery.songsQuery()
+        
+        mediaQuery.addFilterPredicate( mediaPropertyPredicate )
+        
+        let mediaItemCollection: MPMediaItemCollection = MPMediaItemCollection( items: mediaQuery.items! )
+        
+        self.musicPlayerController = MPMusicPlayerController.applicationMusicPlayer()
+        
+        self.musicPlayerController.setQueueWithItemCollection( mediaItemCollection )
+        
+        self.musicPlayerController.play()        
     }
 }
