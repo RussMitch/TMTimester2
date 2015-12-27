@@ -56,6 +56,7 @@
 		5EBEB3761C29A8E8001E8CDE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EBEB36C1C29A8E8001E8CDE /* StoreKit.framework */; };
 		5EBEB3771C29A8E8001E8CDE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EBEB36D1C29A8E8001E8CDE /* SystemConfiguration.framework */; };
 		5EDADF921C2F13470045FC75 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDADF911C2F13470045FC75 /* SongViewController.swift */; };
+		5EDADF961C303B040045FC75 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDADF951C303B040045FC75 /* MonthView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +111,7 @@
 		5EBEB36C1C29A8E8001E8CDE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5EBEB36D1C29A8E8001E8CDE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		5EDADF911C2F13470045FC75 /* SongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SongViewController.swift; path = Classes/SongViewController.swift; sourceTree = "<group>"; };
+		5EDADF951C303B040045FC75 /* MonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonthView.swift; path = Classes/MonthView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,18 +176,8 @@
 		5EBEB33A1C298A69001E8CDE /* TMTimester */ = {
 			isa = PBXGroup;
 			children = (
-				5EBEB33B1C298A69001E8CDE /* AppDelegate.swift */,
-				5EBEB35B1C299849001E8CDE /* ForumViewController.swift */,
-				5EBEB3591C299819001E8CDE /* HistoryViewController.swift */,
-				5E7E840B1C2B00640069109C /* MessageView.swift */,
-				5E7E84271C2D980C0069109C /* Constants.swift */,
-				5E7E840D1C2B4A3B0069109C /* PostCommentViewController.swift */,
-				5E7E84111C2C65B70069109C /* PostReplyViewController.swift */,
-				5E7E84131C2C68A20069109C /* ReplyButton.swift */,
-				5EBEB35D1C29987A001E8CDE /* SettingsViewController.swift */,
-				5EDADF911C2F13470045FC75 /* SongViewController.swift */,
-				5E24C55A1C2EF4D30025B63A /* SoundViewController.swift */,
-				5EBEB3571C2997DE001E8CDE /* TimerViewController.swift */,
+				5EDADF941C303A7D0045FC75 /* Views */,
+				5EDADF931C303A730045FC75 /* View Controllers */,
 				5EBEB34F1C298FCF001E8CDE /* Supporting Files */,
 				5EBEB3501C299571001E8CDE /* Resources */,
 				5EBEB3631C29A877001E8CDE /* Frameworks */,
@@ -196,10 +188,12 @@
 		5EBEB34F1C298FCF001E8CDE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				5EBEB3411C298A69001E8CDE /* Main.storyboard */,
-				5EBEB3461C298A69001E8CDE /* LaunchScreen.storyboard */,
-				5EBEB3441C298A69001E8CDE /* Assets.xcassets */,
+				5EBEB33B1C298A69001E8CDE /* AppDelegate.swift */,
+				5E7E84271C2D980C0069109C /* Constants.swift */,
 				5EBEB3491C298A69001E8CDE /* Info.plist */,
+				5EBEB3461C298A69001E8CDE /* LaunchScreen.storyboard */,
+				5EBEB3411C298A69001E8CDE /* Main.storyboard */,
+				5EBEB3441C298A69001E8CDE /* Assets.xcassets */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -239,6 +233,31 @@
 			);
 			name = Frameworks;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		5EDADF931C303A730045FC75 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5EBEB35B1C299849001E8CDE /* ForumViewController.swift */,
+				5EBEB3591C299819001E8CDE /* HistoryViewController.swift */,
+				5E7E840D1C2B4A3B0069109C /* PostCommentViewController.swift */,
+				5E7E84111C2C65B70069109C /* PostReplyViewController.swift */,
+				5EBEB35D1C29987A001E8CDE /* SettingsViewController.swift */,
+				5EDADF911C2F13470045FC75 /* SongViewController.swift */,
+				5E24C55A1C2EF4D30025B63A /* SoundViewController.swift */,
+				5EBEB3571C2997DE001E8CDE /* TimerViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		5EDADF941C303A7D0045FC75 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5E7E840B1C2B00640069109C /* MessageView.swift */,
+				5E7E84131C2C68A20069109C /* ReplyButton.swift */,
+				5EDADF951C303B040045FC75 /* MonthView.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,6 +354,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EDADF961C303B040045FC75 /* MonthView.swift in Sources */,
 				5EBEB3581C2997DE001E8CDE /* TimerViewController.swift in Sources */,
 				5E7E84281C2D980C0069109C /* Constants.swift in Sources */,
 				5E7E84121C2C65B70069109C /* PostReplyViewController.swift in Sources */,
