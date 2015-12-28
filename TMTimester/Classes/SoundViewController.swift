@@ -68,7 +68,7 @@ class SoundViewController: UIViewController,UITableViewDataSource,UITableViewDel
         do
         {
             let topBarView = UIView( frame: CGRectMake( 0, 0, self.view.frame.width, 64 ))
-            topBarView.backgroundColor = UIColor( red: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 1.0 )
+            topBarView.backgroundColor = kBarColor
             self.view.addSubview( topBarView )
             
             let label = UILabel( frame: CGRectMake( 0, 20, self.view.frame.width, 44 ))

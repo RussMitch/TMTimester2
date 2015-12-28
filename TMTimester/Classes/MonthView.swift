@@ -122,8 +122,7 @@ class MonthView: UIView {
             
             meditationRecords = results as! [NSManagedObject]
             
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
+        } catch _ as NSError {
         }
         
         if meditationRecords.count > 0 {

@@ -57,7 +57,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
     {
         super.viewDidLoad()
 
-        self.navigationController?.navigationBar.barTintColor = UIColor( red: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 1 )
+        self.navigationController?.navigationBar.barTintColor = kBarColor
         
         self.view.backgroundColor = UIColor.whiteColor()
         
@@ -380,8 +380,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
             
             meditationRecords = results as! [NSManagedObject]
             
-        } catch let error as NSError {
-            print("Could not fetch \(error), \(error.userInfo)")
+        } catch _ as NSError {
         }
 
         if meditationRecords.count > 0 {
@@ -406,8 +405,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
         
         do {
             try appDelegate.managedObjectContext.save()
-        } catch let error as NSError  {
-            print("Could not save \(error), \(error.userInfo)")
+        } catch _ as NSError  {
         }
     }
 }
