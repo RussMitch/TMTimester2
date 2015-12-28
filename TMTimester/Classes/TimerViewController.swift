@@ -8,11 +8,12 @@
 //------------------------------------------------------------------------------
 
 import UIKit
+import CoreData
 import MediaPlayer
 import AVFoundation
 
 class TimerViewController: UIViewController,AVAudioPlayerDelegate {
-
+    
     var timerLabel: UILabel!
     var startLabel: UILabel!
     var resetLabel: UILabel!
@@ -257,6 +258,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                     
                     self.preparationTimeOver = true
                     self.startDate = NSDate()
+                    
                     playSoundNamed( self.preparationAlarm, isCompletionSong: false )
                     
                 }
@@ -271,6 +273,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                     
                     self.meditationTimeOver = true
                     self.startDate = NSDate()
+                    
                     playSoundNamed( self.meditationAlarm, isCompletionSong: false )
                     
                 }
@@ -285,6 +288,9 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                     
                     self.restTimeOver = true
                     self.startDate = NSDate()
+
+                    updateMeditationRecord()
+
                     playSoundNamed( self.restAlarm, isCompletionSong: true )
                     
                 }
@@ -335,5 +341,75 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
         self.musicPlayerController.setQueueWithItemCollection( mediaItemCollection )
         
         self.musicPlayerController.play()        
+    }
+    
+    //------------------------------------------------------------------------------
+    func updateMeditationRecord()
+    //------------------------------------------------------------------------------
+    {
+        let dateComponents = NSCalendar.currentCalendar().components( [NSCalendarUnit.Day,NSCalendarUnit.Month,NSCalendarUnit.Year], fromDate: NSDate() )
+
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let fetchRequest = NSFetchRequest( entityName: kMeditationRecord )
+        
+        let predicate1 = NSPredicate( format: "day == %d", dateComponents.day )
+        let predicate2 = NSPredicate( format: "month == %d", dateComponents.month )
+        let predicate3 = NSPredicate( format: "year == %d", dateComponents.year )
+        
+        fetchRequest.predicate = NSCompoundPredicate( andPredicateWithSubpredicates: [predicate1,predicate2,predicate3] )
+        
+        var meditationRecords = [NSManagedObject]()
+        
+        do {
+            
+            let results = try appDelegate.managedObjectContext.executeFetchRequest( fetchRequest )
+            
+            meditationRecords = results as! [NSManagedObject]
+            
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+
+        if meditationRecords.count > 0 {
+
+            let count = meditationRecords[0].valueForKey( kCount ) as! Int
+            meditationRecords[0].setValue( count+1, forKey: kCount )
+            
+        } else {
+            
+            let entity =  NSEntityDescription.entityForName( kMeditationRecord, inManagedObjectContext:appDelegate.managedObjectContext )
+            
+            let meditationRecord = NSManagedObject( entity: entity!, insertIntoManagedObjectContext: appDelegate.managedObjectContext )
+            
+            meditationRecord.setValue( dateComponents.day, forKey: kDay )
+            meditationRecord.setValue( dateComponents.month, forKey: kMonth )
+            meditationRecord.setValue( dateComponents.year, forKey: kYear )
+            meditationRecord.setValue( 1, forKey: kCount )
+            
+            meditationRecords.append( meditationRecord )
+            
+        }
+        
+        print( meditationRecords[0] )
+        
+        do {
+            try appDelegate.managedObjectContext.save()
+        } catch let error as NSError  {
+            print("Could not save \(error), \(error.userInfo)")
+        }
+    }
+    
+    //------------------------------------------------------------------------------
+    func clearDataBase()
+    //------------------------------------------------------------------------------
+    {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let request = NSFetchRequest( entityName: kMeditationRecord )
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try appDelegate.persistentStoreCoordinator.executeRequest( deleteRequest, withContext: appDelegate.managedObjectContext )
+        } catch _ as NSError {
+        }
     }
 }

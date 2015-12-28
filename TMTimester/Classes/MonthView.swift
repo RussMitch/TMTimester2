@@ -26,6 +26,9 @@ class MonthView: UIView {
         
         var dateComponents = NSCalendar.currentCalendar().components( [NSCalendarUnit.Day,NSCalendarUnit.Month,NSCalendarUnit.Year], fromDate: date )
 
+        let month = dateComponents.month
+        let year = dateComponents.year
+        
         dateComponents.day = 1
         
         let firstDate = NSCalendar.currentCalendar().dateFromComponents( dateComponents )
@@ -68,10 +71,15 @@ class MonthView: UIView {
                 let imageView = UIImageView( frame: CGRectMake( width/2-14, width-30, 28, 28 ))
                 contentView.addSubview( imageView )
 
-                if (j&1) == 0 {
-                    imageView.image = UIImage( named: "star" )
-                } else {
-                    imageView.image = UIImage( named: "half-star" )
+                if let meditationRecord = fetchMeditationRecordForDay( day, month: month, year: year ) {
+                    
+                    let count = meditationRecord.valueForKey( kCount ) as! Int
+                    
+                    if count == 1 {                        
+                        imageView.image = UIImage( named: "half-star" )
+                    } else if count > 1 {
+                        imageView.image = UIImage( named: "star" )
+                    }
                 }
                 
                 day++
@@ -93,6 +101,42 @@ class MonthView: UIView {
             x = 0
             y += width
             startDay = 0
+        }
+    }
+    
+    //------------------------------------------------------------------------------
+    func fetchMeditationRecordForDay( day: Int, month: Int, year: Int  ) -> NSManagedObject?
+    //------------------------------------------------------------------------------
+    {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let fetchRequest = NSFetchRequest( entityName: kMeditationRecord )
+        
+        let predicate1 = NSPredicate( format: "day == %d", day )
+        let predicate2 = NSPredicate( format: "month == %d", month )
+        let predicate3 = NSPredicate( format: "year == %d", year )
+        
+        fetchRequest.predicate = NSCompoundPredicate( andPredicateWithSubpredicates: [predicate1,predicate2,predicate3] )
+        
+        var meditationRecords = [NSManagedObject]()
+        
+        do {
+            
+            let results = try appDelegate.managedObjectContext.executeFetchRequest( fetchRequest )
+            
+            meditationRecords = results as! [NSManagedObject]
+            
+        } catch let error as NSError {
+            print("Could not fetch \(error), \(error.userInfo)")
+        }
+        
+        if meditationRecords.count > 0 {
+            
+            return meditationRecords[0]
+            
+        } else {
+            
+            return nil
         }
     }
 }
