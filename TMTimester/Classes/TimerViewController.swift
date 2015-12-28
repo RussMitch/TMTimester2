@@ -315,21 +315,23 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
     func playSoundNamed( name: String, isCompletionSong: Bool )
     //------------------------------------------------------------------------------
     {
-        let nameWithoutExtension = name.substringToIndex( name.endIndex.advancedBy(-4))
-        
-        let url = NSURL( fileURLWithPath: NSBundle.mainBundle().pathForResource( nameWithoutExtension, ofType: "wav" )! )
-        
-        do
+        dispatch_async( dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0 ))
         {
-            self.audioPlayer = try AVAudioPlayer( contentsOfURL: url )
-            self.audioPlayer.prepareToPlay()
-            self.audioPlayer.play()
+            let nameWithoutExtension = name.substringToIndex( name.endIndex.advancedBy(-4))
             
-            if isCompletionSong && self.completionSong != kCompletionSongNameDef {
-                self.audioPlayer.delegate = self
+            let url = NSURL( fileURLWithPath: NSBundle.mainBundle().pathForResource( nameWithoutExtension, ofType: "wav" )! )
+            
+            do
+            {
+                self.audioPlayer = try AVAudioPlayer( contentsOfURL: url )
+                self.audioPlayer.prepareToPlay()
+                self.audioPlayer.play()
+                
+                if isCompletionSong && self.completionSong != kCompletionSongNameDef {
+                    self.audioPlayer.delegate = self
+                }
+            } catch {
             }
-            
-        } catch {
         }
     }
     
@@ -360,52 +362,55 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
     func updateMeditationRecord()
     //------------------------------------------------------------------------------
     {
-        let dateComponents = NSCalendar.currentCalendar().components( [NSCalendarUnit.Day,NSCalendarUnit.Month,NSCalendarUnit.Year], fromDate: NSDate() )
-
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        let fetchRequest = NSFetchRequest( entityName: kMeditationRecord )
-        
-        let predicate1 = NSPredicate( format: "day == %d", dateComponents.day )
-        let predicate2 = NSPredicate( format: "month == %d", dateComponents.month )
-        let predicate3 = NSPredicate( format: "year == %d", dateComponents.year )
-        
-        fetchRequest.predicate = NSCompoundPredicate( andPredicateWithSubpredicates: [predicate1,predicate2,predicate3] )
-        
-        var meditationRecords = [NSManagedObject]()
-        
-        do {
+        dispatch_async( dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0 ))
+        {
+            let dateComponents = NSCalendar.currentCalendar().components( [NSCalendarUnit.Day,NSCalendarUnit.Month,NSCalendarUnit.Year], fromDate: NSDate() )
             
-            let results = try appDelegate.managedObjectContext.executeFetchRequest( fetchRequest )
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             
-            meditationRecords = results as! [NSManagedObject]
+            let fetchRequest = NSFetchRequest( entityName: kMeditationRecord )
             
-        } catch _ as NSError {
-        }
-
-        if meditationRecords.count > 0 {
-
-            let count = meditationRecords[0].valueForKey( kCount ) as! Int
-            meditationRecords[0].setValue( count+1, forKey: kCount )
+            let predicate1 = NSPredicate( format: "day == %d", dateComponents.day )
+            let predicate2 = NSPredicate( format: "month == %d", dateComponents.month )
+            let predicate3 = NSPredicate( format: "year == %d", dateComponents.year )
             
-        } else {
+            fetchRequest.predicate = NSCompoundPredicate( andPredicateWithSubpredicates: [predicate1,predicate2,predicate3] )
             
-            let entity =  NSEntityDescription.entityForName( kMeditationRecord, inManagedObjectContext:appDelegate.managedObjectContext )
+            var meditationRecords = [NSManagedObject]()
             
-            let meditationRecord = NSManagedObject( entity: entity!, insertIntoManagedObjectContext: appDelegate.managedObjectContext )
+            do {
+                
+                let results = try appDelegate.managedObjectContext.executeFetchRequest( fetchRequest )
+                
+                meditationRecords = results as! [NSManagedObject]
+                
+            } catch _ as NSError {
+            }
             
-            meditationRecord.setValue( dateComponents.day, forKey: kDay )
-            meditationRecord.setValue( dateComponents.month, forKey: kMonth )
-            meditationRecord.setValue( dateComponents.year, forKey: kYear )
-            meditationRecord.setValue( 1, forKey: kCount )
+            if meditationRecords.count > 0 {
+                
+                let count = meditationRecords[0].valueForKey( kCount ) as! Int
+                meditationRecords[0].setValue( count+1, forKey: kCount )
+                
+            } else {
+                
+                let entity =  NSEntityDescription.entityForName( kMeditationRecord, inManagedObjectContext:appDelegate.managedObjectContext )
+                
+                let meditationRecord = NSManagedObject( entity: entity!, insertIntoManagedObjectContext: appDelegate.managedObjectContext )
+                
+                meditationRecord.setValue( dateComponents.day, forKey: kDay )
+                meditationRecord.setValue( dateComponents.month, forKey: kMonth )
+                meditationRecord.setValue( dateComponents.year, forKey: kYear )
+                meditationRecord.setValue( 1, forKey: kCount )
+                
+                meditationRecords.append( meditationRecord )
+                
+            }
             
-            meditationRecords.append( meditationRecord )
-            
-        }
-        
-        do {
-            try appDelegate.managedObjectContext.save()
-        } catch _ as NSError  {
+            do {
+                try appDelegate.managedObjectContext.save()
+            } catch _ as NSError  {
+            }
         }
     }
 }
