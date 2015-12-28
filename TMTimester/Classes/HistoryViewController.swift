@@ -8,7 +8,6 @@
 //------------------------------------------------------------------------------
 
 import UIKit
-import CoreData
 
 class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
     
@@ -30,7 +29,7 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
         
         let dateComponents = NSCalendar.currentCalendar().components( [NSCalendarUnit.Day,NSCalendarUnit.Month,NSCalendarUnit.Year], fromDate: NSDate() )
 
-        numMonths = (dateComponents.year - 2014) * 12 + dateComponents.month
+        numMonths = (dateComponents.year - 2015) * 12 + dateComponents.month
         
         let headerView = UIView( frame: CGRectMake( 0, 0, self.view.frame.width, 64 ))
         headerView.backgroundColor = UIColor.clearColor()
@@ -65,6 +64,8 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     {
         super.viewDidAppear( animated )
         
+        self.tableView.reloadData()
+
         if tableView.contentOffset.y < 0 {
             tableView.contentOffset = CGPointMake( 0, tableView.contentSize.height-tableView.frame.height+64 )
         }
@@ -104,34 +105,17 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
         } else {
             
             monthView = cell.contentView.viewWithTag( 1 ) as! MonthView
+            
         }
         
         let dateComponents = NSCalendar.currentCalendar().components( [NSCalendarUnit.Day,NSCalendarUnit.Month,NSCalendarUnit.Year], fromDate: NSDate() )
         dateComponents.day = 1
         dateComponents.month = (indexPath.row % 12) + 1
-        dateComponents.year = 2014 + indexPath.row / 12
-
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        let fetchRequest = NSFetchRequest( entityName: kMeditationRecord )
-        
-        let predicate1 = NSPredicate( format: "month == %d", dateComponents.month )
-        let predicate2 = NSPredicate( format: "year == %d", dateComponents.year )
-        
-        fetchRequest.predicate = NSCompoundPredicate( andPredicateWithSubpredicates: [predicate1,predicate2] )
-        fetchRequest.returnsObjectsAsFaults = false
-        
-        var records = [NSManagedObject]()
-        
-        do {
-            let results = try appDelegate.managedObjectContext.executeFetchRequest( fetchRequest )            
-            records = results as! [NSManagedObject]
-        } catch _ as NSError {
-        }
+        dateComponents.year = 2015 + indexPath.row / 12
         
         let date = NSCalendar.currentCalendar().dateFromComponents( dateComponents )
 
-        monthView.setDate( date!, records: records )
+        monthView.setDate( date! )
         
         self.navigationItem.title = String( dateComponents.year )
         

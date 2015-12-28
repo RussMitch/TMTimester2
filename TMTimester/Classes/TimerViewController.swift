@@ -39,6 +39,19 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
     var musicPlayerController: MPMusicPlayerController!
     
     //------------------------------------------------------------------------------
+    func clearDataBase()
+    //------------------------------------------------------------------------------
+    {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let request = NSFetchRequest( entityName: kMeditationRecord )
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try appDelegate.persistentStoreCoordinator.executeRequest( deleteRequest, withContext: appDelegate.managedObjectContext )
+        } catch _ as NSError {
+        }
+    }
+    
+    //------------------------------------------------------------------------------
     override func viewDidLoad()
     //------------------------------------------------------------------------------
     {
@@ -391,25 +404,10 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
             
         }
         
-        print( meditationRecords[0] )
-        
         do {
             try appDelegate.managedObjectContext.save()
         } catch let error as NSError  {
             print("Could not save \(error), \(error.userInfo)")
-        }
-    }
-    
-    //------------------------------------------------------------------------------
-    func clearDataBase()
-    //------------------------------------------------------------------------------
-    {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let request = NSFetchRequest( entityName: kMeditationRecord )
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
-        do {
-            try appDelegate.persistentStoreCoordinator.executeRequest( deleteRequest, withContext: appDelegate.managedObjectContext )
-        } catch _ as NSError {
         }
     }
 }

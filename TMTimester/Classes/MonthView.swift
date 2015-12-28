@@ -13,13 +13,9 @@ import CoreData
 class MonthView: UIView {
     
     //------------------------------------------------------------------------------
-    func setDate( date: NSDate, records: [NSManagedObject] )
+    func setDate( date: NSDate )
     //------------------------------------------------------------------------------
     {
-        if records.count > 0 {
-            print( records[0] )
-        }
-        
         while self.subviews.count > 0 {
             self.subviews[0].removeFromSuperview()
         }
@@ -75,7 +71,7 @@ class MonthView: UIView {
                     
                     let count = meditationRecord.valueForKey( kCount ) as! Int
                     
-                    if count == 1 {                        
+                    if count == 1 {
                         imageView.image = UIImage( named: "half-star" )
                     } else if count > 1 {
                         imageView.image = UIImage( named: "star" )
@@ -137,6 +133,7 @@ class MonthView: UIView {
         } else {
             
             return nil
+            
         }
     }
 }
