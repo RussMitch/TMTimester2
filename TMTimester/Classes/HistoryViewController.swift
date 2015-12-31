@@ -15,6 +15,7 @@ import CloudKit
 class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,SKPaymentTransactionObserver {
     
     var numMonths: Int!
+    var headerView: UIView!
     var priceLabel: UILabel!
     var cellHeight: CGFloat!
     var tableView: UITableView!
@@ -53,6 +54,28 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
             self.navigationItem.rightBarButtonItem = UIBarButtonItem( customView: button )
         }
         
+        self.headerView = UIView( frame: CGRectMake( 0, 20+44-10, self.view.frame.width, 10 ))
+        self.headerView.backgroundColor = UIColor.clearColor()
+        self.navigationController?.view.addSubview( self.headerView )
+
+        var x: CGFloat = 0
+        let width: CGFloat = self.view.frame.width / 7
+
+        let days = ["S","M","T","W","T","F","S"]
+        
+        for var i=0;i<7;i++ {
+            
+            let label = UILabel( frame: CGRectMake( x, 0, width, 10 ))
+            label.textAlignment = NSTextAlignment.Center
+            label.textColor = UIColor.darkGrayColor()
+            label.text = days[i]
+            label.font = UIFont.systemFontOfSize( 10 )
+            self.headerView.addSubview( label )
+            
+            x += width
+            
+        }
+        
         cellHeight = self.view.frame.width / 7 * 6 + 30
         
         let dateComponents = NSCalendar.currentCalendar().components( [NSCalendarUnit.Day,NSCalendarUnit.Month,NSCalendarUnit.Year], fromDate: NSDate() )
@@ -70,6 +93,7 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
 
         if !loggingUnlocked {
             
+            self.headerView.hidden = true
             self.navigationItem.leftBarButtonItem?.customView?.hidden = true
             self.navigationItem.rightBarButtonItem?.customView?.hidden = true
 
@@ -217,6 +241,7 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
                     self.inAppPurchaseView.removeFromSuperview()
                     self.activityIndicatorView.removeFromSuperview()
                     
+                    self.headerView.hidden = false
                     self.navigationItem.leftBarButtonItem?.customView?.hidden = false
                     self.navigationItem.rightBarButtonItem?.customView?.hidden = false
                 
