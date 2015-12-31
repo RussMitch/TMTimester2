@@ -277,7 +277,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                     self.preparationTimeOver = true
                     self.startDate = NSDate()
                     
-                    playSoundNamed( self.preparationAlarm, isCompletionSong: false )
+                    playSoundNamed( self.preparationAlarm, isRestAlarm: false )
                     
                 }
                 
@@ -292,7 +292,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                     self.meditationTimeOver = true
                     self.startDate = NSDate()
                     
-                    playSoundNamed( self.meditationAlarm, isCompletionSong: false )
+                    playSoundNamed( self.meditationAlarm, isRestAlarm: false )
                     
                 }
                 
@@ -313,7 +313,9 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                         updateMeditationRecord()
                     }
 
-                    playSoundNamed( self.restAlarm, isCompletionSong: true )
+                    self.resetLabelTapped()
+                    
+                    playSoundNamed( self.restAlarm, isRestAlarm: true )
                     
                 }
             }
@@ -321,7 +323,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
     }
     
     //------------------------------------------------------------------------------
-    func playSoundNamed( name: String, isCompletionSong: Bool )
+    func playSoundNamed( name: String, isRestAlarm: Bool )
     //------------------------------------------------------------------------------
     {
         dispatch_async( dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0 ))
@@ -336,7 +338,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                 self.audioPlayer.prepareToPlay()
                 self.audioPlayer.play()
                 
-                if isCompletionSong && self.completionSong != kCompletionSongNameDef {
+                if isRestAlarm && self.completionSong != kCompletionSongNameDef {
                     self.audioPlayer.delegate = self
                 }
             } catch {
@@ -348,8 +350,6 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
     func audioPlayerDidFinishPlaying( player: AVAudioPlayer, successfully flag: Bool )
     //------------------------------------------------------------------------------
     {
-        resetLabelTapped()
-        
         let persistentId: NSNumber = NSUserDefaults.standardUserDefaults().objectForKey( kCompletionSongIdKey ) as! NSNumber!
         
         let mediaPropertyPredicate: MPMediaPropertyPredicate = MPMediaPropertyPredicate( value: persistentId, forProperty: MPMediaItemPropertyPersistentID )
