@@ -8,7 +8,9 @@
 //------------------------------------------------------------------------------
 
 import UIKit
+import CoreData
 import StoreKit
+import CloudKit
 
 class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,SKPaymentTransactionObserver {
     
@@ -30,6 +32,26 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
         self.navigationController?.navigationBar.barTintColor = kBarColor
         
         self.view.backgroundColor = UIColor.whiteColor()
+
+        do
+        {
+            let button =  UIButton(type: .Custom)
+            button.frame = CGRectMake( 0, 0, 64, 44 )
+            button.setTitleColor( UIColor.redColor(), forState: .Normal )
+            button.setTitle("Save", forState: UIControlState.Normal)
+            button.addTarget(self, action: Selector("saveButtonTapped"), forControlEvents: UIControlEvents.TouchUpInside)
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem( customView: button )
+        }
+
+        do
+        {
+            let button =  UIButton(type: .Custom)
+            button.frame = CGRectMake( 0, 0, 64, 44 )
+            button.setTitleColor( UIColor.redColor(), forState: .Normal )
+            button.setTitle("Restore", forState: UIControlState.Normal)
+            button.addTarget(self, action: Selector("restoreButtonTapped"), forControlEvents: UIControlEvents.TouchUpInside)
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem( customView: button )
+        }
         
         cellHeight = self.view.frame.width / 7 * 6 + 30
         
@@ -47,6 +69,9 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
         let loggingUnlocked = NSUserDefaults.standardUserDefaults().objectForKey( kLoggingUnlockedKey ) as! Bool
 
         if !loggingUnlocked {
+            
+            self.navigationItem.leftBarButtonItem?.customView?.hidden = true
+            self.navigationItem.rightBarButtonItem?.customView?.hidden = true
             
             self.inAppPurchaseView = UIView( frame: self.view.bounds )
             self.inAppPurchaseView.backgroundColor = UIColor.whiteColor()
@@ -187,10 +212,19 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
                     
                     self.inAppPurchaseView.removeFromSuperview()
                     self.activityIndicatorView.removeFromSuperview()
-                
+                    
+                    self.navigationItem.leftBarButtonItem?.customView?.hidden = false
+                    self.navigationItem.rightBarButtonItem?.customView?.hidden = false
                 
                 case SKPaymentTransactionState.Failed:
+
+                    if let error = transaction.error {
+                        let alert = UIAlertController(title: "Oops", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert )
+                        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    }
                     
+                    print( transaction.error?.localizedDescription )
                     SKPaymentQueue.defaultQueue().finishTransaction(transaction)
                     self.activityIndicatorView.removeFromSuperview()
                 
@@ -248,5 +282,137 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
         self.navigationItem.title = String( dateComponents.year )
         
         return cell
+    }
+    
+    //------------------------------------------------------------------------------
+    func fetchMeditationRecords() -> [NSManagedObject]?
+    //------------------------------------------------------------------------------
+    {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let fetchRequest = NSFetchRequest( entityName: kMeditationRecord )
+        
+        do {
+            
+            let results = try appDelegate.managedObjectContext.executeFetchRequest( fetchRequest )
+            
+            return results as? [NSManagedObject]
+            
+        } catch _ as NSError {
+            return nil
+        }
+    }
+    
+    //------------------------------------------------------------------------------
+    func saveButtonTapped()
+    //------------------------------------------------------------------------------
+    {
+        dispatch_async( dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0 )) {
+        
+            let cdRecords = self.fetchMeditationRecords()
+            
+            if cdRecords != nil {
+                
+                let dictList = NSMutableArray()
+                
+                for cdRecord in cdRecords! {
+                    
+                    let count = cdRecord.valueForKey( kCount ) as! Int
+                    let day = cdRecord.valueForKey( kDay ) as! Int
+                    let month = cdRecord.valueForKey( kMonth ) as! Int
+                    let year = cdRecord.valueForKey( kYear ) as! Int
+                    
+                    let dict = NSMutableDictionary()
+                    
+                    dict[kCount] = NSNumber( integer: count )
+                    dict[kDay] = NSNumber( integer: day )
+                    dict[kMonth] = NSNumber( integer: month )
+                    dict[kYear] = NSNumber( integer: year )
+                    
+                    dictList.addObject( dict )
+                    
+                }
+                
+                NSUbiquitousKeyValueStore.defaultStore().setArray( dictList as [AnyObject], forKey:kMeditationRecord )
+                NSUbiquitousKeyValueStore.defaultStore().synchronize()
+                
+                dispatch_async( dispatch_get_main_queue()) {
+
+                    let alert = UIAlertController(title: "Success!", message: "Your meditation log has been successfully saved to your iCloud account", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    
+                }
+            }
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    func restoreButtonTapped()
+    //------------------------------------------------------------------------------
+    {
+        dispatch_async( dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0 )) {
+            
+            let data = NSUbiquitousKeyValueStore.defaultStore().arrayForKey( kMeditationRecord )
+            
+            if let records = data as NSArray? {
+                
+                if records.count > 0 {
+                    
+                    self.clearDataBase()
+                    
+                    for record in records {
+
+                        let day = record.valueForKey( kDay ) as! Int
+                        let month = record.valueForKey( kMonth ) as! Int
+                        let year = record.valueForKey( kYear ) as! Int
+                        let count = record.valueForKey( kCount ) as! Int
+                        
+                        self.addMeditationRecordWithDay( day, month: month, year: year, count: count )
+                        
+                    }
+
+                    do {
+                        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                        try appDelegate.managedObjectContext.save()
+                        
+                        dispatch_async( dispatch_get_main_queue()) {
+                            self.tableView.reloadData()
+                        }
+                    } catch _ as NSError  {
+                    }
+                }
+            }
+        }
+    }
+    
+    //------------------------------------------------------------------------------
+    func clearDataBase()
+    //------------------------------------------------------------------------------
+    {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let request = NSFetchRequest( entityName: kMeditationRecord )
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
+        do {
+            try appDelegate.persistentStoreCoordinator.executeRequest( deleteRequest, withContext: appDelegate.managedObjectContext )
+        } catch _ as NSError {
+        }
+    }
+    
+    //------------------------------------------------------------------------------
+    func addMeditationRecordWithDay( day: Int, month: Int, year: Int, count: Int )
+    //------------------------------------------------------------------------------
+    {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let entity =  NSEntityDescription.entityForName( kMeditationRecord, inManagedObjectContext:appDelegate.managedObjectContext )
+        
+        let meditationRecord = NSManagedObject( entity: entity!, insertIntoManagedObjectContext: appDelegate.managedObjectContext )
+        
+        meditationRecord.setValue( day, forKey: kDay )
+        meditationRecord.setValue( month, forKey: kMonth )
+        meditationRecord.setValue( year, forKey: kYear )
+        meditationRecord.setValue( count, forKey: kCount )
+        
     }
 }

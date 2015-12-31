@@ -43,13 +43,16 @@ let kCompletionSongIdKey = "SongIdKey"
 
 let kBarColor = UIColor( red: 235/255.0, green: 235/255.0, blue: 235/255.0, alpha: 1 )
 
-let kMeditationRecord = "MeditationRecord"
-
+let kID = "id"
 let kDay = "day"
 let kMonth = "month"
 let kYear = "year"
 let kCount = "count"
 
 let kLoggingUnlockedKey = "LoggingUnlocked"
+
+let kMeditationRecord = "MeditationRecord"
+let kDateRecord = "DateRecord"
+
 
 

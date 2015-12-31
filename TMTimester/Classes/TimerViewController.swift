@@ -37,20 +37,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
     
     var audioPlayer: AVAudioPlayer!
     var musicPlayerController: MPMusicPlayerController!
-    
-    //------------------------------------------------------------------------------
-    func clearDataBase()
-    //------------------------------------------------------------------------------
-    {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let request = NSFetchRequest( entityName: kMeditationRecord )
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: request)
-        do {
-            try appDelegate.persistentStoreCoordinator.executeRequest( deleteRequest, withContext: appDelegate.managedObjectContext )
-        } catch _ as NSError {
-        }
-    }
-    
+        
     //------------------------------------------------------------------------------
     override func viewDidLoad()
     //------------------------------------------------------------------------------
