@@ -72,7 +72,7 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
             
             self.navigationItem.leftBarButtonItem?.customView?.hidden = true
             self.navigationItem.rightBarButtonItem?.customView?.hidden = true
-            
+
             self.inAppPurchaseView = UIView( frame: self.view.bounds )
             self.inAppPurchaseView.backgroundColor = UIColor.whiteColor()
             self.view.addSubview( self.inAppPurchaseView )
@@ -131,6 +131,10 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
                 self.inAppPurchaseView.addSubview( button )
             }
         }
+        
+//        self.navigationItem.leftBarButtonItem?.customView?.hidden = false
+//        self.navigationItem.rightBarButtonItem?.customView?.hidden = false
+//        self.inAppPurchaseView.removeFromSuperview()
         
         self.activityIndicatorView = UIActivityIndicatorView( frame: self.view.bounds )
         self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
@@ -302,17 +306,37 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
             return nil
         }
     }
-    
+
     //------------------------------------------------------------------------------
     func saveButtonTapped()
+    //------------------------------------------------------------------------------
+    {
+        let alert = UIAlertController(title: "Save to iCloud", message: "Would you like to save your meditation log to your iCloud account?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { action in
+            self.saveMeditationLog()
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    //------------------------------------------------------------------------------
+    func saveMeditationLog()
     //------------------------------------------------------------------------------
     {
         dispatch_async( dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0 )) {
         
             let cdRecords = self.fetchMeditationRecords()
             
-            if cdRecords != nil {
+            if cdRecords?.count == 0 {
                 
+                dispatch_async( dispatch_get_main_queue()) {
+                    let alert = UIAlertController(title: "Oops!", message: "You do not have anything to save", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
+                }
+                
+            } else {
+            
                 let dictList = NSMutableArray()
                 
                 for cdRecord in cdRecords! {
@@ -337,11 +361,9 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
                 NSUbiquitousKeyValueStore.defaultStore().synchronize()
                 
                 dispatch_async( dispatch_get_main_queue()) {
-
                     let alert = UIAlertController(title: "Success!", message: "Your meditation log has been successfully saved to your iCloud account", preferredStyle: UIAlertControllerStyle.Alert)
                     alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
                     self.presentViewController(alert, animated: true, completion: nil)
-                    
                 }
             }
         }
@@ -351,18 +373,45 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     func restoreButtonTapped()
     //------------------------------------------------------------------------------
     {
+        let alert = UIAlertController(title: "Restore from iCloud", message: "Would you like to restore your meditation log from your iCloud account?", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { action in
+            self.restoreMeditationLog()
+        }))
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    //------------------------------------------------------------------------------
+    func restoreMeditationLog()
+    //------------------------------------------------------------------------------
+    {
         dispatch_async( dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0 )) {
             
             let data = NSUbiquitousKeyValueStore.defaultStore().arrayForKey( kMeditationRecord )
             
             if let records = data as NSArray? {
+            
+                var count = 0
                 
-                if records.count > 0 {
+                if let cdRecords = self.fetchMeditationRecords() {
+                    count = cdRecords.count
+                }
+                
+                if count > records.count {
+                    
+                    dispatch_async( dispatch_get_main_queue()) {
+                        self.tableView.reloadData()
+                        let alert = UIAlertController(title: "Oops!", message: "Your local meditation log is new than the one stored in your iCloud account.  You should probably 'Save' your log before restoring.", preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    }
+                    
+                } else if records.count > count {
                     
                     self.clearDataBase()
                     
                     for record in records {
-
+                        
                         let day = record.valueForKey( kDay ) as! Int
                         let month = record.valueForKey( kMonth ) as! Int
                         let year = record.valueForKey( kYear ) as! Int
@@ -371,16 +420,32 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
                         self.addMeditationRecordWithDay( day, month: month, year: year, count: count )
                         
                     }
-
+                    
                     do {
                         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
                         try appDelegate.managedObjectContext.save()
                         
                         dispatch_async( dispatch_get_main_queue()) {
                             self.tableView.reloadData()
+                            let alert = UIAlertController(title: "Success!", message: "Your meditation log has been successfully restored from your iCloud account.", preferredStyle: UIAlertControllerStyle.Alert)
+                            alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                            self.presentViewController(alert, animated: true, completion: nil)
                         }
                     } catch _ as NSError  {
                     }
+                    
+                } else {
+                    dispatch_async( dispatch_get_main_queue()) {
+                        let alert = UIAlertController(title: "Oops!", message: "Your meditation log is already up to date.", preferredStyle: UIAlertControllerStyle.Alert)
+                        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                        self.presentViewController(alert, animated: true, completion: nil)
+                    }
+                }
+            } else {
+                dispatch_async( dispatch_get_main_queue()) {
+                    let alert = UIAlertController(title: "Oops!", message: "You do not have a meditation log saved in your iCloud account.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                    self.presentViewController(alert, animated: true, completion: nil)
                 }
             }
         }
