@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppStoreIcon.png" translatesAutoresizingMaskIntoConstraints="NO" id="zVu-p9-I3u">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppStoreIcon" translatesAutoresizingMaskIntoConstraints="NO" id="zVu-p9-I3u">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                         </subviews>
@@ -36,6 +36,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AppStoreIcon.png" width="1024" height="1024"/>
+        <image name="AppStoreIcon" width="1024" height="1024"/>
     </resources>
 </document>

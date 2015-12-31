@@ -15,6 +15,7 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     var numMonths: Int!
     var cellHeight: CGFloat!
     var tableView: UITableView!
+    var inAppPurchaseView: UIView!
     var activityIndicatorView: UIActivityIndicatorView!
     
     //------------------------------------------------------------------------------
@@ -30,30 +31,6 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
         self.navigationController?.navigationBar.barTintColor = kBarColor
         
         self.view.backgroundColor = UIColor.whiteColor()
-
-        if !loggingUnlocked {
-            let button = UIButton( frame: CGRectMake( 0, 0, 80, 44 ))
-            button.setTitle( "Purchase", forState: .Normal )
-            button.setTitleColor( UIColor.redColor(), forState: .Normal )
-            button.addTarget( self, action: Selector( "purchaseButtonTapped" ), forControlEvents: .TouchUpInside )
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem( customView: button )
-
-            do
-            {
-                let label = UILabel( frame: CGRectMake( 0, 0, 80, 44 ))
-                label.numberOfLines = 2
-                label.text = "Restore\nPurchase"
-                label.font = UIFont.systemFontOfSize( 18 )
-                label.textColor = UIColor.redColor()
-                label.textAlignment = NSTextAlignment.Center
-                
-                let button = UIButton( frame: CGRectMake( 0, 0, 80, 44 ))
-                button.addSubview( label )
-                button.addTarget( self, action: Selector( "restorePurchaseButtonTapped" ), forControlEvents: .TouchUpInside )
-                
-                self.navigationItem.rightBarButtonItem = UIBarButtonItem( customView: button )
-            }
-        }
         
         cellHeight = self.view.frame.width / 7 * 6 + 30
         
@@ -68,6 +45,69 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
         self.tableView.allowsSelection = false
         self.view.addSubview( self.tableView )
 
+        if !loggingUnlocked {
+            
+            self.inAppPurchaseView = UIView( frame: self.view.bounds )
+            self.inAppPurchaseView.backgroundColor = UIColor.whiteColor()
+            self.view.addSubview( self.inAppPurchaseView )
+            
+            var y: CGFloat = 64
+            
+            do
+            {
+                let label = UILabel( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
+                label.text = "Meditation Log"
+                label.textColor = UIColor.blackColor()
+                label.font = UIFont.boldSystemFontOfSize(18)
+                label.textAlignment = NSTextAlignment.Center
+                self.inAppPurchaseView.addSubview( label )
+            }
+
+            y += 44
+            
+            do
+            {
+                let label = UILabel( frame: CGRectMake( 20, y, self.view.frame.width-40, 90 ))
+                label.text = "The meditation log will allow you to automatically track your daily meditation activity."
+                label.numberOfLines = 3
+                self.inAppPurchaseView.addSubview( label )
+            }
+            
+            y += 90
+            
+            do
+            {
+                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+                let label = UILabel( frame: CGRectMake( 20, y, self.view.frame.width-40, 30 ))
+                label.text = "Price: " + appDelegate.price
+                label.textColor = UIColor.blackColor()
+                label.textAlignment = NSTextAlignment.Center
+                self.inAppPurchaseView.addSubview( label )
+            }
+            
+            y += 30
+            
+            do
+            {
+                let button = UIButton( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
+                button.setTitle( "Buy Now", forState: .Normal )
+                button.setTitleColor( UIColor.redColor(), forState: .Normal )
+                button.addTarget( self, action: Selector( "purchaseButtonTapped" ), forControlEvents: .TouchUpInside )
+                self.inAppPurchaseView.addSubview( button )
+            }
+            
+            y += 44
+            
+            do
+            {
+                let button = UIButton( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
+                button.setTitle( "Restore Purchase", forState: .Normal )
+                button.setTitleColor( UIColor.redColor(), forState: .Normal )
+                button.addTarget( self, action: Selector( "restorePurchaseButtonTapped" ), forControlEvents: .TouchUpInside )
+                self.inAppPurchaseView.addSubview( button )
+            }
+        }
+        
         self.activityIndicatorView = UIActivityIndicatorView( frame: self.view.bounds )
         self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
         self.activityIndicatorView.backgroundColor = UIColor( red:0, green: 0, blue:0, alpha:0.2 )
@@ -91,25 +131,20 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     func purchaseButtonTapped()
     //------------------------------------------------------------------------------
     {
-        self.navigationItem.leftBarButtonItem?.enabled = false
-        self.navigationItem.rightBarButtonItem?.enabled = false
-        
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
         let actionSheetController = UIAlertController(title: "Meditation Logging", message: "Would you like to purchase the Meditation Logging capability?", preferredStyle: UIAlertControllerStyle.ActionSheet)
         
         let buyAction = UIAlertAction(title: "Buy Now", style: UIAlertActionStyle.Default) { (action) -> Void in
          
+            self.view.addSubview( self.activityIndicatorView )
+
             let payment = SKPayment( product: appDelegate.productsArray[0] as SKProduct )
             SKPaymentQueue.defaultQueue().addPayment(payment)
             
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
-
-            self.navigationItem.leftBarButtonItem?.enabled = true
-            self.navigationItem.rightBarButtonItem?.enabled = true
-            
         }
         
         actionSheetController.addAction(buyAction)
@@ -123,8 +158,6 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     //------------------------------------------------------------------------------
     {
         self.view.addSubview( self.activityIndicatorView )
-        self.navigationItem.leftBarButtonItem?.enabled = false
-        self.navigationItem.rightBarButtonItem?.enabled = false
         SKPaymentQueue.defaultQueue().restoreCompletedTransactions()
     }
     
@@ -137,26 +170,21 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
             switch transaction.transactionState {
             
                 case SKPaymentTransactionState.Purchased, SKPaymentTransactionState.Restored:
-                    print( "Transaction Purchased" )
-
+                    
                     SKPaymentQueue.defaultQueue().finishTransaction(transaction)
                 
                     NSUserDefaults.standardUserDefaults().setBool( true, forKey: kLoggingUnlockedKey )
                     NSUserDefaults.standardUserDefaults().synchronize()
-                
-                    self.navigationItem.leftBarButtonItem = nil
-                    self.navigationItem.rightBarButtonItem = nil
-                
+                    
+                    self.inAppPurchaseView.removeFromSuperview()
                     self.activityIndicatorView.removeFromSuperview()
                 
+                
                 case SKPaymentTransactionState.Failed:
-                    print("Transaction Failed");
-                
+                    
                     SKPaymentQueue.defaultQueue().finishTransaction(transaction)
+                    self.activityIndicatorView.removeFromSuperview()
                 
-                    self.navigationItem.leftBarButtonItem?.enabled = true
-                    self.navigationItem.rightBarButtonItem?.enabled = true
-
                 default: break
             }
         }

@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SKProductsRequestDelegate
             productRequest.start()
             
         }
-        
+                
         return true
     }
 
@@ -127,8 +127,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SKProductsRequestDelegate
                 numberFormatter.locale = product.priceLocale
                 
                 self.price = numberFormatter.stringFromNumber( product.price )!
-                
-                print( product.localizedTitle + " : " + self.price )
             }
         }
     }
