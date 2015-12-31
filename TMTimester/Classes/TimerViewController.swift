@@ -63,6 +63,11 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
         
         self.navigationItem.title = "Timer"
 
+        if NSUserDefaults.standardUserDefaults().objectForKey( kLoggingUnlockedKey ) == nil {
+            NSUserDefaults.standardUserDefaults().setBool( false, forKey: kLoggingUnlockedKey )
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+        
         if NSUserDefaults.standardUserDefaults().objectForKey( kCount1Key ) == nil {
             NSUserDefaults.standardUserDefaults().setInteger( kCount1Def, forKey: kCount1Key )
             NSUserDefaults.standardUserDefaults().synchronize()
@@ -302,7 +307,11 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                     self.restTimeOver = true
                     self.startDate = NSDate()
 
-                    updateMeditationRecord()
+                    let loggingUnlocked = NSUserDefaults.standardUserDefaults().objectForKey( kLoggingUnlockedKey ) as! Bool
+                
+                    if (loggingUnlocked) {                        
+                        updateMeditationRecord()
+                    }
 
                     playSoundNamed( self.restAlarm, isCompletionSong: true )
                     

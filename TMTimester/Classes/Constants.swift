@@ -50,3 +50,6 @@ let kMonth = "month"
 let kYear = "year"
 let kCount = "count"
 
+let kLoggingUnlockedKey = "LoggingUnlocked"
+
+

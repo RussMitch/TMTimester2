@@ -14,9 +14,12 @@ import CoreData
 
 @UIApplicationMain
 
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, SKProductsRequestDelegate {
 
     var window: UIWindow?
+    var price: String = ""
+    var productIDs: Array<String!> = []
+    var productsArray: Array<SKProduct!> = []
 
     //------------------------------------------------------------------------------
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
@@ -27,24 +30,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.setApplicationId("1Cpum25gZqxdQ8hYAC38vL61QrQPI8H0srazNVzo", clientKey: "Y0TvIY0s5F0wzD1WvbdURrmPo7psOjLV367Ekdmu")
         
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
+
+        productIDs.append( "tmtimester.log" )
+        
+        if SKPaymentQueue.canMakePayments() {
+            
+            let productIdentifiers = NSSet( array: productIDs )
+            let productRequest = SKProductsRequest( productIdentifiers: productIdentifiers as! Set<String> )
+            
+            productRequest.delegate = self
+            productRequest.start()
+            
+        }
         
         return true
     }
 
-    // MARK: - Core Data stack
-    
+    //------------------------------------------------------------------------------
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.russell-research.TMTimester" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
         return urls[urls.count-1]
     }()
     
+    //------------------------------------------------------------------------------
     lazy var managedObjectModel: NSManagedObjectModel = {
         // The managed object model for the application. This property is not optional. It is a fatal error for the application not to be able to find and load its model.
         let modelURL = NSBundle.mainBundle().URLForResource("TMTimester", withExtension: "momd")!
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
     
+    //------------------------------------------------------------------------------
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it. This property is optional since there are legitimate error conditions that could cause the creation of the store to fail.
         // Create the coordinator and store
@@ -70,6 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return coordinator
     }()
     
+    //------------------------------------------------------------------------------
     lazy var managedObjectContext: NSManagedObjectContext = {
         // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
         let coordinator = self.persistentStoreCoordinator
@@ -78,9 +95,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return managedObjectContext
     }()
     
-    // MARK: - Core Data Saving support
-    
-    func saveContext () {
+    //------------------------------------------------------------------------------
+    func saveContext ()
+    //------------------------------------------------------------------------------
+    {
         if managedObjectContext.hasChanges {
             do {
                 try managedObjectContext.save()
@@ -90,6 +108,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let nserror = error as NSError
                 NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
                 abort()
+            }
+        }
+    }
+    
+    //------------------------------------------------------------------------------
+    func productsRequest(request: SKProductsRequest, didReceiveResponse response: SKProductsResponse)
+    //------------------------------------------------------------------------------
+    {
+        if response.products.count > 0 {
+            
+            for product in response.products {
+                
+                productsArray.append( product )
+                
+                let numberFormatter = NSNumberFormatter()
+                numberFormatter.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+                numberFormatter.locale = product.priceLocale
+                
+                self.price = numberFormatter.stringFromNumber( product.price )!
+                
+                print( product.localizedTitle + " : " + self.price )
             }
         }
     }
