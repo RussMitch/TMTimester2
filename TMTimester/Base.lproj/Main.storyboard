@@ -123,11 +123,11 @@
             </objects>
             <point key="canvasLocation" x="750" y="-320"/>
         </scene>
-        <!--History-->
+        <!--Log-->
         <scene sceneID="VEN-KY-chD">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="y3F-Mh-y5t" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="History" image="calendar.png" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="Log" image="calendar.png" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Chf-65-kA9">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
