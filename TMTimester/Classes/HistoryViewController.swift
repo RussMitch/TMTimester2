@@ -13,6 +13,7 @@ import StoreKit
 class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewDelegate,SKPaymentTransactionObserver {
     
     var numMonths: Int!
+    var priceLabel: UILabel!
     var cellHeight: CGFloat!
     var tableView: UITableView!
     var inAppPurchaseView: UIView!
@@ -23,8 +24,6 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     //------------------------------------------------------------------------------
     {
         super.viewDidLoad()
-        
-        let loggingUnlocked = NSUserDefaults.standardUserDefaults().objectForKey( kLoggingUnlockedKey ) as! Bool
         
         SKPaymentQueue.defaultQueue().addTransactionObserver( self )
         
@@ -44,6 +43,8 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
         self.tableView.dataSource = self
         self.tableView.allowsSelection = false
         self.view.addSubview( self.tableView )
+
+        let loggingUnlocked = NSUserDefaults.standardUserDefaults().objectForKey( kLoggingUnlockedKey ) as! Bool
 
         if !loggingUnlocked {
             
@@ -77,12 +78,10 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
             
             do
             {
-                let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-                let label = UILabel( frame: CGRectMake( 20, y, self.view.frame.width-40, 30 ))
-                label.text = "Price: " + appDelegate.price
-                label.textColor = UIColor.blackColor()
-                label.textAlignment = NSTextAlignment.Center
-                self.inAppPurchaseView.addSubview( label )
+                self.priceLabel = UILabel( frame: CGRectMake( 20, y, self.view.frame.width-40, 30 ))
+                self.priceLabel.textColor = UIColor.blackColor()
+                self.priceLabel.textAlignment = NSTextAlignment.Center
+                self.inAppPurchaseView.addSubview( self.priceLabel )
             }
             
             y += 30
@@ -119,6 +118,16 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     //------------------------------------------------------------------------------
     {
         super.viewDidAppear( animated )
+        
+        let loggingUnlocked = NSUserDefaults.standardUserDefaults().objectForKey( kLoggingUnlockedKey ) as! Bool
+        
+        if !loggingUnlocked {
+
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            
+            self.priceLabel.text = "Price: " + appDelegate.price
+            
+        }
         
         self.tableView.reloadData()
 
@@ -240,10 +249,4 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
         
         return cell
     }
-    
-    //------------------------------------------------------------------------------
-    func requestProductInfo()
-    //------------------------------------------------------------------------------
-    {
-    }    
 }
