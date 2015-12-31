@@ -112,7 +112,7 @@ class PostCommentViewController: UIViewController,UITextFieldDelegate,UITextView
             view.addSubview( self.nameTextField )
         }
         
-        y += 44
+        y += 44+20
         
         do
         {

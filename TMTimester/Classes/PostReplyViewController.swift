@@ -187,7 +187,7 @@ class PostReplyViewController: UIViewController,UITextViewDelegate,UITextFieldDe
             view.addSubview( self.nameTextField )
         }
         
-        y += 44
+        y += 44+20
         
         do
         {
