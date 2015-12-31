@@ -174,7 +174,6 @@
 		5EBEB32F1C298A69001E8CDE = {
 			isa = PBXGroup;
 			children = (
-				5ED7923A1C357F5800C5B728 /* CloudKit.framework */,
 				5EBEB33A1C298A69001E8CDE /* TMTimester */,
 				5EBEB3391C298A69001E8CDE /* Products */,
 			);
@@ -239,6 +238,7 @@
 		5EBEB3631C29A877001E8CDE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5ED7923A1C357F5800C5B728 /* CloudKit.framework */,
 				5EBEB3641C29A8E8001E8CDE /* AudioToolbox.framework */,
 				5EBEB3651C29A8E8001E8CDE /* CFNetwork.framework */,
 				5EBEB3661C29A8E8001E8CDE /* CoreGraphics.framework */,
@@ -516,6 +516,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = TMTimester/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.russell-research.TMTimester";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -535,6 +536,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = TMTimester/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.russell-research.TMTimester";
 				PRODUCT_NAME = "$(TARGET_NAME)";
