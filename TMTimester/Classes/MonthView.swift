@@ -13,7 +13,7 @@ import CoreData
 class MonthView: UIView {
     
     //------------------------------------------------------------------------------
-    func setDate( date: NSDate )
+    func setDate( date: NSDate, previewMode: Bool )
     //------------------------------------------------------------------------------
     {
         while self.subviews.count > 0 {
@@ -67,14 +67,25 @@ class MonthView: UIView {
                 let imageView = UIImageView( frame: CGRectMake( width/2-14, width-30, 28, 28 ))
                 contentView.addSubview( imageView )
 
-                if let meditationRecord = fetchMeditationRecordForDay( day, month: month, year: year ) {
+                if previewMode {
                     
-                    let count = meditationRecord.valueForKey( kCount ) as! Int
-                    
-                    if count == 1 {
-                        imageView.image = UIImage( named: "half-star" )
-                    } else if count > 1 {
+                    if j & 1 == 0 {
                         imageView.image = UIImage( named: "star" )
+                    } else {
+                        imageView.image = UIImage( named: "half-star" )
+                    }
+                    
+                } else {
+                    
+                    if let meditationRecord = fetchMeditationRecordForDay( day, month: month, year: year ) {
+                        
+                        let count = meditationRecord.valueForKey( kCount ) as! Int
+                        
+                        if count == 1 {
+                            imageView.image = UIImage( named: "half-star" )
+                        } else if count > 1 {
+                            imageView.image = UIImage( named: "star" )
+                        }
                     }
                 }
                 

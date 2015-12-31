@@ -19,7 +19,9 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     var priceLabel: UILabel!
     var cellHeight: CGFloat!
     var tableView: UITableView!
+    var previewMode: Bool = false
     var inAppPurchaseView: UIView!
+    var previewOverlayView: UIView!
     var activityIndicatorView: UIActivityIndicatorView!
     
     //------------------------------------------------------------------------------
@@ -117,18 +119,18 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
             
             do
             {
-                let label = UILabel( frame: CGRectMake( 20, y, self.view.frame.width-40, 90 ))
-                label.text = "The meditation log will allow you to automatically track your daily meditation activity."
-                label.numberOfLines = 3
+                let label = UILabel( frame: CGRectMake( 20, y, self.view.frame.width-40, 200 ))
+                label.text = "The meditation log will allow you to automatically track your daily meditation activity.\n\nSince Transcendental Meditation suggests meditating twice daily, you will see a full star for any day that you have achieved that goal, a half star for meditating only once, and no star if you did not meditate."
+                label.numberOfLines = 10
                 self.inAppPurchaseView.addSubview( label )
             }
             
-            y += 90
+            y += 200
             
             do
             {
                 self.priceLabel = UILabel( frame: CGRectMake( 20, y, self.view.frame.width-40, 30 ))
-                self.priceLabel.textColor = UIColor.blackColor()
+                self.priceLabel.textColor = UIColor.darkGrayColor()
                 self.priceLabel.textAlignment = NSTextAlignment.Center
                 self.inAppPurchaseView.addSubview( self.priceLabel )
             }
@@ -141,6 +143,17 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
                 button.setTitle( "Buy Now", forState: .Normal )
                 button.setTitleColor( UIColor.redColor(), forState: .Normal )
                 button.addTarget( self, action: Selector( "purchaseButtonTapped" ), forControlEvents: .TouchUpInside )
+                self.inAppPurchaseView.addSubview( button )
+            }
+            
+            y += 44
+
+            do
+            {
+                let button = UIButton( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
+                button.setTitle( "Preview", forState: .Normal )
+                button.setTitleColor( UIColor.redColor(), forState: .Normal )
+                button.addTarget( self, action: Selector( "previewButtonTapped" ), forControlEvents: .TouchUpInside )
                 self.inAppPurchaseView.addSubview( button )
             }
             
@@ -216,6 +229,36 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
     
     //------------------------------------------------------------------------------
+    func previewButtonTapped()
+    //------------------------------------------------------------------------------
+    {
+        self.previewMode = true
+        self.headerView.hidden = false
+        self.inAppPurchaseView.hidden = true
+        
+        self.tableView.reloadData()
+        
+        self.previewOverlayView = UIView( frame: self.view.bounds )
+        self.previewOverlayView.backgroundColor = UIColor.clearColor()
+        self.view.addSubview( self.previewOverlayView )
+    
+        let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "dismissPreview" ))
+        view.addGestureRecognizer( tapGestureRecognizer )
+    }
+    
+    //------------------------------------------------------------------------------
+    func dismissPreview()
+    //------------------------------------------------------------------------------
+    {
+        self.previewMode = false
+        self.headerView.hidden = true
+        self.inAppPurchaseView.hidden = false
+        self.previewOverlayView.removeFromSuperview()
+        
+        self.tableView.reloadData()
+    }
+    
+    //------------------------------------------------------------------------------
     func restorePurchaseButtonTapped()
     //------------------------------------------------------------------------------
     {
@@ -241,6 +284,7 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
                     self.inAppPurchaseView.removeFromSuperview()
                     self.activityIndicatorView.removeFromSuperview()
                     
+                    self.previewMode = false
                     self.headerView.hidden = false
                     self.navigationItem.leftBarButtonItem?.customView?.hidden = false
                     self.navigationItem.rightBarButtonItem?.customView?.hidden = false
@@ -306,7 +350,7 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
         
         let date = NSCalendar.currentCalendar().dateFromComponents( dateComponents )
 
-        monthView.setDate( date! )
+        monthView.setDate( date!, previewMode: self.previewMode )
         
         self.navigationItem.title = String( dateComponents.year )
         
