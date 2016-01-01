@@ -34,8 +34,9 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
     var meditationAlarm: String = ""
     var preparationAlarm: String = ""
     var completionSong: String = ""
-    
+
     var audioPlayer: AVAudioPlayer!
+    var audioSession: AVAudioSession!
     var musicPlayerController: MPMusicPlayerController!
         
     //------------------------------------------------------------------------------
@@ -112,9 +113,10 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
 
         y += 1
         
+        let tabBarHeight = self.tabBarController!.tabBar.frame.height
+
         do
         {
-            let tabBarHeight = self.tabBarController!.tabBar.frame.height
             let view = UIView( frame: CGRectMake( 0, y, self.view.frame.width, self.view.frame.height - 64 - tabBarHeight ))
             view.backgroundColor = UIColor( red: 0.8, green: 0.8, blue: 0.8, alpha: 1.0 )
             self.view.addSubview( view )
@@ -160,7 +162,56 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
         {
             let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "resetLabelTapped" ))
             self.resetLabel.addGestureRecognizer( tapGestureRecognizer )
-        }        
+        }
+        
+        y += 80 + 40
+        
+        playSoundNamed( "none.wav", isRestAlarm: false )
+
+        y = self.view.frame.height-tabBarHeight-20-44-20-10
+        
+        do
+        {
+            let imageView = UIImageView( frame: CGRectMake( 20, y-15, 30, 30 ))
+            imageView.image = UIImage( named: "speaker-off" )
+            self.view.addSubview( imageView )
+        }
+
+        do
+        {
+            let imageView = UIImageView( frame: CGRectMake( self.view.frame.width-20-30, y-15, 30, 30 ))
+            imageView.image = UIImage( named: "speaker-on" )
+            self.view.addSubview( imageView )
+        }
+        
+        let volumeView = MPVolumeView( frame: CGRectMake( 20+10+30, y-10, self.view.frame.width-120, 20 ))
+        volumeView.showsVolumeSlider = true
+        volumeView.showsRouteButton = false
+        self.view.addSubview( volumeView )
+        
+        let playButton = UIButton( frame: CGRectMake( self.view.frame.width/2-22, self.view.frame.height-tabBarHeight-20-44, 44, 44 ))
+        playButton.setBackgroundImage( UIImage( named: "play" ), forState: .Normal )
+        playButton.addTarget( self, action: Selector( "playTestSound" ), forControlEvents: .TouchUpInside )
+        self.view.addSubview( playButton )
+    }
+    
+    //------------------------------------------------------------------------------
+    func playTestSound()
+    //------------------------------------------------------------------------------
+    {
+        loadUserDefaults()
+        
+        var soundName = "gong.wav"
+        
+        if self.preparationAlarm != "none.wav" {
+            soundName = self.preparationAlarm
+        } else if self.meditationAlarm != "none.wav" {
+            soundName = self.meditationAlarm
+        } else if self.restAlarm != "none.wav" {
+            soundName = self.restAlarm
+        }
+        
+        playSoundNamed( soundName, isRestAlarm: false )
     }
     
     //------------------------------------------------------------------------------

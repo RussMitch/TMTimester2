@@ -21,6 +21,9 @@
 		5E24C5741C2EF83B0025B63A /* waterfall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C5671C2EF83B0025B63A /* waterfall.wav */; };
 		5E24C5751C2EF83B0025B63A /* whales.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C5681C2EF83B0025B63A /* whales.wav */; };
 		5E24C5761C2EF83B0025B63A /* whippoorwill.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5E24C5691C2EF83B0025B63A /* whippoorwill.wav */; };
+		5E3E210A1C36E1A3001FA15E /* speaker-off.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3E21091C36E1A3001FA15E /* speaker-off.png */; };
+		5E3E210C1C36E1A9001FA15E /* speaker-on.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3E210B1C36E1A9001FA15E /* speaker-on.png */; };
+		5E3E21121C36E302001FA15E /* play.png in Resources */ = {isa = PBXBuildFile; fileRef = 5E3E21111C36E302001FA15E /* play.png */; };
 		5E7E840C1C2B00640069109C /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E840B1C2B00640069109C /* MessageView.swift */; };
 		5E7E840E1C2B4A3B0069109C /* PostCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E840D1C2B4A3B0069109C /* PostCommentViewController.swift */; };
 		5E7E84121C2C65B70069109C /* PostReplyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E7E84111C2C65B70069109C /* PostReplyViewController.swift */; };
@@ -79,6 +82,9 @@
 		5E24C5671C2EF83B0025B63A /* waterfall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = waterfall.wav; path = Sounds/waterfall.wav; sourceTree = "<group>"; };
 		5E24C5681C2EF83B0025B63A /* whales.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = whales.wav; path = Sounds/whales.wav; sourceTree = "<group>"; };
 		5E24C5691C2EF83B0025B63A /* whippoorwill.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = whippoorwill.wav; path = Sounds/whippoorwill.wav; sourceTree = "<group>"; };
+		5E3E21091C36E1A3001FA15E /* speaker-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speaker-off.png"; sourceTree = "<group>"; };
+		5E3E210B1C36E1A9001FA15E /* speaker-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "speaker-on.png"; sourceTree = "<group>"; };
+		5E3E21111C36E302001FA15E /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		5E7E840B1C2B00640069109C /* MessageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageView.swift; path = Classes/MessageView.swift; sourceTree = "<group>"; };
 		5E7E840D1C2B4A3B0069109C /* PostCommentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostCommentViewController.swift; path = Classes/PostCommentViewController.swift; sourceTree = "<group>"; };
 		5E7E84111C2C65B70069109C /* PostReplyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostReplyViewController.swift; path = Classes/PostReplyViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +157,9 @@
 		5E24C55C1C2EF7D80025B63A /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				5E3E21111C36E302001FA15E /* play.png */,
+				5E3E210B1C36E1A9001FA15E /* speaker-on.png */,
+				5E3E21091C36E1A3001FA15E /* speaker-off.png */,
 				5E24C55D1C2EF83B0025B63A /* bell.wav */,
 				5E24C55E1C2EF83B0025B63A /* chime.wav */,
 				5E24C55F1C2EF83B0025B63A /* gong.wav */,
@@ -358,6 +367,8 @@
 				5E7E841F1C2CA0D90069109C /* calendar@3x.png in Resources */,
 				5E24C5711C2EF83B0025B63A /* rain.wav in Resources */,
 				5E7E84221C2CA0D90069109C /* profile@2x.png in Resources */,
+				5E3E21121C36E302001FA15E /* play.png in Resources */,
+				5E3E210A1C36E1A3001FA15E /* speaker-off.png in Resources */,
 				5E24C5731C2EF83B0025B63A /* water-drop.wav in Resources */,
 				5EBEB3451C298A69001E8CDE /* Assets.xcassets in Resources */,
 				5EBEB3521C299594001E8CDE /* AppStoreIcon.png in Resources */,
@@ -368,6 +379,7 @@
 				5E7E84201C2CA0D90069109C /* calendar@2x.png in Resources */,
 				5E24C5701C2EF83B0025B63A /* ocean.wav in Resources */,
 				5EBEB3431C298A69001E8CDE /* Main.storyboard in Resources */,
+				5E3E210C1C36E1A9001FA15E /* speaker-on.png in Resources */,
 				5E24C5761C2EF83B0025B63A /* whippoorwill.wav in Resources */,
 				5E24C56B1C2EF83B0025B63A /* chime.wav in Resources */,
 			);
