@@ -98,9 +98,12 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
         self.timerLabel = UILabel( frame: CGRectMake( 0, y, self.view.frame.width, 200 ))
         self.timerLabel.font = UIFont( name: "HelveticaNeue-Thin", size: 100 )
         self.timerLabel.text = String( format: "%02d:%02d", self.count1/60, self.count1%60 )
-        
         self.timerLabel.textAlignment = NSTextAlignment.Center
         self.view.addSubview( self.timerLabel )
+        
+        if self.count1 == 0 {
+            self.timerLabel.text = String( format: "%02d:%02d", self.count2/60, self.count2%60 )
+        }
         
         y += 200
         
@@ -248,6 +251,11 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
             self.preparationTimeOver = false
             
             self.timerLabel.text = String( format: "%02d:%02d", self.count1/60, self.count1%60 )
+
+            if self.count1 == 0 {
+                self.preparationTimeOver = true
+                self.timerLabel.text = String( format: "%02d:%02d", self.count2/60, self.count2%60 )
+            }
             
             self.timer = NSTimer.scheduledTimerWithTimeInterval( 1, target: self, selector: Selector( "timerFired" ), userInfo: nil, repeats: true )
             
@@ -294,6 +302,10 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
         self.startLabel.layer.borderColor = UIColor.greenColor().CGColor
         
         self.timerLabel.text = String( format: "%02d:%02d", self.count1/60, self.count1%60 )
+        
+        if self.count1 == 0 {
+            self.timerLabel.text = String( format: "%02d:%02d", self.count2/60, self.count2%60 )
+        }
     }
     
     //------------------------------------------------------------------------------
