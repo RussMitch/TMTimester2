@@ -323,7 +323,11 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
             
             if !preparationTimeOver {
                 
-                let adjustedCount = self.count1 - count
+                var adjustedCount = self.count1 - count
+                
+                if adjustedCount < 0 {
+                    adjustedCount = 0
+                }
                 
                 self.timerLabel.text = String( format: "%02d:%02d", adjustedCount/60, adjustedCount%60 )
                 
@@ -338,8 +342,12 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                 
             } else if !meditationTimeOver {
 
-                let adjustedCount = self.count2 - count
+                var adjustedCount = self.count2 - count
                 
+                if adjustedCount < 0 {
+                    adjustedCount = 0
+                }
+
                 self.timerLabel.text = String( format: "%02d:%02d", adjustedCount/60, adjustedCount%60 )
                 
                 if adjustedCount <= 0 {
@@ -353,7 +361,11 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                 
             } else if !restTimeOver {
 
-                let adjustedCount = self.count3 - count
+                var adjustedCount = self.count3 - count
+                
+                if adjustedCount < 0 {
+                    adjustedCount = 0
+                }
                 
                 self.timerLabel.text = String( format: "%02d:%02d", adjustedCount/60, adjustedCount%60 )
                 
@@ -407,7 +419,8 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                         
                     } else if completionCount > 300 {
                         
-                        completionCount = 0
+                        NSUserDefaults.standardUserDefaults().setInteger( 0, forKey: kCompletionCountKey )
+                        NSUserDefaults.standardUserDefaults().synchronize()
                         
                     }
                     
