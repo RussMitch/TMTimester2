@@ -90,6 +90,11 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
             NSUserDefaults.standardUserDefaults().setValue( kCompletionSongNameDef, forKey: kCompletionSongNameKey )
             NSUserDefaults.standardUserDefaults().synchronize()
         }
+
+        if NSUserDefaults.standardUserDefaults().objectForKey( kCompletionCountKey ) == nil {
+            NSUserDefaults.standardUserDefaults().setInteger( 0, forKey: kCompletionCountKey )
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
         
         loadUserDefaults()
         
@@ -363,6 +368,49 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                         updateMeditationRecord()
                     }
 
+                    var completionCount = NSUserDefaults.standardUserDefaults().integerForKey( kCompletionCountKey )
+                    
+                    completionCount++
+                    
+                    NSUserDefaults.standardUserDefaults().setInteger( completionCount, forKey: kCompletionCountKey )
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                    
+                    print( completionCount )
+                    
+                    if completionCount == 10 {
+                        
+                        let message = "Hi, I'm Russell,\n I hope that you have found TM Timester to be helpful in your daily meditations and if so, would you mind taking a moment to rate it?  Thanks!"
+                        
+                        let alert = UIAlertController( title: "A message from the developer", message: message, preferredStyle: UIAlertControllerStyle.Alert )
+                        
+                        let rateAction = UIAlertAction( title: "Rate it now", style: UIAlertActionStyle.Default) { (action) -> Void in
+
+                            let url = "itms-apps://itunes.apple.com/app/id847100368"
+                            UIApplication.sharedApplication().openURL( NSURL( string: url )! )
+                            
+                        }
+
+                        let remindMeLaterAction = UIAlertAction( title: "Remind me later", style: UIAlertActionStyle.Default) { (action) -> Void in
+                            completionCount--
+                            NSUserDefaults.standardUserDefaults().setInteger( completionCount, forKey: kCompletionCountKey )
+                            NSUserDefaults.standardUserDefaults().synchronize()
+                        }
+
+                        let noThanksAction = UIAlertAction( title: "No, thanks", style: UIAlertActionStyle.Default) { (action) -> Void in
+                        }
+                        
+                        alert.addAction( rateAction )
+                        alert.addAction( remindMeLaterAction )
+                        alert.addAction( noThanksAction )
+                        
+                        self.presentViewController( alert, animated: true, completion: nil )
+                        
+                    } else if completionCount > 300 {
+                        
+                        completionCount = 0
+                        
+                    }
+                    
                     self.resetLabelTapped()
                     
                     playSoundNamed( self.restAlarm, isRestAlarm: true )

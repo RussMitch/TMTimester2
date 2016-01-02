@@ -54,5 +54,6 @@ let kLoggingUnlockedKey = "LoggingUnlocked"
 let kMeditationRecord = "MeditationRecord"
 let kDateRecord = "DateRecord"
 
+let kCompletionCountKey = "CompletionCount"
 
 
