@@ -183,6 +183,14 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     override func viewDidAppear(animated: Bool)
     //------------------------------------------------------------------------------
     {
+        if self.activityIndicatorView != nil {
+        
+            self.activityIndicatorView.removeFromSuperview()
+            
+        }
+        
+        self.activityIndicatorView.removeFromSuperview()
+                
         super.viewDidAppear( animated )
         
         let loggingUnlocked = NSUserDefaults.standardUserDefaults().objectForKey( kLoggingUnlockedKey ) as! Bool
