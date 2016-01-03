@@ -196,32 +196,113 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
         volumeView.showsVolumeSlider = true
         volumeView.showsRouteButton = false
         self.view.addSubview( volumeView )
+
+        do
+        {
+            let button = UIButton( frame: CGRectMake( 60, self.view.frame.height-tabBarHeight-20-44, 44, 44 ))
+            button.setBackgroundImage( UIImage( named: "play" ), forState: .Normal )
+            button.setTitle( "1   ", forState: .Normal )
+            button.setTitleColor( UIColor.whiteColor(), forState: .Normal )
+            button.titleLabel!.font = UIFont.boldSystemFontOfSize( 12 )
+            button.addTarget( self, action: Selector( "playTestSound1" ), forControlEvents: .TouchUpInside )
+            self.view.addSubview( button )
+        }
         
-        let playButton = UIButton( frame: CGRectMake( self.view.frame.width/2-22, self.view.frame.height-tabBarHeight-20-44, 44, 44 ))
-        playButton.setBackgroundImage( UIImage( named: "play" ), forState: .Normal )
-        playButton.addTarget( self, action: Selector( "playTestSound" ), forControlEvents: .TouchUpInside )
-        self.view.addSubview( playButton )
+        do
+        {
+            let button = UIButton( frame: CGRectMake( self.view.frame.width/2-22, self.view.frame.height-tabBarHeight-20-44, 44, 44 ))
+            button.setBackgroundImage( UIImage( named: "play" ), forState: .Normal )
+            button.setTitle( "2   ", forState: .Normal )
+            button.setTitleColor( UIColor.whiteColor(), forState: .Normal )
+            button.titleLabel!.font = UIFont.boldSystemFontOfSize( 12 )
+            button.addTarget( self, action: Selector( "playTestSound2" ), forControlEvents: .TouchUpInside )
+            self.view.addSubview( button )
+        }
+        
+        do
+        {
+            let button = UIButton( frame: CGRectMake( self.view.frame.width-60-44, self.view.frame.height-tabBarHeight-20-44, 44, 44 ))
+            button.setBackgroundImage( UIImage( named: "play" ), forState: .Normal )
+            button.setTitle( "3   ", forState: .Normal )
+            button.setTitleColor( UIColor.whiteColor(), forState: .Normal )
+            button.titleLabel!.font = UIFont.boldSystemFontOfSize( 12 )
+            button.addTarget( self, action: Selector( "playTestSound3" ), forControlEvents: .TouchUpInside )
+            self.view.addSubview( button )
+        }
     }
     
     //------------------------------------------------------------------------------
-    func playTestSound()
+    func playTestSound1()
     //------------------------------------------------------------------------------
     {
         loadUserDefaults()
         
-        var soundName = "gong.wav"
-        
-        if self.preparationAlarm != "none.wav" {
-            soundName = self.preparationAlarm
-        } else if self.meditationAlarm != "none.wav" {
-            soundName = self.meditationAlarm
-        } else if self.restAlarm != "none.wav" {
-            soundName = self.restAlarm
+        if self.preparationAlarm == "none.wav" {
+            
+            let alert = UIAlertController( title: "Oops!", message: "You have not selected a sound for the preparation alarm" , preferredStyle: UIAlertControllerStyle.Alert )
+            
+            let okAction = UIAlertAction( title: "Dismiss", style: UIAlertActionStyle.Default) { (action) -> Void in
+            }
+            
+            alert.addAction( okAction )
+            
+            self.presentViewController( alert, animated: true, completion: nil )
+            
+        } else {
+            
+            playSoundNamed( self.preparationAlarm, isRestAlarm: false )
+            
         }
-        
-        playSoundNamed( soundName, isRestAlarm: false )
     }
-    
+
+    //------------------------------------------------------------------------------
+    func playTestSound2()
+    //------------------------------------------------------------------------------
+    {
+        loadUserDefaults()
+        
+        if self.meditationAlarm == "none.wav" {
+            
+            let alert = UIAlertController( title: "Oops!", message: "You have not selected a sound for the meditation alarm" , preferredStyle: UIAlertControllerStyle.Alert )
+            
+            let okAction = UIAlertAction( title: "Dismiss", style: UIAlertActionStyle.Default) { (action) -> Void in
+            }
+            
+            alert.addAction( okAction )
+            
+            self.presentViewController( alert, animated: true, completion: nil )
+            
+        } else {
+            
+            playSoundNamed( self.meditationAlarm, isRestAlarm: false )
+            
+        }
+    }
+
+    //------------------------------------------------------------------------------
+    func playTestSound3()
+    //------------------------------------------------------------------------------
+    {
+        loadUserDefaults()
+        
+        if self.restAlarm == "none.wav" {
+            
+            let alert = UIAlertController( title: "Oops!", message: "You have not selected a sound for the rest alarm" , preferredStyle: UIAlertControllerStyle.Alert )
+            
+            let okAction = UIAlertAction( title: "Dismiss", style: UIAlertActionStyle.Default) { (action) -> Void in
+            }
+            
+            alert.addAction( okAction )
+            
+            self.presentViewController( alert, animated: true, completion: nil )
+            
+        } else {
+            
+            playSoundNamed( self.restAlarm, isRestAlarm: false )
+            
+        }
+    }
+ 
     //------------------------------------------------------------------------------
     func loadUserDefaults()
     //------------------------------------------------------------------------------

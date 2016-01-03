@@ -119,13 +119,17 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
             
             do
             {
-                let label = UILabel( frame: CGRectMake( 20, y, self.view.frame.width-40, 200 ))
-                label.text = "The meditation log will allow you to automatically track your daily meditation activity.\n\nSince Transcendental Meditation suggests meditating twice daily, you will see a full star for any day that you have achieved that goal, a half star for meditating only once, and no star if you did not meditate."
-                label.numberOfLines = 10
+                let label = UILabel( frame: CGRectMake( 20, y, self.view.frame.width-40, 1000 ))
+                label.text = "The meditation log will allow you to automatically track your daily meditation activity.\n\nTap the 'Preview' button below to see an example of the meditation log.  For any given day, a half star indicates that you have completed one meditation, while a full star indicates that you have completed two meditations."    
+                label.numberOfLines = 100
                 self.inAppPurchaseView.addSubview( label )
+                
+                let rect = label.textRectForBounds( label.bounds, limitedToNumberOfLines: 100 )
+
+                label.frame = CGRectMake( 20, y, self.view.frame.width-40, rect.height )
+                
+                y += rect.height + 30
             }
-            
-            y += 200
             
             do
             {
@@ -169,10 +173,6 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
             }
         }
         
-//        self.navigationItem.leftBarButtonItem?.customView?.hidden = false
-//        self.navigationItem.rightBarButtonItem?.customView?.hidden = false
-//        self.inAppPurchaseView.removeFromSuperview()
-        
         self.activityIndicatorView = UIActivityIndicatorView( frame: self.view.bounds )
         self.activityIndicatorView.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.WhiteLarge
         self.activityIndicatorView.backgroundColor = UIColor( red:0, green: 0, blue:0, alpha:0.2 )
@@ -208,24 +208,14 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         
-        let actionSheetController = UIAlertController(title: "Meditation Logging", message: "Would you like to purchase the Meditation Logging capability?", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        self.view.addSubview( self.activityIndicatorView )
         
-        let buyAction = UIAlertAction(title: "Buy Now", style: UIAlertActionStyle.Default) { (action) -> Void in
-         
-            self.view.addSubview( self.activityIndicatorView )
-
-            let payment = SKPayment( product: appDelegate.productsArray[0] as SKProduct )
-            SKPaymentQueue.defaultQueue().addPayment(payment)
+        if appDelegate.productsArray.count > 0 {
             
+            let payment = SKPayment( product: appDelegate.productsArray[0] as SKProduct )
+            SKPaymentQueue.defaultQueue().addPayment( payment )
+
         }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (action) -> Void in
-        }
-        
-        actionSheetController.addAction(buyAction)
-        actionSheetController.addAction(cancelAction)
-        
-        presentViewController(actionSheetController, animated: true, completion: nil)
     }
     
     //------------------------------------------------------------------------------
