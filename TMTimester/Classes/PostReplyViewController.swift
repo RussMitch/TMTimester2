@@ -155,6 +155,7 @@ class PostReplyViewController: UIViewController,UITextViewDelegate,UITextFieldDe
             self.contentView.addSubview( view )
             
             self.replyTextView = UITextView( frame: CGRectMake( 5, 0, view.frame.width-10, 150 ))
+            self.replyTextView.font = UIFont.systemFontOfSize( 16 )
             self.replyTextView.delegate = self
             view.addSubview( self.replyTextView )
         }

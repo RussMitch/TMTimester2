@@ -80,6 +80,7 @@ class PostCommentViewController: UIViewController,UITextFieldDelegate,UITextView
             self.contentView.addSubview( view )
             
             self.commentTextView = UITextView( frame: CGRectMake( 5, 0, view.frame.width-10, 200 ))
+            self.commentTextView.font = UIFont.systemFontOfSize( 16 )
             self.commentTextView.delegate = self
             view.addSubview( self.commentTextView )
         }
