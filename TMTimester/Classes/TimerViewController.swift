@@ -436,6 +436,12 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                     self.meditationTimeOver = true
                     self.startDate = NSDate()
                     
+                    let loggingUnlocked = NSUserDefaults.standardUserDefaults().objectForKey( kLoggingUnlockedKey ) as! Bool
+                    
+                    if (loggingUnlocked) {
+                        updateMeditationRecord()
+                    }
+                    
                     playSoundNamed( self.meditationAlarm, isRestAlarm: false )
                     
                 }
@@ -454,12 +460,6 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                     
                     self.restTimeOver = true
                     self.startDate = NSDate()
-
-                    let loggingUnlocked = NSUserDefaults.standardUserDefaults().objectForKey( kLoggingUnlockedKey ) as! Bool
-                
-                    if (loggingUnlocked) {                        
-                        updateMeditationRecord()
-                    }
 
                     var completionCount = NSUserDefaults.standardUserDefaults().integerForKey( kCompletionCountKey )
                     

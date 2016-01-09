@@ -58,12 +58,12 @@
 		5EBEB3751C29A8E8001E8CDE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EBEB36B1C29A8E8001E8CDE /* Security.framework */; };
 		5EBEB3761C29A8E8001E8CDE /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EBEB36C1C29A8E8001E8CDE /* StoreKit.framework */; };
 		5EBEB3771C29A8E8001E8CDE /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5EBEB36D1C29A8E8001E8CDE /* SystemConfiguration.framework */; };
+		5EC684691C41751F006D151B /* half-star4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EC684671C41751F006D151B /* half-star4@2x.png */; };
+		5EC6846A1C41751F006D151B /* half-star4@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EC684681C41751F006D151B /* half-star4@3x.png */; };
 		5ED1EB431C39D77200956794 /* launchImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ED1EB421C39D77200956794 /* launchImage@2x.png */; };
 		5ED1EB451C39D77A00956794 /* launchImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5ED1EB441C39D77A00956794 /* launchImage@3x.png */; };
 		5EDADF921C2F13470045FC75 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDADF911C2F13470045FC75 /* SongViewController.swift */; };
 		5EDADF961C303B040045FC75 /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EDADF951C303B040045FC75 /* MonthView.swift */; };
-		5EDADF9F1C3070490045FC75 /* half-star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDADF9B1C3070490045FC75 /* half-star@2x.png */; };
-		5EDADFA01C3070490045FC75 /* half-star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDADF9C1C3070490045FC75 /* half-star@3x.png */; };
 		5EDADFA11C3070490045FC75 /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDADF9D1C3070490045FC75 /* star@2x.png */; };
 		5EDADFA21C3070490045FC75 /* star@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5EDADF9E1C3070490045FC75 /* star@3x.png */; };
 		5EDADFEC1C3083B20045FC75 /* TMTimester.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5EDADFEA1C3083B20045FC75 /* TMTimester.xcdatamodeld */; };
@@ -123,13 +123,13 @@
 		5EBEB36B1C29A8E8001E8CDE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		5EBEB36C1C29A8E8001E8CDE /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		5EBEB36D1C29A8E8001E8CDE /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		5EC684671C41751F006D151B /* half-star4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "half-star4@2x.png"; sourceTree = "<group>"; };
+		5EC684681C41751F006D151B /* half-star4@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "half-star4@3x.png"; sourceTree = "<group>"; };
 		5ED1EB421C39D77200956794 /* launchImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launchImage@2x.png"; sourceTree = "<group>"; };
 		5ED1EB441C39D77A00956794 /* launchImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launchImage@3x.png"; sourceTree = "<group>"; };
 		5ED792391C357F4200C5B728 /* TMTimester.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = TMTimester.entitlements; sourceTree = "<group>"; };
 		5EDADF911C2F13470045FC75 /* SongViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SongViewController.swift; path = Classes/SongViewController.swift; sourceTree = "<group>"; };
 		5EDADF951C303B040045FC75 /* MonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonthView.swift; path = Classes/MonthView.swift; sourceTree = "<group>"; };
-		5EDADF9B1C3070490045FC75 /* half-star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "half-star@2x.png"; sourceTree = "<group>"; };
-		5EDADF9C1C3070490045FC75 /* half-star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "half-star@3x.png"; sourceTree = "<group>"; };
 		5EDADF9D1C3070490045FC75 /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
 		5EDADF9E1C3070490045FC75 /* star@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@3x.png"; sourceTree = "<group>"; };
 		5EDADFEB1C3083B20045FC75 /* TMTimester.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TMTimester.xcdatamodel; sourceTree = "<group>"; };
@@ -161,8 +161,6 @@
 		5E24C55C1C2EF7D80025B63A /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				5ED1EB421C39D77200956794 /* launchImage@2x.png */,
-				5ED1EB441C39D77A00956794 /* launchImage@3x.png */,
 				5E24C55D1C2EF83B0025B63A /* bell.wav */,
 				5E24C55E1C2EF83B0025B63A /* chime.wav */,
 				5E24C55F1C2EF83B0025B63A /* gong.wav */,
@@ -230,10 +228,12 @@
 			isa = PBXGroup;
 			children = (
 				5E24C55C1C2EF7D80025B63A /* Sounds */,
-				5EDADF9B1C3070490045FC75 /* half-star@2x.png */,
-				5EDADF9C1C3070490045FC75 /* half-star@3x.png */,
+				5EC684671C41751F006D151B /* half-star4@2x.png */,
+				5EC684681C41751F006D151B /* half-star4@3x.png */,
 				5EDADF9D1C3070490045FC75 /* star@2x.png */,
 				5EDADF9E1C3070490045FC75 /* star@3x.png */,
+				5ED1EB421C39D77200956794 /* launchImage@2x.png */,
+				5ED1EB441C39D77A00956794 /* launchImage@3x.png */,
 				5EBEB3511C299594001E8CDE /* AppStoreIcon.png */,
 				5E7E84151C2CA0D90069109C /* settings@3x.png */,
 				5E7E84161C2CA0D90069109C /* settings@2x.png */,
@@ -361,10 +361,10 @@
 				5EDADFA11C3070490045FC75 /* star@2x.png in Resources */,
 				5E24C5741C2EF83B0025B63A /* waterfall.wav in Resources */,
 				5ED1EB431C39D77200956794 /* launchImage@2x.png in Resources */,
+				5EC6846A1C41751F006D151B /* half-star4@3x.png in Resources */,
 				5E7E84211C2CA0D90069109C /* profile@3x.png in Resources */,
 				5EDADFA21C3070490045FC75 /* star@3x.png in Resources */,
 				5E24C56D1C2EF83B0025B63A /* gong2.wav in Resources */,
-				5EDADFA01C3070490045FC75 /* half-star@3x.png in Resources */,
 				5E7E84231C2CA0D90069109C /* clock@3x.png in Resources */,
 				5EBEB3481C298A69001E8CDE /* LaunchScreen.storyboard in Resources */,
 				5E7E841E1C2CA0D90069109C /* settings@2x.png in Resources */,
@@ -374,12 +374,12 @@
 				5E7E841F1C2CA0D90069109C /* calendar@3x.png in Resources */,
 				5E24C5711C2EF83B0025B63A /* rain.wav in Resources */,
 				5E7E84221C2CA0D90069109C /* profile@2x.png in Resources */,
+				5EC684691C41751F006D151B /* half-star4@2x.png in Resources */,
 				5E3E21121C36E302001FA15E /* play.png in Resources */,
 				5E3E210A1C36E1A3001FA15E /* speaker-off.png in Resources */,
 				5E24C5731C2EF83B0025B63A /* water-drop.wav in Resources */,
 				5EBEB3451C298A69001E8CDE /* Assets.xcassets in Resources */,
 				5EBEB3521C299594001E8CDE /* AppStoreIcon.png in Resources */,
-				5EDADF9F1C3070490045FC75 /* half-star@2x.png in Resources */,
 				5E7E841D1C2CA0D90069109C /* settings@3x.png in Resources */,
 				5E24C5751C2EF83B0025B63A /* whales.wav in Resources */,
 				5ED1EB451C39D77A00956794 /* launchImage@3x.png in Resources */,

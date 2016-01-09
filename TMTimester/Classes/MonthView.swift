@@ -19,6 +19,12 @@ class MonthView: UIView {
         while self.subviews.count > 0 {
             self.subviews[0].removeFromSuperview()
         }
+
+        let currentDateComponents = NSCalendar.currentCalendar().components( [NSCalendarUnit.Day,NSCalendarUnit.Month,NSCalendarUnit.Year], fromDate: NSDate())
+
+        let currentDay = currentDateComponents.day
+        let currentMonth = currentDateComponents.month
+        let currentYear = currentDateComponents.year
         
         var dateComponents = NSCalendar.currentCalendar().components( [NSCalendarUnit.Day,NSCalendarUnit.Month,NSCalendarUnit.Year], fromDate: date )
 
@@ -69,10 +75,12 @@ class MonthView: UIView {
 
                 if previewMode {
                     
-                    if j & 1 == 0 {
+                    if month==currentMonth && year==currentYear && day<currentDay {
                         imageView.image = UIImage( named: "star" )
-                    } else {
-                        imageView.image = UIImage( named: "half-star" )
+                    } else if month==currentMonth && year==currentYear && day==currentDay {
+                        imageView.image = UIImage( named: "half-star4" )
+                    } else if (month<currentMonth) || (year<currentYear) {
+                        imageView.image = UIImage( named: "star" )                        
                     }
                     
                 } else {
@@ -82,7 +90,7 @@ class MonthView: UIView {
                         let count = meditationRecord.valueForKey( kCount ) as! Int
                         
                         if count == 1 {
-                            imageView.image = UIImage( named: "half-star" )
+                            imageView.image = UIImage( named: "half-star4" )
                         } else if count > 1 {
                             imageView.image = UIImage( named: "star" )
                         }
