@@ -265,6 +265,13 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     }
     
     //------------------------------------------------------------------------------
+    func paymentQueue(queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: NSError)
+    //------------------------------------------------------------------------------
+    {
+        self.activityIndicatorView.removeFromSuperview()
+    }
+    
+    //------------------------------------------------------------------------------
     func paymentQueue(queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction])
     //------------------------------------------------------------------------------
     {
@@ -289,11 +296,11 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
                 
                 case SKPaymentTransactionState.Failed:
 
-                    if let error = transaction.error {
-                        let alert = UIAlertController(title: "Oops", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert )
-                        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                        self.presentViewController(alert, animated: true, completion: nil)
-                    }
+//                    if let error = transaction.error {
+//                        let alert = UIAlertController(title: "Oops", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert )
+//                        alert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+//                        self.presentViewController(alert, animated: true, completion: nil)
+//                    }
                     
                     print( transaction.error?.localizedDescription )
                     SKPaymentQueue.defaultQueue().finishTransaction(transaction)

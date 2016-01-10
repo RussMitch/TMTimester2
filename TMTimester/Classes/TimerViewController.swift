@@ -176,7 +176,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
         
         playSoundNamed( "none.wav", isRestAlarm: false )
 
-        y = self.view.frame.height-tabBarHeight-20-44-20-10
+        y = self.view.frame.height-tabBarHeight-20-44-20-10-30
         
         do
         {
@@ -199,7 +199,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
 
         do
         {
-            let button = UIButton( frame: CGRectMake( 60, self.view.frame.height-tabBarHeight-20-44, 44, 44 ))
+            let button = UIButton( frame: CGRectMake( 60, self.view.frame.height-tabBarHeight-30-44, 44, 44 ))
             button.setBackgroundImage( UIImage( named: "play" ), forState: .Normal )
             button.setTitle( "1   ", forState: .Normal )
             button.setTitleColor( UIColor.whiteColor(), forState: .Normal )
@@ -210,7 +210,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
         
         do
         {
-            let button = UIButton( frame: CGRectMake( self.view.frame.width/2-22, self.view.frame.height-tabBarHeight-20-44, 44, 44 ))
+            let button = UIButton( frame: CGRectMake( self.view.frame.width/2-22, self.view.frame.height-tabBarHeight-30-44, 44, 44 ))
             button.setBackgroundImage( UIImage( named: "play" ), forState: .Normal )
             button.setTitle( "2   ", forState: .Normal )
             button.setTitleColor( UIColor.whiteColor(), forState: .Normal )
@@ -221,7 +221,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
         
         do
         {
-            let button = UIButton( frame: CGRectMake( self.view.frame.width-60-44, self.view.frame.height-tabBarHeight-20-44, 44, 44 ))
+            let button = UIButton( frame: CGRectMake( self.view.frame.width-60-44, self.view.frame.height-tabBarHeight-30-44, 44, 44 ))
             button.setBackgroundImage( UIImage( named: "play" ), forState: .Normal )
             button.setTitle( "3   ", forState: .Normal )
             button.setTitleColor( UIColor.whiteColor(), forState: .Normal )
