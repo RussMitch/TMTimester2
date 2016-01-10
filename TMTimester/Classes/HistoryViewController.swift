@@ -189,6 +189,12 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
             
         }
         
+        if self.previewOverlayView != nil {
+            
+            self.dismissPreview();
+            
+        }
+        
         self.activityIndicatorView.removeFromSuperview()
                 
         super.viewDidAppear( animated )
