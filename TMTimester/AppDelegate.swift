@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SKProductsRequestDelegate
             productRequest.start()
             
         }
-                
+        
         return true
     }
 
