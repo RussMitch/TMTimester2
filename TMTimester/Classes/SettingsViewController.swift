@@ -13,6 +13,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
 
     var restTimeLabel: UILabel!
     var restAlarmLabel: UILabel!
+    var contentView: UIScrollView!
     var pickerContainerView: UIView!
     var completionSongLabel: UILabel!
     var meditationTimeLabel: UILabel!
@@ -32,7 +33,10 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         
         self.view.backgroundColor = UIColor.whiteColor()
 
-        var y: CGFloat = 64
+        self.contentView = UIScrollView( frame: self.view.bounds )
+        self.view.addSubview( self.contentView )
+        
+        var y: CGFloat = 0
         
         do
         {
@@ -41,7 +45,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
             label.text = "  Meditation Times"
             label.textColor = UIColor.blackColor()
             label.font = UIFont.boldSystemFontOfSize( 18 )
-            self.view.addSubview( label )
+            self.contentView.addSubview( label )
         }
         
         y += 30
@@ -49,7 +53,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         do
         {
             let view = UIView( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
-            self.view.addSubview( view )
+            self.contentView.addSubview( view )
             
             let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "preparationTimeTapped" ))
             view.addGestureRecognizer( tapGestureRecognizer )
@@ -76,7 +80,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         {
             let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-10, 1 ))
             view.backgroundColor = UIColor.lightGrayColor()
-            self.view.addSubview( view )
+            self.contentView.addSubview( view )
         }
         
         y += 1
@@ -84,7 +88,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         do
         {
             let view = UIView( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
-            self.view.addSubview( view )
+            self.contentView.addSubview( view )
             
             let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "meditationTimeTapped" ))
             view.addGestureRecognizer( tapGestureRecognizer )
@@ -111,7 +115,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         {
             let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-10, 1 ))
             view.backgroundColor = UIColor.lightGrayColor()
-            self.view.addSubview( view )
+            self.contentView.addSubview( view )
         }
         
         y += 1
@@ -119,7 +123,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         do
         {
             let view = UIView( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
-            self.view.addSubview( view )
+            self.contentView.addSubview( view )
             
             let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "restTimeTapped" ))
             view.addGestureRecognizer( tapGestureRecognizer )
@@ -149,7 +153,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
             label.text = "  Alarm Sounds"
             label.textColor = UIColor.blackColor()
             label.font = UIFont.boldSystemFontOfSize( 18 )
-            self.view.addSubview( label )
+            self.contentView.addSubview( label )
         }
         
         y += 30
@@ -157,7 +161,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         do
         {
             let view = UIView( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
-            self.view.addSubview( view )
+            self.contentView.addSubview( view )
             
             let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "preparationAlarmTapped" ))
             view.addGestureRecognizer( tapGestureRecognizer )
@@ -181,7 +185,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         {
             let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-10, 1 ))
             view.backgroundColor = UIColor.lightGrayColor()
-            self.view.addSubview( view )
+            self.contentView.addSubview( view )
         }
         
         y += 1
@@ -189,7 +193,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         do
         {
             let view = UIView( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
-            self.view.addSubview( view )
+            self.contentView.addSubview( view )
             
             let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "meditationAlarmTapped" ))
             view.addGestureRecognizer( tapGestureRecognizer )
@@ -213,7 +217,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         {
             let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-10, 1 ))
             view.backgroundColor = UIColor.lightGrayColor()
-            self.view.addSubview( view )
+            self.contentView.addSubview( view )
         }
         
         y += 1
@@ -221,7 +225,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         do
         {
             let view = UIView( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
-            self.view.addSubview( view )
+            self.contentView.addSubview( view )
             
             let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "restAlarmTapped" ))
             view.addGestureRecognizer( tapGestureRecognizer )
@@ -248,7 +252,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
             label.text = "  Completion Song"
             label.textColor = UIColor.blackColor()
             label.font = UIFont.boldSystemFontOfSize( 18 )
-            self.view.addSubview( label )
+            self.contentView.addSubview( label )
         }
         
         y += 30
@@ -256,7 +260,7 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         do
         {
             let view = UIView( frame: CGRectMake( 0, y, self.view.frame.width, 44 ))
-            self.view.addSubview( view )
+            self.contentView.addSubview( view )
             
             let tapGestureRecognizer = UITapGestureRecognizer( target:self, action: Selector( "completionSongTapped" ))
             view.addGestureRecognizer( tapGestureRecognizer )
@@ -273,10 +277,12 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         {
             let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-10, 1 ))
             view.backgroundColor = UIColor.lightGrayColor()
-            self.view.addSubview( view )
+            self.contentView.addSubview( view )
         }
         
         y += 1
+        
+        self.contentView.contentSize = CGSizeMake( self.view.frame.width, y )
     }
     
     //------------------------------------------------------------------------------
@@ -449,9 +455,9 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         
         do
         {
-            let label = UILabel( frame: CGRectMake( x-10, pickerView.frame.height/2-15, pickerView.frame.width/3, 30 ))
+            let label = UILabel( frame: CGRectMake( x-4, pickerView.frame.height/2-15, pickerView.frame.width/3, 30 ))
             label.textAlignment = NSTextAlignment.Right
-            label.textColor = UIColor.blackColor()
+            label.textColor = UIColor.blueColor()
             label.text = "hrs"
             pickerView.addSubview( label )
         }
@@ -460,9 +466,9 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         
         do
         {
-            let label = UILabel( frame: CGRectMake( x-10, pickerView.frame.height/2-15, pickerView.frame.width/3, 30 ))
+            let label = UILabel( frame: CGRectMake( x-4, pickerView.frame.height/2-15, pickerView.frame.width/3, 30 ))
             label.textAlignment = NSTextAlignment.Right
-            label.textColor = UIColor.blackColor()
+            label.textColor = UIColor.blueColor()
             label.text = "mins"
             pickerView.addSubview( label )
         }
@@ -471,9 +477,9 @@ class SettingsViewController: UIViewController,UIPickerViewDelegate,UIPickerView
         
         do
         {
-            let label = UILabel( frame: CGRectMake( x-10, pickerView.frame.height/2-15, pickerView.frame.width/3, 30 ))
+            let label = UILabel( frame: CGRectMake( x-4, pickerView.frame.height/2-15, pickerView.frame.width/3, 30 ))
             label.textAlignment = NSTextAlignment.Right
-            label.textColor = UIColor.blackColor()
+            label.textColor = UIColor.blueColor()
             label.text = "secs"
             pickerView.addSubview( label )
         }

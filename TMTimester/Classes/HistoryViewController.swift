@@ -20,8 +20,8 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
     var cellHeight: CGFloat!
     var tableView: UITableView!
     var previewMode: Bool = false
-    var inAppPurchaseView: UIView!
     var previewOverlayView: UIView!
+    var inAppPurchaseView: UIScrollView!
     var activityIndicatorView: UIActivityIndicatorView!
     
     //------------------------------------------------------------------------------
@@ -99,7 +99,7 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
             self.navigationItem.leftBarButtonItem?.customView?.hidden = true
             self.navigationItem.rightBarButtonItem?.customView?.hidden = true
 
-            self.inAppPurchaseView = UIView( frame: self.view.bounds )
+            self.inAppPurchaseView = UIScrollView( frame: self.view.bounds )
             self.inAppPurchaseView.backgroundColor = UIColor.whiteColor()
             self.view.addSubview( self.inAppPurchaseView )
             
@@ -171,6 +171,10 @@ class HistoryViewController: UIViewController,UITableViewDataSource,UITableViewD
                 button.addTarget( self, action: Selector( "restorePurchaseButtonTapped" ), forControlEvents: .TouchUpInside )
                 self.inAppPurchaseView.addSubview( button )
             }
+            
+            y += 44 + 64
+            
+            self.inAppPurchaseView.contentSize = CGSizeMake( self.inAppPurchaseView.frame.width, y )
         }
         
         self.activityIndicatorView = UIActivityIndicatorView( frame: self.view.bounds )

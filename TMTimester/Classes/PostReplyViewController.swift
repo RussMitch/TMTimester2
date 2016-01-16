@@ -149,18 +149,18 @@ class PostReplyViewController: UIViewController,UITextViewDelegate,UITextFieldDe
         
         do
         {
-            let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-20, 150 ))
+            let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-20, 140 ))
             view.layer.borderColor = UIColor.blackColor().CGColor
             view.layer.borderWidth = 1
             self.contentView.addSubview( view )
             
-            self.replyTextView = UITextView( frame: CGRectMake( 5, 0, view.frame.width-10, 150 ))
+            self.replyTextView = UITextView( frame: CGRectMake( 5, 0, view.frame.width-10, 140 ))
             self.replyTextView.font = UIFont.systemFontOfSize( 16 )
             self.replyTextView.delegate = self
             view.addSubview( self.replyTextView )
         }
         
-        y += 150
+        y += 140
         
         // name layout
         //------------------------------------------------------------------------------

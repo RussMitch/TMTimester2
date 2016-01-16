@@ -12,7 +12,7 @@ import Parse
 
 class PostCommentViewController: UIViewController,UITextFieldDelegate,UITextViewDelegate {
 
-    var contentView: UIView!
+    var contentView: UIScrollView!
     var nameTextField: UITextField!
     var titleTextField: UITextField!
     var commentTextView: UITextView!
@@ -25,7 +25,7 @@ class PostCommentViewController: UIViewController,UITextFieldDelegate,UITextView
         
         self.view.backgroundColor = UIColor.whiteColor()
         
-        self.contentView = UIView( frame: CGRectMake( 0, 64, self.view.frame.width, self.view.frame.height-64 ))
+        self.contentView = UIScrollView( frame: CGRectMake( 0, 64, self.view.frame.width, self.view.frame.height-64 ))
         self.contentView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview( self.contentView )
         
@@ -74,18 +74,18 @@ class PostCommentViewController: UIViewController,UITextFieldDelegate,UITextView
         
         do
         {
-            let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-20, 200 ))
+            let view = UIView( frame: CGRectMake( 10, y, self.view.frame.width-20, 140 ))
             view.layer.borderColor = UIColor.blackColor().CGColor
             view.layer.borderWidth = 1
             self.contentView.addSubview( view )
             
-            self.commentTextView = UITextView( frame: CGRectMake( 5, 0, view.frame.width-10, 200 ))
+            self.commentTextView = UITextView( frame: CGRectMake( 5, 0, view.frame.width-10, 140 ))
             self.commentTextView.font = UIFont.systemFontOfSize( 16 )
             self.commentTextView.delegate = self
             view.addSubview( self.commentTextView )
         }
         
-        y += 200
+        y += 140
         
         // name layout
         //------------------------------------------------------------------------------
@@ -123,6 +123,10 @@ class PostCommentViewController: UIViewController,UITextFieldDelegate,UITextView
             button.addTarget( self, action: Selector( "postCommentButtonTapped" ), forControlEvents: .TouchUpInside )
             self.contentView.addSubview( button )
         }
+        
+        y += 44
+        
+        self.contentView.contentSize = CGSizeMake( self.view.frame.width, y )
         
         // top bar layout
         //------------------------------------------------------------------------------
@@ -192,14 +196,14 @@ class PostCommentViewController: UIViewController,UITextFieldDelegate,UITextView
             
             let superView = view.superview!
             
-            let y1: CGFloat = superView.frame.origin.y + view.frame.height
+            let y1: CGFloat = superView.frame.origin.y + view.frame.height + 64
             let y2: CGFloat = self.view.frame.height - frame.height
             
             if y1 > y2 {
                 
                 let offset = y1 - y2 + 10
                 
-                self.contentView.frame = CGRectMake( 0, -offset, self.view.frame.width, self.view.frame.height )
+                self.contentView.contentOffset = CGPointMake( 0, offset )
                 
             }
         }
@@ -209,7 +213,7 @@ class PostCommentViewController: UIViewController,UITextFieldDelegate,UITextView
     func keyboardWillHide( notification: NSNotification )
     //------------------------------------------------------------------------------
     {
-        self.contentView.frame = CGRectMake( 0, 64, self.view.frame.width, self.view.frame.height )
+        self.contentView.contentOffset = CGPointMake( 0, 0 )
     }
     
     //------------------------------------------------------------------------------

@@ -99,8 +99,13 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
         loadUserDefaults()
         
         var y: CGFloat = 64
+        var height: CGFloat = 110
         
-        self.timerLabel = UILabel( frame: CGRectMake( 0, y, self.view.frame.width, 200 ))
+        if self.view.frame.height > 480 {
+            height = 200
+        }
+        
+        self.timerLabel = UILabel( frame: CGRectMake( 0, y, self.view.frame.width, height ))
         self.timerLabel.font = UIFont( name: "HelveticaNeue-Thin", size: 100 )
         self.timerLabel.text = String( format: "%02d:%02d", self.count1/60, self.count1%60 )
         self.timerLabel.textAlignment = NSTextAlignment.Center
@@ -110,7 +115,7 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
             self.timerLabel.text = String( format: "%02d:%02d", self.count2/60, self.count2%60 )
         }
         
-        y += 200
+        y += height
         
         do
         {
@@ -467,8 +472,6 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
                     
                     NSUserDefaults.standardUserDefaults().setInteger( completionCount, forKey: kCompletionCountKey )
                     NSUserDefaults.standardUserDefaults().synchronize()
-                    
-                    print( completionCount )
                     
                     if completionCount == 10 {
                         
