@@ -328,6 +328,9 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
     {
         if self.startLabel.text == "Start" {
 
+            UIApplication.sharedApplication().idleTimerDisabled = false;
+            UIApplication.sharedApplication().idleTimerDisabled = true;
+            
             loadUserDefaults()
 
             self.startLabel.text = "Pause"
