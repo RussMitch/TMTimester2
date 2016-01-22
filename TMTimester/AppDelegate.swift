@@ -19,8 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SKProductsRequestDelegate
     var window: UIWindow?
     var price: String = ""
     var productIDs: Array<String!> = []
+    var productRequest: SKProductsRequest!
     var productsArray: Array<SKProduct!> = []
-
+    
     //------------------------------------------------------------------------------
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool
     //------------------------------------------------------------------------------
@@ -33,19 +34,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SKProductsRequestDelegate
 
         productIDs.append( "tmtimester.log" )
         
-        if SKPaymentQueue.canMakePayments() {
-            
-            let productIdentifiers = NSSet( array: productIDs )
-            let productRequest = SKProductsRequest( productIdentifiers: productIdentifiers as! Set<String> )
-            
-            productRequest.delegate = self
-            productRequest.start()
-            
-        }
-        
         return true
     }
 
+    //------------------------------------------------------------------------------
+    func applicationDidBecomeActive(application: UIApplication)
+    //------------------------------------------------------------------------------
+    {
+        if (self.price == "") && (SKPaymentQueue.canMakePayments()) {
+            
+            let productIdentifiers = NSSet( array: productIDs )
+            self.productRequest = SKProductsRequest( productIdentifiers: productIdentifiers as! Set<String> )
+            
+            self.productRequest.delegate = self
+            self.productRequest.start()
+            
+        }
+    }
+    
     //------------------------------------------------------------------------------
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.russell-research.TMTimester" in the application's documents Application Support directory.
