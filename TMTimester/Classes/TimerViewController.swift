@@ -237,6 +237,18 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
     }
     
     //------------------------------------------------------------------------------
+    override func viewDidAppear(animated: Bool)
+    //------------------------------------------------------------------------------
+    {
+        super.viewDidAppear( animated )
+
+        // overide mute button
+        
+        try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback, withOptions: .MixWithOthers)
+        try! AVAudioSession.sharedInstance().setActive(true)
+    }
+    
+    //------------------------------------------------------------------------------
     func playTestSound1()
     //------------------------------------------------------------------------------
     {
@@ -328,6 +340,8 @@ class TimerViewController: UIViewController,AVAudioPlayerDelegate {
     {
         if self.startLabel.text == "Start" {
 
+            // don't allow phone to sleep while the app is open
+            
             UIApplication.sharedApplication().idleTimerDisabled = false;
             UIApplication.sharedApplication().idleTimerDisabled = true;
             
